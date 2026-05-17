@@ -1,35 +1,40 @@
 # ---------------------------------------------------------
-# Lab Work №4 - Task 1 (Variant 9)
+# Lab Work №4 - Task 1 (Variant 26)
 # Module: storage_csv.py
-# Purpose: Handle saving and loading persons from CSV files
+# Purpose: Handle saving and loading rational numbers from CSV files
 # Version: 1.0
-# Developer: Vodnev Kirill
-# Date of Development: 2026-03-01
+# Developer: Student
+# Date of Development: 2026-05-17
 # ---------------------------------------------------------
 
 import csv
 import os
-from task1.person import Person
+from task1.rational import RationalNumber
 
 
 def save_to_csv():
+    """Save all rational numbers to CSV file."""
     file_path = get_path_to_file()
 
     try:
+        # Ensure directory exists
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+
         with open(file_path, "w", newline='', encoding='utf-8') as file_csv_out:
             writer = csv.writer(file_csv_out)
-            writer.writerow(["Surname", "Gender", "Height"])  # header
+            writer.writerow(["Numerator", "Denominator"])  # header
 
-            for person in Person.all_persons:
-                writer.writerow([person.last_name, person.gender, person.height])
+            for num in RationalNumber.all_numbers:
+                writer.writerow([num.numerator, num.denominator])
 
-        print(f"✓ Successfully saved {len(Person.all_persons)} persons to CSV")
+        print(f"✓ Successfully saved {len(RationalNumber.all_numbers)} rational numbers to CSV")
 
     except IOError as e:
         print(f"✗ Error saving to CSV: {e}")
 
 
 def load_from_csv():
+    """Load rational numbers from CSV file."""
     file_path = get_path_to_file()
 
     try:
@@ -37,7 +42,7 @@ def load_from_csv():
             print(f"✗ File not found: {file_path}")
             return
 
-        Person.all_persons.clear()
+        RationalNumber.all_numbers.clear()
 
         with open(file_path, newline='', encoding='utf-8') as file_csv_in:
             reader_csv = csv.reader(file_csv_in)
@@ -45,20 +50,22 @@ def load_from_csv():
 
             loaded_count = 0
             for row in reader_csv:
-                if row and len(row) >= 3:
+                if row and len(row) >= 2:
                     try:
-                        surname, gender, height = row[0], row[1], float(row[2])
-                        Person(surname, gender, height)
+                        numerator = int(row[0])
+                        denominator = int(row[1])
+                        RationalNumber(numerator, denominator)
                         loaded_count += 1
-                    except ValueError:
-                        print(f"✗ Invalid data format in row: {row}")
+                    except (ValueError, ZeroDivisionError) as e:
+                        print(f"✗ Invalid data format in row {row}: {e}")
 
-        print(f"✓ Successfully loaded {loaded_count} persons from CSV")
+        print(f"✓ Successfully loaded {loaded_count} rational numbers from CSV")
 
     except IOError as e:
         print(f"✗ Error loading from CSV: {e}")
 
 
 def get_path_to_file() -> str:
+    """Get path to CSV file."""
     current_file_dir = os.path.dirname(os.path.abspath(__file__))
-    return os.path.join(current_file_dir, 'files', 'persons.csv')
+    return os.path.join(current_file_dir, 'files', 'rationals.csv')
