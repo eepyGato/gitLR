@@ -1,11 +1,16 @@
-Product,Price,Rating,Reviews,Quality_Score
-Laptop,1000,4.5,150,4.5
-Phone,500,4.2,200,4.1
-Tablet,300,3.8,80,3.7
-Monitor,400,4.0,120,3.9
-Keyboard,100,4.1,90,4.0
-Mouse,50,3.9,60,3.8
-Headphones,150,4.3,110,4.2
-Speaker,200,4.0,95,3.9
-Webcam,80,4.1,70,4.0
-USB_Hub,45,3.7,50,3.6
+price,full_sq,floor,max_floor,sub_area,num_room,build_year
+7500000,65.5,5,12,Arbat,2,2005
+5200000,42.0,3,9,Presnensky,1,2010
+8900000,78.2,12,24,Khamovniki,3,2008
+4300000,48.0,1,5,Yuzhnoportovy,1,1965
+11200000,95.0,15,25,Yakimanka,4,2015
+6800000,58.0,7,14,Begovoy,2,2000
+3500000,38.0,2,9,Ostankino,1,1975
+15500000,120.0,20,25,Tverskoy,4,2018
+4900000,52.0,4,10,Dorogomilovo,2,1995
+8200000,72.0,9,17,Danilovsky,3,2012
+6100000,55.0,6,12,Sokolniki,2,2007
+4700000,45.0,3,8,Timiryazevsky,1,1985
+9300000,82.0,14,22,Zamoskvorechye,3,2014
+3800000,40.0,1,5,Maryina Roshcha,1,1970
+7100000,68.0,8,16,Basmanny,2,2009
