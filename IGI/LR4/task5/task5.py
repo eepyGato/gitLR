@@ -1,34 +1,34 @@
 # ---------------------------------------------------------
-# Lab Work №4 - Task 5 (Variant 9)
+# Lab Work №4 - Task 5 (Variant 26)
 # Module: task5.py
 # Purpose: Main task logic for matrix operations
 # Version: 1.0
-# Developer: Vodnev Kirill
-# Date of Development: 2026-03-01
+# Developer: Student
+# Date of Development: 2026-05-17
 # ---------------------------------------------------------
 
 from task5.matrix_creator import MatrixCreator, MatrixAnalyzer
-from utils.inputValidator import input_data
 
 DESCRIPTION = r"""
-╔═══════════════════════════════════════════════════════════╗
-║                  NumPy Matrix Operations                  ║
-║                                                           ║
-║  Task: Working with integer matrices and statistics       ║
-║                                                           ║
-║  Main operations:                                         ║
-║  • Generate random integer matrix A[n,m]                  ║
-║  • Swap max elements in first and last columns            ║
-║  • Calculate correlation coefficient                      ║
-║  • Compute statistical measures                           ║
-║                                                           ║
-║  Statistical functions:                                   ║
-║  • mean()     - Average value                             ║
-║  • median()   - Middle value when sorted                  ║
-║  • var()      - Variance (dispersion)                     ║
-║  • std()      - Standard deviation                        ║
-║  • corrcoef() - Correlation coefficient                   ║
-╚═══════════════════════════════════════════════════════════╝
+╔══════════════════════════════════════════════════════════════════════╗
+║                  NumPy Matrix Operations (Variant 26)                 ║
+║                                                                       ║
+║  Task: Working with integer matrices and statistics                   ║
+║                                                                       ║
+║  Main operations:                                                     ║
+║  • Generate random integer matrix A[n,m]                              ║
+║  • Find first occurrence of minimum element                           ║
+║  • Insert first row after the row containing the minimum element      ║
+║  • Calculate median of the first row (two ways: built-in and manual)  ║
+║                                                                       ║
+║  Statistical functions:                                               ║
+║  • mean()     - Average value                                         ║
+║  • median()   - Middle value when sorted (NumPy built-in)             ║
+║  • median()   - Middle value (manual calculation)                     ║
+║  • corrcoef() - Correlation coefficient between rows                  ║
+║  • var()      - Variance (dispersion)                                 ║
+║  • std()      - Standard deviation                                    ║
+╚══════════════════════════════════════════════════════════════════════╝
 """
 
 
@@ -37,14 +37,52 @@ def print_description():
     print(DESCRIPTION)
 
 
+def input_data(prompt: str, data_type, min_value=None, max_value=None):
+    """
+    Get validated input from user.
+
+    Args:
+        prompt (str): Input prompt
+        data_type: Type to convert to (float or int)
+        min_value: Minimum allowed value
+        max_value: Maximum allowed value
+
+    Returns:
+        Converted and validated value
+    """
+    while True:
+        try:
+            value = input(prompt)
+            value = data_type(value)
+            
+            if min_value is not None and value < min_value:
+                print(f"✗ Value must be >= {min_value}")
+                continue
+            if max_value is not None and value > max_value:
+                print(f"✗ Value must be <= {max_value}")
+                continue
+            
+            return value
+        except ValueError:
+            print(f"✗ Invalid input. Please enter a valid {data_type.__name__}")
+
+
+def print_matrix(matrix, title="MATRIX"):
+    """Print matrix with formatted output."""
+    print("\n" + "-" * 70)
+    print(title.center(70))
+    print("-" * 70)
+    print(matrix)
+    print()
+
+
 def task5() -> bool:
     """
     Main function for matrix operations.
 
-    Variant 9:
-    1. Swap maximum elements in first and last columns
-    2. Calculate correlation coefficient between columns
-    3. Round result to 2 decimal places
+    Variant 26:
+    1. Insert first row after the row containing the first minimum element
+    2. Calculate median of the first row (two ways: built-in and manual)
 
     Returns:
         bool: Always True to return to menu
@@ -64,72 +102,94 @@ def task5() -> bool:
             )
 
             cols = input_data(
-                "Enter number of columns (m >= 2): ",
+                "Enter number of columns (m >= 1): ",
                 int,
-                min_value=2
+                min_value=1
             )
 
             print(f"\nGenerating {rows}x{cols} random integer matrix...")
             matrix_obj = MatrixCreator(rows, cols)
             matrix_obj.generate_matrix()
             matrix = matrix_obj.get_matrix()
+            
+            print_matrix(matrix, "GENERATED MATRIX")
 
+            # Find first minimum element
             print("\n" + "-" * 70)
-            print("GENERATED MATRIX:")
+            print("FINDING MINIMUM ELEMENT".center(70))
             print("-" * 70)
-            print(matrix)
+            
+            min_row, min_col = matrix_obj.find_first_min_element()
+            min_value = matrix_obj.min_value
+            
+            print(f"Minimum value: {min_value}")
+            print(f"First occurrence at position: row {min_row}, column {min_col}")
+            print(f"All occurrences of minimum value:")
+            for idx in matrix_obj.min_indices:
+                print(f"  • row {idx[0]}, column {idx[1]}")
 
-            # Get columns before swap
-            first_col_before = matrix_obj.get_first_column().copy()
-            last_col_before = matrix_obj.get_last_column().copy()
-
+            # Insert first row after the row with minimum element
             print("\n" + "-" * 70)
-            print("MAXIMUM ELEMENTS:")
+            print("INSERTING FIRST ROW".center(70))
             print("-" * 70)
-            (max_first, idx_first), (max_last, idx_last) = matrix_obj.swap_max_elements()
-            print(f"Max in first column: {max_first} at index [{idx_first}]")
-            print(f"Max in last column:  {max_last} at index [{idx_last}]")
+            
+            inserted_pos, min_row_pos = matrix_obj.insert_row_after_min()
+            print(f"First row inserted at position: row {inserted_pos}")
+            print(f"(after the row containing the first minimum at row {min_row_pos})")
+            
+            print_matrix(matrix_obj.get_matrix(), "MATRIX AFTER INSERTION")
 
+            # Calculate median of the first row
             print("\n" + "-" * 70)
-            print("MATRIX AFTER SWAP:")
+            print("MEDIAN OF THE FIRST ROW".center(70))
             print("-" * 70)
-            print(matrix_obj.get_matrix())
+            
+            first_row = matrix_obj.get_first_row()
+            print(f"First row values: {first_row}")
+            
+            analyzer = MatrixAnalyzer(matrix_obj.get_matrix())
+            
+            median_builtin = analyzer.median_builtin(0)
+            median_manual = analyzer.median_manual(0)
+            
+            print(f"\nMedian (NumPy built-in):   {median_builtin}")
+            print(f"Median (manual calculation): {median_manual}")
+            
+            # Verify both methods give the same result
+            if abs(median_builtin - median_manual) < 0.0001:
+                print("✓ Both methods match!")
+            else:
+                print("⚠ Warning: Methods returned different results!")
 
+            # Additional statistics for the first row
             print("\n" + "-" * 70)
-            print("CORRELATION ANALYSIS:")
+            print("ADDITIONAL STATISTICS (First Row)".center(70))
             print("-" * 70)
+            
+            stats = analyzer.get_row_stats(0)
+            print(f"Mean:                    {stats['mean']}")
+            print(f"Variance:                {stats['variance']}")
+            print(f"Standard Deviation:      {stats['std']}")
 
-            analyzer = MatrixAnalyzer(matrix)
-
-            corr_original = analyzer.correlation_columns(
-                first_col_before,
-                last_col_before
-            )
-            print(f"Correlation (before swap): {corr_original}")
-
-            first_col_after = matrix_obj.get_first_column()
-            last_col_after = matrix_obj.get_last_column()
-            corr_after = analyzer.correlation_columns(
-                first_col_after,
-                last_col_after
-            )
-            print(f"Correlation (after swap):  {corr_after}")
-
+            # Correlation between first row and other rows
             print("\n" + "-" * 70)
-            print("STATISTICAL MEASURES:")
+            print("CORRELATION ANALYSIS".center(70))
             print("-" * 70)
+            
+            new_rows = matrix_obj.get_matrix().shape[0]
+            for i in range(1, min(4, new_rows)):  # Show correlation with up to 3 rows
+                corr = analyzer.correlation(0, i)
+                print(f"Correlation (row 0 vs row {i}): {corr}")
 
-            stats = analyzer.all_stats
-            print(f"Mean:                  {stats['mean']:.4f}")
-            print(f"Median:                {stats['median']:.4f}")
-            print(f"Variance:              {stats['variance']:.4f}")
-            print(f"Std Dev (built-in):    {stats['std_builtin']}")
-            print(f"Std Dev (manual):      {stats['std_manual']}")
-
-            min_val, min_indices = matrix_obj.find_min_elements()
+            # Display final matrix info
             print("\n" + "-" * 70)
-            print(f"Minimum value: {min_val}")
-            print(f"Found at indices:\n{min_indices}")
+            print("FINAL MATRIX INFO".center(70))
+            print("-" * 70)
+            
+            info = matrix_obj.get_matrix_info()
+            print(f"Matrix shape: {info['shape']}")
+            print(f"Total elements: {info['size']}")
+            print(f"Minimum value in original matrix: {info['min_value']}")
 
         except ValueError as e:
             print(f"\n✗ Invalid input: {e}")
@@ -142,3 +202,7 @@ def task5() -> bool:
         if again != '1':
             print("\n✓ Returning to main menu...\n")
             return True
+
+
+if __name__ == "__main__":
+    task5()

@@ -1,10 +1,10 @@
 # ---------------------------------------------------------
-# Lab Work №4 - Task 5 (Variant 9)
+# Lab Work №4 - Task 5 (Variant 26)
 # Module: matrix_creator.py
 # Purpose: Matrix creation and statistical operations
 # Version: 1.0
-# Developer: Vodnev Kirill
-# Date of Development: 2026-03-01
+# Developer: Student
+# Date of Development: 2026-05-17
 # ---------------------------------------------------------
 
 import numpy as np
@@ -32,95 +32,155 @@ class MatrixBase(ABC):
 class MatrixCreator(MatrixBase):
     """Creates integer matrix using random values."""
 
+    def __init__(self, rows: int, cols: int):
+        super().__init__(rows, cols)
+        self.min_value = None
+        self.min_indices = None
+
     def generate_matrix(self):
         """Generate random integer matrix [-100, 100]."""
         self.matrix = np.random.randint(-100, 101, (self.rows, self.cols))
 
-    def get_first_column(self):
-        """Get first column."""
-        return self.matrix[:, 0]
+    def find_first_min_element(self):
+        """
+        Find the first occurrence of the minimum element in the matrix.
+        Returns (row_index, col_index) of the first minimum element.
+        """
+        self.min_value = self.matrix.min()
+        self.min_indices = np.argwhere(self.matrix == self.min_value)
+        # Return the first occurrence (row-major order)
+        return tuple(self.min_indices[0])
 
-    def get_last_column(self):
-        """Get last column."""
-        return self.matrix[:, -1]
+    def insert_row_after_min(self):
+        """
+        Insert the first row after the row containing the first minimum element.
+        
+        Returns:
+            tuple: (inserted_row_index, first_min_row_index)
+        """
+        # Find the first minimum element
+        min_row, min_col = self.find_first_min_element()
+        
+        # Get the first row (row index 0)
+        first_row = self.matrix[0, :].copy()
+        
+        # Insert the first row after the row with the minimum element
+        # Insert at position min_row + 1
+        self.matrix = np.insert(self.matrix, min_row + 1, first_row, axis=0)
+        
+        return min_row + 1, min_row
 
-    def find_max_in_first_col(self):
-        """Find max element and index in first column."""
-        col = self.get_first_column()
-        max_val = col.max()
-        max_idx = np.argmax(col)
-        return max_val, max_idx
+    def get_first_row(self):
+        """Get the first row of the matrix."""
+        return self.matrix[0, :]
 
-    def find_max_in_last_col(self):
-        """Find max element and index in last column."""
-        col = self.get_last_column()
-        max_val = col.max()
-        max_idx = np.argmax(col)
-        return max_val, max_idx
+    def get_row(self, index: int):
+        """Get a specific row by index."""
+        return self.matrix[index, :]
 
-    def swap_max_elements(self):
-        """Swap maximum elements in first and last columns."""
-        max_first, idx_first = self.find_max_in_first_col()
-        max_last, idx_last = self.find_max_in_last_col()
-
-        self.matrix[idx_first, 0] = max_last
-        self.matrix[idx_last, -1] = max_first
-
-        return (max_first, idx_first), (max_last, idx_last)
-
-    def find_min_elements(self):
-        """Return min value and its indices."""
-        min_val = self.matrix.min()
-        indices = np.argwhere(self.matrix == min_val)
-        return min_val, indices
+    def get_matrix_info(self):
+        """Get matrix dimensions and basic info."""
+        return {
+            "shape": self.matrix.shape,
+            "size": self.matrix.size,
+            "min_value": self.min_value if self.min_value is not None else self.matrix.min()
+        }
 
 
 class MatrixAnalyzer:
-    """Performs statistical operations on matrix."""
+    """Performs statistical operations on matrix rows."""
 
     def __init__(self, matrix):
         self.matrix = matrix
 
-    def mean(self):
-        """Mean = sum(elements) / count"""
-        return np.mean(self.matrix)
-
-    def median(self):
-        """Median = middle value when sorted"""
-        return np.median(self.matrix)
-
-    def variance(self):
-        """Variance = mean((x - mean)^2)"""
-        return np.var(self.matrix)
-
-    def std_builtin(self):
-        """Std = sqrt(variance) using NumPy"""
-        return round(np.std(self.matrix), 4)
-
-    def std_manual(self):
-        """Std = sqrt(variance) manual calculation"""
-        mean_val = np.mean(self.matrix)
-        variance = np.mean((self.matrix - mean_val) ** 2)
-        return round(np.sqrt(variance), 4)
-
-    @staticmethod
-    def correlation_columns(col1, col2):
-        """Calculate correlation coefficient between two columns.
-
-        Returns value rounded to 2 decimal places.
+    def median_builtin(self, row_index: int = 0):
         """
-        stacked = np.vstack([col1, col2])
+        Calculate median of a row using NumPy's built-in function.
+        
+        Args:
+            row_index (int): Index of the row (default: 0 - first row)
+        
+        Returns:
+            float: Median value
+        """
+        row = self.matrix[row_index, :]
+        return np.median(row)
+
+    def median_manual(self, row_index: int = 0):
+        """
+        Calculate median of a row manually (without using np.median).
+        
+        Manual calculation:
+        1. Sort the array
+        2. If length is odd: middle element
+        3. If length is even: average of two middle elements
+        
+        Args:
+            row_index (int): Index of the row (default: 0 - first row)
+        
+        Returns:
+            float: Median value
+        """
+        row = self.matrix[row_index, :].copy()
+        
+        # Sort the row
+        sorted_row = np.sort(row)
+        n = len(sorted_row)
+        
+        if n % 2 == 1:
+            # Odd number of elements - take the middle
+            median = float(sorted_row[n // 2])
+        else:
+            # Even number of elements - average of two middle
+            median = (sorted_row[n // 2 - 1] + sorted_row[n // 2]) / 2.0
+        
+        return median
+
+    def mean(self, row_index: int = 0):
+        """Calculate mean of a row."""
+        row = self.matrix[row_index, :]
+        return np.mean(row)
+
+    def variance(self, row_index: int = 0):
+        """Calculate variance of a row."""
+        row = self.matrix[row_index, :]
+        return np.var(row)
+
+    def std(self, row_index: int = 0):
+        """Calculate standard deviation of a row."""
+        row = self.matrix[row_index, :]
+        return np.std(row)
+
+    def correlation(self, row1_index: int, row2_index: int):
+        """
+        Calculate correlation coefficient between two rows.
+        
+        Args:
+            row1_index (int): Index of first row
+            row2_index (int): Index of second row
+        
+        Returns:
+            float: Correlation coefficient rounded to 2 decimal places
+        """
+        row1 = self.matrix[row1_index, :]
+        row2 = self.matrix[row2_index, :]
+        
+        stacked = np.vstack([row1, row2])
         corr_matrix = np.corrcoef(stacked)
         corr_coef = corr_matrix[0, 1]
+        
+        # Handle NaN cases (when row has constant values)
+        if np.isnan(corr_coef):
+            return 0.0
+        
         return round(corr_coef, 2)
 
-    @property
-    def all_stats(self):
-        """Return all statistical measures."""
+    def get_row_stats(self, row_index: int = 0):
+        """Get all statistical measures for a row."""
         return {
-            'mean': self.mean(),
-            'median': self.median(),
-            'variance': self.variance(),
-            'std_builtin': self.std_builtin(),
-            'std_manual': self.std_manual()
+            'mean': round(self.mean(row_index), 4),
+            'median_builtin': round(self.median_builtin(row_index), 4),
+            'median_manual': round(self.median_manual(row_index), 4),
+            'variance': round(self.variance(row_index), 4),
+            'std': round(self.std(row_index), 4)
         }

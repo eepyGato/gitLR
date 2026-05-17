@@ -61,7 +61,7 @@ def main() -> None:
         print("=" * 60)
         print("1. Task 1: Personal Data Management System")
         print("2. Task 2: Text Analysis System")
-        print("3. Task 3: Arccos Series Expansion Calculator")
+        print("3. Task 3: Arcsin Series Expansion Calculator")
         print("4. Task 4: Regular Polygon Constructor")
         print("5. Task 5: NumPy Matrix Operations")
         print("6. Task 6: Pandas Data Analysis")
