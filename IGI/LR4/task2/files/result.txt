@@ -1,0 +1,110 @@
+======================================================================
+
+                  TEXT ANALYSIS RESULTS (Variant 9)                   
+
+======================================================================
+
+
+
+1. SENTENCE ANALYSIS
+
+----------------------------------------------------------------------
+
+   Total sentences:                           16
+
+   Declarative sentences (.):                 10
+
+   Interrogative sentences (?):               3
+
+   Imperative sentences (!):                  3
+
+   Average sentence length (words):           6.38 words
+
+   Average sentence length (characters):      30.5 chars
+
+
+
+2. WORD ANALYSIS
+
+----------------------------------------------------------------------
+
+   Total words:                               102
+
+   Average word length:                       4.78 characters
+
+   Total lowercase letters:                   454
+
+   Words (vowel ending, consonant penultimate): 33
+
+   Last word with 'i':                        it (position: 102)
+
+   Total dates found (DD-MM-YYYY):            2
+
+
+
+3. SMILEY ANALYSIS
+
+----------------------------------------------------------------------
+
+   Total valid smileys:                       12
+
+
+
+   Words (vowel ending, consonant penultimate):
+
+      Hello, sample, Are, The, date, date, like, write, nature, promise, telephone, like, innovative, The, be, like, ice, these, Some, these
+
+      ... and 13 more
+
+
+
+   Dates found:
+
+      • 12-05-2007
+
+      • 25-12-2020
+
+
+
+   Valid smileys found:
+
+      • :)
+
+      • :--(
+
+      • ;-]
+
+      • :---)))))
+
+      • :-[[[[
+
+      • ;---------[[[[[[[[
+
+      • :(
+
+      • ;)
+
+      • :))
+
+      • ;-)
+
+      • :-]
+
+      • ;---)
+
+
+
+4. TEXT WITHOUT WORDS STARTING WITH 'I'
+
+----------------------------------------------------------------------
+
+   Hello world! This a sample text. Are you ready for analysis? The date 12-05-2007 marks an event. Another date 25-12-2020. Words like "write", "nature", "promise", "telephone" end with vowels. like . The last word with '' should be . words like "" and "" start with ''. Check these smileys: :) :--( ;-
+
+
+
+======================================================================
+
+End of Analysis Report
+
+======================================================================
+
