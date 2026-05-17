@@ -1,10 +1,10 @@
 # ---------------------------------------------------------
-# Lab Work №4 - Task 3 (Variant 9)
+# Lab Work №4 - Task 3 (Variant 27)
 # Module: series.py
-# Purpose: Arccos series calculation
+# Purpose: Arcsin series calculation
 # Version: 1.0
-# Developer: Vodnev Kirill
-# Date of Development: 2026-03-01
+# Developer: Student
+# Date of Development: 2026-05-17
 # ---------------------------------------------------------
 
 import math
@@ -19,7 +19,7 @@ class BaseSeries:
         Initialize series calculator.
 
         Args:
-            x (float): Argument value where |x| ≤ 1
+            x (float): Argument value where |x| < 1
             eps (float): Precision (epsilon) for convergence
         """
         self.x = x
@@ -43,42 +43,51 @@ class BaseSeries:
         return self.x, self.n, self.fx, self.math_fx, self.eps
 
 
-class ArccosSeries(BaseSeries):
+class ArcsinSeries(BaseSeries):
     """
-    Calculator for computing arccos(x) using series expansion.
+    Calculator for computing arcsin(x) using series expansion.
+    
+    Formula: arcsin(x) = Σ (2n)! / (4^n * (n!)^2 * (2n+1)) * x^(2n+1)
+                       = x + x^3/6 + 3x^5/40 + ...
+    Valid for |x| < 1
     """
     MAX_ITERATION = 500
 
     def calculate(self):
         """
-        Calculate arccos(x) using series expansion with recurrence relation.
-
-        Uses: a_n = a_(n-1) * (2n)(2n-1) / (4n^2) * x^2
+        Calculate arcsin(x) using series expansion with recurrence relation.
+        
+        Recurrence: a_(n+1) = a_n * ((2n+1)^2 * x^2) / ((2n+3)(2n+2))
+        where a_n is the term for x^(2n+1)
         """
-        self.math_fx = math.acos(self.x)
-
-        self.fx = math.pi / 2
+        self.math_fx = math.asin(self.x)
+        
+        # First term: a0 = x
+        term = self.x
+        self.fx = term
         self.terms = [self.fx]
         self.n = 0
-
-        x_squared = self.x * self.x
-
-        term = self.x
-        self.fx -= term
-        self.terms.append(self.fx)
-
-        for n in range(1, self.MAX_ITERATION):
-
-            coeff = (2 * n) * (2 * n - 1) / (4 * n * n)
-            term *= coeff * x_squared
-
-            self.fx -= term
+        
+        # If x is 0, arcsin(0) = 0, no more terms needed
+        if abs(self.x) < 1e-15:
+            self.n = 0
+            return
+        
+        for n in range(0, self.MAX_ITERATION):
+            # Calculate next term using recurrence
+            # a_{n+1} = a_n * ((2n+1)^2 * x^2) / ((2n+3)(2n+2))
+            n_current = n
+            numerator = (2 * n_current + 1) ** 2 * self.x * self.x
+            denominator = (2 * n_current + 3) * (2 * n_current + 2)
+            
+            term *= numerator / denominator
+            self.fx += term
             self.terms.append(self.fx)
-            self.n = n
-
+            self.n = n + 1
+            
             if abs(term) < self.eps:
                 break
-
+    
     def get_statistics(self) -> dict:
         """
         Calculate statistical measures of series terms.
@@ -94,16 +103,27 @@ class ArccosSeries(BaseSeries):
                 f"Not enough data points: {len(self.terms)} < 2. "
                 f"Try smaller epsilon value (< 0.1)"
             )
-
+        
         try:
             mode_val = mode(self.terms)
         except Exception:
             mode_val = "N/A"
-
+        
+        # Handle case when variance is zero (all terms equal)
+        try:
+            var_val = variance(self.terms)
+        except Exception:
+            var_val = 0.0
+        
+        try:
+            stdev_val = stdev(self.terms)
+        except Exception:
+            stdev_val = 0.0
+        
         return {
             "Mean": mean(self.terms),
             "Median": median(self.terms),
             "Mode": mode_val,
-            "Variance": variance(self.terms),
-            "Stdev": stdev(self.terms),
+            "Variance": var_val,
+            "Stdev": stdev_val,
         }

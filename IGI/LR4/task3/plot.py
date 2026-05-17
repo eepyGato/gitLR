@@ -46,7 +46,7 @@ def plot_series_vs_math(fx_values: list, math_fx: float, x: float):
 
     Args:
         fx_values (list): Accumulated function values at each iteration
-        math_fx (float): Actual arccos(x) value from math module
+        math_fx (float): Actual arcsin(x) value from math module
         x (float): Argument value used in calculation
     """
     n_values = list(range(1, len(fx_values) + 1))
@@ -70,7 +70,7 @@ def plot_series_vs_math(fx_values: list, math_fx: float, x: float):
     ax.plot(
         n_values,
         math_fx_line,
-        label=f"Exact arccos({x:.4f})",
+        label=f"Exact arcsin({x:.4f})",
         color="red",
         linestyle="--",
         linewidth=3,
@@ -80,7 +80,7 @@ def plot_series_vs_math(fx_values: list, math_fx: float, x: float):
         markerfacecolor='mistyrose'
     )
 
-    title = "Arccos Series Approximation vs Math Function"
+    title = "Arcsin Series Approximation vs Math Function"
     ax.set_title(
         title,
         fontsize=14,
@@ -144,7 +144,7 @@ def plot_series_vs_math(fx_values: list, math_fx: float, x: float):
     )
 
     ax.annotate(
-        f"Exact: arccos({x:.4f}) = {math_fx:.8f}",
+        f"Exact: arcsin({x:.4f}) = {math_fx:.8f}",
         xy=(last_n, math_fx),
         xytext=(last_n - offset_n, math_fx - offset_y),
         arrowprops=dict(
@@ -193,7 +193,7 @@ def plot_series_vs_math(fx_values: list, math_fx: float, x: float):
     plt.tight_layout()
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    filename = f"arccos_plot_{timestamp}.png"
+    filename = f"arcsin_plot_{timestamp}.png"
     filepath = get_path_to_file(filename)
 
     try:

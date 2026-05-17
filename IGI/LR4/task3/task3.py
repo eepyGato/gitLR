@@ -8,21 +8,21 @@
 # ---------------------------------------------------------
 
 from tabulate import tabulate
-from task3.series import ArccosSeries
+from task3.series import ArcsinSeries
 from task3.plot import plot_series_vs_math
 from utils.inputValidator import input_data
 
 DESCRIPTION = r"""
 ╔═══════════════════════════════════════════════════════════╗
-║             Arccos Series Expansion Calculator            ║
+║             Arcsin Series Expansion Calculator            ║
 ║                                                           ║
-║  Formula: arccos(x) = π/2 - arcsin(x) =                   ║
+║  Formula: arcsin(x) = π/2 - arcsin(x) =                   ║
 ║  π/2 - Σ [(2n)! / (4^n * (n!)^2 * (2n+1))] * x^(2n+1)     ║  
 ║                                                           ║
 ║  Valid for: |x| ≤ 1                                       ║
 ║                                                           ║
 ║  This program:                                            ║
-║  • Calculates arccos(x) using series expansion            ║
+║  • Calculates arcsin(x) using series expansion            ║
 ║  • Compares with math.acos() result                       ║
 ║  • Computes statistical measures                          ║
 ║  • Plots comparison graph                                 ║
@@ -61,7 +61,7 @@ def display_results(x_val, n, fx, math_fx, eps, stats):
     ]
     print(tabulate(
         results_table,
-        headers=["x", "n", "F(x)", "arccos(x)", "eps", "Error"],
+        headers=["x", "n", "F(x)", "arcsin(x)", "eps", "Error"],
         tablefmt="grid",
         floatfmt=".10f"
     ))
@@ -103,7 +103,7 @@ def display_results(x_val, n, fx, math_fx, eps, stats):
 
 def task3():
     """
-    Main function for arccos series calculator.
+    Main function for arcsin series calculator.
 
     Handles user input, calculations, statistics, and plotting.
 
@@ -142,11 +142,11 @@ def task3():
                 print("   For better results, use smaller epsilon (< 1e-6)")
 
             if abs(x) < 1e-10:
-                print("\n✓ Note: For x ≈ 0, arccos(x) ≈ π/2 ≈ 1.5708")
+                print("\n✓ Note: For x ≈ 0, arcsin(x) ≈ π/2 ≈ 1.5708")
 
-            print("\nCalculating arccos series expansion...")
+            print("\nCalculating arcsin series expansion...")
 
-            calc = ArccosSeries(x, eps)
+            calc = ArcsinSeries(x, eps)
             calc.calculate()
 
             x_val, n, fx, math_fx, eps_val = calc.get_results()
