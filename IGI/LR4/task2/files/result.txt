@@ -1,6 +1,6 @@
 ======================================================================
 
-                  TEXT ANALYSIS RESULTS (Variant 9)                   
+                  TEXT ANALYSIS RESULTS (Variant 26)                  
 
 ======================================================================
 
@@ -10,17 +10,17 @@
 
 ----------------------------------------------------------------------
 
-   Total sentences:                           16
+   Total sentences:                           12
 
    Declarative sentences (.):                 10
 
-   Interrogative sentences (?):               3
+   Interrogative sentences (?):               1
 
-   Imperative sentences (!):                  3
+   Imperative sentences (!):                  1
 
-   Average sentence length (words):           6.38 words
+   Average sentence length (characters):      34.92
 
-   Average sentence length (characters):      30.5 chars
+   Average word length:                       4.36
 
 
 
@@ -28,77 +28,59 @@
 
 ----------------------------------------------------------------------
 
-   Total words:                               102
+   Total words:                               96
 
-   Average word length:                       4.78 characters
+   Uppercase English letters found:           A, C, E, H, L, R, S, T, U, W, X
 
-   Total lowercase letters:                   454
-
-   Words (vowel ending, consonant penultimate): 33
-
-   Last word with 'i':                        it (position: 102)
-
-   Total dates found (DD-MM-YYYY):            2
+   Uppercase letters total count:             28
 
 
 
-3. SMILEY ANALYSIS
+3. PATTERN REPLACEMENT
+
+----------------------------------------------------------------------
+
+   Original text preview:
+
+      Hello World! This is a sample text for variant 26. Are you ready for analysis?
+The pattern test: рррbbbccc should be replaced with ddd. Another test: рb c, pbc, p bc are invalid.
+Words ending with spe...
+
+   After replacing 'р...рb...bc...c' with 'ddd':
+
+      Hello World! This is a sample text for variant 26. Are you ready for analysis?
+The pattern test: ddd should be replaced with ddd. Another test: рb c, pbc, p bc are invalid.
+Words ending with special l...
+
+
+
+4. WORD STATISTICS
+
+----------------------------------------------------------------------
+
+   Words with length < 5:                    58
+
+   Examples: This, is, a, text, for, 26, Are, you, for, The, test, be, with, ddd, test
+
+   Shortest word ending with 'd':            'ad'
+
+
+
+5. WORDS SORTED BY LENGTH (DESCENDING)
+
+----------------------------------------------------------------------
+
+   First 20: descending, рррbbbccc, Uppercase, different, analysis, replaced, shortest, sentence, contains, variant, pattern, Another, invalid, special, smileys, letters, varying, lengths, longest, sample
+
+
+
+6. SMILEY ANALYSIS
 
 ----------------------------------------------------------------------
 
    Total valid smileys:                       12
 
-
-
-   Words (vowel ending, consonant penultimate):
-
-      Hello, sample, Are, The, date, date, like, write, nature, promise, telephone, like, innovative, The, be, like, ice, these, Some, these
-
-      ... and 13 more
-
-
-
-   Dates found:
-
-      • 12-05-2007
-
-      • 25-12-2020
-
-
-
-   Valid smileys found:
-
-      • :)
-
-      • :--(
-
-      • ;-]
-
-      • :---)))))
-
-      • :-[[[[
-
-      • ;---------[[[[[[[[
-
-      • :(
-
-      • ;)
-
-      • :))
-
-      • ;-)
-
-      • :-]
-
-      • ;---)
-
-
-
-4. TEXT WITHOUT WORDS STARTING WITH 'I'
-
-----------------------------------------------------------------------
-
-   Hello world! This a sample text. Are you ready for analysis? The date 12-05-2007 marks an event. Another date 25-12-2020. Words like "write", "nature", "promise", "telephone" end with vowels. like . The last word with '' should be . words like "" and "" start with ''. Check these smileys: :) :--( ;-
+   Smileys found: :), :--(, ;-], :---))))), :-[[[[, ;---------[[[[[[[[, :(, ;), :)), ;-), :-], ;---)
 
 
 

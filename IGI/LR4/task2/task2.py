@@ -1,53 +1,46 @@
 # ---------------------------------------------------------
-# Lab Work №4 - Task 2 (Variant 9)
+# Lab Work №4 - Task 2 (Variant 26)
 # Module: task2.py
 # Purpose: Main interface for text analysis system
 # Version: 1.0
-# Developer: Vodnev Kirill
-# Date of Development: 2026-03-01
+# Developer: Student
+# Date of Development: 2026-05-17
 # ---------------------------------------------------------
 
 import os
 
-from task2.analyzer import (
-    SentenceAnalyzer,
-    WordAnalyzer,
-    SmileyAnalyzer,
-    DateAnalyzer
-)
-
+from task2.analyzer import SentenceAnalyzer, WordAnalyzer, SmileyAnalyzer
 from task2.archiver import archive_file, save_results_to_file
-from utils.inputValidator import input_data
 
 DESCRIPTION = """
-╔═══════════════════════════════════════════════════════════╗
-║                   Text Analysis System                    ║
-║                                                           ║
-║  This program analyzes text using regular expressions:    ║
-║  ✓ Extract dates in format DD-MM-YYYY                     ║
-║  ✓ Find words ending with vowel (penultimate consonant)   ║
-║  ✓ Count lowercase letters                                ║
-║  ✓ Find last word containing 'i'                          ║
-║  ✓ Remove words starting with 'i'                         ║
-║  ✓ Analyze sentence structure (all types)                 ║
-║  ✓ Calculate average lengths                              ║
-║  ✓ Count valid smileys                                    ║
-║  ✓ Archive results in ZIP                                 ║
-╚═══════════════════════════════════════════════════════════╝
+╔══════════════════════════════════════════════════════════════════════╗
+║                   Text Analysis System (Variant 26)                   ║
+║                                                                       ║
+║  This program analyzes text using regular expressions:                ║
+║  ✓ Count sentences (total, declarative, interrogative, imperative)   ║
+║  ✓ Calculate average sentence length (characters)                    ║
+║  ✓ Calculate average word length                                     ║
+║  ✓ Extract all uppercase English letters                             ║
+║  ✓ Replace pattern "р...рb...bc...c" with "ddd"                      ║
+║  ✓ Count words with length < 5                                       ║
+║  ✓ Find shortest word ending with 'd'                                ║
+║  ✓ Sort all words by length descending                               ║
+║  ✓ Count valid smileys                                               ║
+║  ✓ Archive results in ZIP                                            ║
+╚══════════════════════════════════════════════════════════════════════╝
 """
 
 
 def display_menu():
     """Display main analysis menu."""
     print("\n" + "=" * 60)
-    print("Text Analyzer Menu")
+    print("Text Analyzer Menu (Variant 26)")
     print("=" * 60)
     print("1.  Analyze sentences")
-    print("2.  Analyze words (Variant 9 specific)")
+    print("2.  Analyze words")
     print("3.  Count smileys")
-    print("4.  Extract dates (DD-MM-YYYY)")
+    print("4.  Run complete analysis")
     print("5.  Archive and compress results")
-    print("6.  Show all analysis results")
     print("0.  Exit\n")
 
 
@@ -92,74 +85,59 @@ def analyze_sentences():
 
     result = SentenceAnalyzer(text).process()
 
-    print(f"\n Total sentences:              {result['total']}")
+    print(f"\n Total sentences:                 {result['total']}")
     print(f"\n Sentence types:")
-    print(f"   • Declarative (.) :           {result['declarative']}")
-    print(f"   • Interrogative (?):          {result['interrogative']}")
-    print(f"   • Imperative (!):             {result['imperative']}")
-
-    print(f"\n Lengths:")
-    print(f"   • Avg sentence (words):       {result['avg_sentence_length']} words")
-    print(f"   • Avg sentence (chars):       {result['avg_sentence_chars']} characters\n")
+    print(f"   • Declarative (.):              {result['declarative']}")
+    print(f"   • Interrogative (?):            {result['interrogative']}")
+    print(f"   • Imperative (!):               {result['imperative']}")
+    print(f"\n Average sentence length:         {result['avg_sentence_chars']} characters")
+    print(f" Average word length:              {result['avg_word_length']} characters\n")
 
 
 def analyze_words():
-    """
-    Analyze words with variant 9 specific.
-
-    Tasks:
-    1. Extract dates in format DD-MM-YYYY
-    2. Find words ending with vowel AND penultimate letter is consonant
-    3. Count lowercase letters
-    4. Find last word containing 'i' and its position
-    5. Output text with words starting with 'i' removed
-    """
+    """Analyze words with variant 26 specific tasks."""
     text = get_text()
     if text is None:
         return
 
     print("\n" + "-" * 60)
-    print("Word Analysis")
+    print("Word Analysis (Variant 26)")
     print("-" * 60)
 
     result = WordAnalyzer(text).process()
 
-    print(f"\n General statistics:")
-    print(f"   • Total words:                {result['word_count']}")
-    print(f"   • Average word length:        {result['avg_word_length']} characters")
+    print(f"\n Total words:                     {result['word_count']}")
 
-    print(f"\n Lowercase letters in text:   {result['lowercase_count']}")
-
-    print(f"\n Extracted dates (DD-MM-YYYY):")
-    if result['word_count'] > 0 and result['dates']:
-        for date in result['dates']:
-            print(f"   • {date}")
+    # 1. Uppercase English letters
+    print(f"\n 1. Uppercase English letters found:")
+    if result['uppercase_letters']:
+        print(f"    Letters: {', '.join(result['uppercase_letters'])}")
+        print(f"    Total count: {result['uppercase_count']}")
     else:
-        print("   (no dates found)")
+        print("    (no uppercase English letters found)")
 
-    print(f"\n Words ending with vowel (penultimate is consonant):")
-    if result['words_vowel_ending_consonant_penultimate']:
-        words_list = result['words_vowel_ending_consonant_penultimate']
-        print(f"   Count: {len(words_list)}")
-        print(f"   Words: {', '.join(words_list[:10])}")
-        if len(words_list) > 10:
-            print(f"   ... and {len(words_list) - 10} more")
-    else:
-        print("   (no words found)")
+    # 2. Pattern replacement preview
+    print(f"\n 2. Pattern 'р...рb...bc...c' → 'ddd':")
+    print(f"    Original text preview: {text[:100]}...")
+    print(f"    After replacement: {result['text_after_replacement'][:100]}...")
 
-    print(f"\n Last word containing 'i':")
-    if result['last_word_with_i']:
-        print(f"   Word: {result['last_word_with_i']}")
-        print(f"   Position: #{result['last_word_with_i_index']}")
-    else:
-        print("   (no word with 'i' found)")
+    # 3. Words with length < 5
+    print(f"\n 3. Words with length < 5:")
+    print(f"    Count: {result['short_words_count']}")
+    if result['short_words']:
+        print(f"    Examples: {', '.join(result['short_words'][:10])}")
 
-    print(f"\n Text without words starting with 'i':")
-    if result['text_without_i_words']:
-        text_preview = result['text_without_i_words'][:100]
-        print(f"   {text_preview}...")
+    # 4. Shortest word ending with 'd'
+    print(f"\n 4. Shortest word ending with 'd':")
+    if result['shortest_word_d']:
+        print(f"    Word: '{result['shortest_word_d']}' (length: {len(result['shortest_word_d'])})")
     else:
-        print("   (no text after filtering)")
+        print("    (no words ending with 'd' found)")
+
+    # 5. Words sorted by length descending
+    print(f"\n 5. Words sorted by length descending:")
+    if result['words_by_length_desc']:
+        print(f"    First 15: {', '.join(result['words_by_length_desc'][:15])}")
     print()
 
 
@@ -175,38 +153,57 @@ def analyze_smileys():
 
     result = SmileyAnalyzer(text).process()
 
-    print(f"\n Total valid smileys:         {result['smiley_count']}")
+    print(f"\n Total valid smileys:             {result['smiley_count']}")
 
     if result['smileys']:
-        print(f"\nValid smileys found:")
-        for smiley in result['smileys']:
+        print(f"\n Valid smileys found:")
+        for smiley in result['smileys'][:15]:
             print(f"   • {smiley}")
+        if len(result['smileys']) > 15:
+            print(f"   ... and {len(result['smileys']) - 15} more")
     else:
-        print("\n(no valid smileys found)")
+        print("\n (no valid smileys found)")
 
 
-def extract_dates():
-    """Extract and display dates from text."""
+def run_complete_analysis():
+    """Run all analyses and display complete results."""
     text = get_text()
     if text is None:
         return
 
-    print("\n" + "-" * 60)
-    print("Date Extraction (DD-MM-YYYY)")
+    print("\n" + "=" * 60)
+    print("COMPLETE TEXT ANALYSIS (Variant 26)")
+    print("=" * 60)
+
+    # Sentence analysis
+    sentence_result = SentenceAnalyzer(text).process()
+    print("\n▶ SENTENCE STATISTICS".center(58))
     print("-" * 60)
+    print(f"  Total sentences:                    {sentence_result['total']}")
+    print(f"  Declarative (.):                    {sentence_result['declarative']}")
+    print(f"  Interrogative (?):                  {sentence_result['interrogative']}")
+    print(f"  Imperative (!):                     {sentence_result['imperative']}")
+    print(f"  Average sentence length (chars):    {sentence_result['avg_sentence_chars']}")
+    print(f"  Average word length:                {sentence_result['avg_word_length']}")
 
-    result = DateAnalyzer(text).process()
+    # Word analysis
+    word_result = WordAnalyzer(text).process()
+    print("\n▶ WORD ANALYSIS".center(58))
+    print("-" * 60)
+    print(f"  Total words:                        {word_result['word_count']}")
+    print(f"  Uppercase English letters:          {', '.join(word_result['uppercase_letters']) if word_result['uppercase_letters'] else 'none'}")
+    print(f"  Words with length < 5:              {word_result['short_words_count']}")
+    print(f"  Shortest word ending with 'd':      '{word_result['shortest_word_d']}'" if word_result['shortest_word_d'] else "  Shortest word ending with 'd':      none")
 
-    print(f"\n Total dates found:           {result['date_count']}")
+    # Smiley analysis
+    smiley_result = SmileyAnalyzer(text).process()
+    print("\n▶ SMILEY STATISTICS".center(58))
+    print("-" * 60)
+    print(f"  Total valid smileys:                {smiley_result['smiley_count']}")
+    if smiley_result['smileys'][:5]:
+        print(f"  Examples:                          {', '.join(smiley_result['smileys'][:5])}")
 
-    if result['dates']:
-        print(f"\nDates:")
-        for date in result['dates']:
-            print(f"   • {date}")
-    else:
-        print("\n(no dates found)")
-
-    print()
+    print("\n" + "=" * 60 + "\n")
 
 
 def archive_results():
@@ -222,64 +219,52 @@ def archive_results():
     sentence_result = SentenceAnalyzer(text).process()
     word_result = WordAnalyzer(text).process()
     smiley_result = SmileyAnalyzer(text).process()
-    date_result = DateAnalyzer(text).process()
 
-    results = [
-        "=" * 70,
-        "TEXT ANALYSIS RESULTS (Variant 9)".center(70),
-        "=" * 70,
-        "",
-        "1. SENTENCE ANALYSIS",
-        "-" * 70,
-        f"   Total sentences:                           {sentence_result['total']}",
-        f"   Declarative sentences (.):                 {sentence_result['declarative']}",
-        f"   Interrogative sentences (?):               {sentence_result['interrogative']}",
-        f"   Imperative sentences (!):                  {sentence_result['imperative']}",
-        f"   Average sentence length (words):           {sentence_result['avg_sentence_length']} words",
-        f"   Average sentence length (characters):      {sentence_result['avg_sentence_chars']} chars",
-        "",
-        "2. WORD ANALYSIS",
-        "-" * 70,
-        f"   Total words:                               {word_result['word_count']}",
-        f"   Average word length:                       {word_result['avg_word_length']} characters",
-        f"   Total lowercase letters:                   {word_result['lowercase_count']}",
-        f"   Words (vowel ending, consonant penultimate): {len(word_result['words_vowel_ending_consonant_penultimate'])}",
-        f"   Last word with 'i':                        {word_result['last_word_with_i']} (position: {word_result['last_word_with_i_index']})",
-        f"   Total dates found (DD-MM-YYYY):            {date_result['date_count']}",
-        "",
-        "3. SMILEY ANALYSIS",
-        "-" * 70,
-        f"   Total valid smileys:                       {smiley_result['smiley_count']}",
-        "",
-    ]
-
-    if word_result['words_vowel_ending_consonant_penultimate']:
-        results.append("   Words (vowel ending, consonant penultimate):")
-        words_list = word_result['words_vowel_ending_consonant_penultimate']
-        results.append(f"      {', '.join(words_list[:20])}")
-        if len(words_list) > 20:
-            results.append(f"      ... and {len(words_list) - 20} more")
-        results.append("")
-
-    if date_result['dates']:
-        results.append("   Dates found:")
-        for date in date_result['dates']:
-            results.append(f"      • {date}")
-        results.append("")
-
-    if smiley_result['smileys']:
-        results.append("   Valid smileys found:")
-        for smiley in smiley_result['smileys']:
-            results.append(f"      • {smiley}")
-        results.append("")
-
-    results.append("4. TEXT WITHOUT WORDS STARTING WITH 'I'")
+    # Build results report
+    results = []
+    results.append("=" * 70)
+    results.append("TEXT ANALYSIS RESULTS (Variant 26)".center(70))
+    results.append("=" * 70)
+    results.append("")
+    results.append("1. SENTENCE ANALYSIS")
     results.append("-" * 70)
-    if word_result['text_without_i_words']:
-        results.append(f"   {word_result['text_without_i_words'][:300]}")
-    else:
-        results.append("   (no text after filtering)")
-
+    results.append(f"   Total sentences:                           {sentence_result['total']}")
+    results.append(f"   Declarative sentences (.):                 {sentence_result['declarative']}")
+    results.append(f"   Interrogative sentences (?):               {sentence_result['interrogative']}")
+    results.append(f"   Imperative sentences (!):                  {sentence_result['imperative']}")
+    results.append(f"   Average sentence length (characters):      {sentence_result['avg_sentence_chars']}")
+    results.append(f"   Average word length:                       {sentence_result['avg_word_length']}")
+    results.append("")
+    results.append("2. WORD ANALYSIS")
+    results.append("-" * 70)
+    results.append(f"   Total words:                               {word_result['word_count']}")
+    results.append(f"   Uppercase English letters found:           {', '.join(word_result['uppercase_letters']) if word_result['uppercase_letters'] else 'none'}")
+    results.append(f"   Uppercase letters total count:             {word_result['uppercase_count']}")
+    results.append("")
+    results.append("3. PATTERN REPLACEMENT")
+    results.append("-" * 70)
+    results.append(f"   Original text preview:")
+    results.append(f"      {text[:200]}...")
+    results.append(f"   After replacing 'р...рb...bc...c' with 'ddd':")
+    results.append(f"      {word_result['text_after_replacement'][:200]}...")
+    results.append("")
+    results.append("4. WORD STATISTICS")
+    results.append("-" * 70)
+    results.append(f"   Words with length < 5:                    {word_result['short_words_count']}")
+    if word_result['short_words']:
+        results.append(f"   Examples: {', '.join(word_result['short_words'][:15])}")
+    results.append(f"   Shortest word ending with 'd':            '{word_result['shortest_word_d']}'" if word_result['shortest_word_d'] else "   Shortest word ending with 'd':            none")
+    results.append("")
+    results.append("5. WORDS SORTED BY LENGTH (DESCENDING)")
+    results.append("-" * 70)
+    if word_result['words_by_length_desc']:
+        results.append(f"   First 20: {', '.join(word_result['words_by_length_desc'][:20])}")
+    results.append("")
+    results.append("6. SMILEY ANALYSIS")
+    results.append("-" * 70)
+    results.append(f"   Total valid smileys:                       {smiley_result['smiley_count']}")
+    if smiley_result['smileys']:
+        results.append(f"   Smileys found: {', '.join(smiley_result['smileys'][:15])}")
     results.append("")
     results.append("=" * 70)
     results.append("End of Analysis Report")
@@ -291,36 +276,13 @@ def archive_results():
     try:
         archive_info = archive_file(result_file)
         if archive_info:
-            print("✓ Archive created successfully")
+            print("\n✓ Archive created successfully")
             print(f"  Filename: {archive_info['filename']}")
             print(f"  Original size: {archive_info['size']} bytes")
             print(f"  Compressed size: {archive_info['compress_size']} bytes")
             print(f"  Compression ratio: {archive_info['compression_ratio']}%\n")
     except Exception as e:
         print(f"✗ Error archiving file: {e}\n")
-
-
-def show_all_results():
-    """Display all analysis results."""
-    text = get_text()
-    if text is None:
-        return
-
-    print("\n" + "=" * 60)
-    print("COMPLETE TEXT ANALYSIS (Variant 9)")
-    print("=" * 60)
-
-    print("\n" + "▶ " + "SENTENCE ANALYSIS".center(56))
-    analyze_sentences()
-
-    print("\n" + "▶ " + "WORD ANALYSIS".center(56))
-    analyze_words()
-
-    print("\n" + "▶ " + "DATE EXTRACTION".center(56))
-    extract_dates()
-
-    print("\n" + "▶ " + "SMILEY ANALYSIS".center(56))
-    analyze_smileys()
 
 
 def print_description():
@@ -339,27 +301,37 @@ def task2():
         display_menu()
 
         try:
-            choice = input_data("Choose an option: ", int, 0, 6)
+            choice = input("Choose an option (0-5): ").strip()
 
-            match choice:
-                case 1:
-                    analyze_sentences()
-                case 2:
-                    analyze_words()
-                case 3:
-                    analyze_smileys()
-                case 4:
-                    extract_dates()
-                case 5:
-                    archive_results()
-                case 6:
-                    show_all_results()
-                case 0:
-                    print("\n✓ Returning to main menu...\n")
-                    break
+            if not choice:
+                continue
 
+            choice = int(choice)
+
+            if choice == 0:
+                print("\n✓ Exiting program...\n")
+                break
+            elif choice == 1:
+                analyze_sentences()
+            elif choice == 2:
+                analyze_words()
+            elif choice == 3:
+                analyze_smileys()
+            elif choice == 4:
+                run_complete_analysis()
+            elif choice == 5:
+                archive_results()
+            else:
+                print("✗ Invalid choice. Please enter 0-5\n")
+
+        except ValueError:
+            print("✗ Please enter a valid number\n")
         except KeyboardInterrupt:
             print("\n\n✓ Program interrupted by user")
             break
         except Exception as e:
             print(f"✗ An error occurred: {e}")
+
+
+if __name__ == "__main__":
+    task2()

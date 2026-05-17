@@ -1,11 +1,9 @@
-Hello world! This is a sample text. Are you ready for analysis?
-The date 12-05-2007 marks an important event. Another date is 25-12-2020.
-Words like "write", "nature", "promise", "telephone" end with vowels.
-I like innovative ideas. The last word with 'i' should be identified.
-Invalid words like "inspiration" and "ice" start with 'i'.
-Check these smileys: :) :--( ;-] :---))))) :-[[[[ ;---------[[[[[[[[ :( ;) :)) ;-) :-] ;---)
-Some invalid patterns: ] ;-- : ) (these are not valid)
-Valid email: test@example.com
-The average sentence has multiple words and should be calculated correctly.
-This demonstrates the text analysis system! Do you understand it?
-Write more examples here. Nature is beautiful! Is it?
+Hello World! This is a sample text for variant 26. Are you ready for analysis?
+The pattern test: рррbbbccc should be replaced with ddd. Another test: рb c, pbc, p bc are invalid.
+Words ending with special letter: good, ad, bad, red, word, and.
+Short words: a, an, the, cat, dog, bird, car.
+Check these smileys: :) :--( ;-] :---))))) :-[[[[ ;---------[[[[[[[[ :( ;) :)) ;-) :-] ;---).
+Uppercase letters appear HERE and THERE in the TEXT.
+The shortest word ending with SL is 'red' in this sentence.
+This text contains many different words of varying lengths.
+Sort all words by length descending to see the longest first.
