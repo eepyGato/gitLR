@@ -3,8 +3,8 @@
 # Module: task5.py
 # Purpose: Main task logic for matrix operations
 # Version: 1.0
-# Developer: Student
-# Date of Development: 2026-05-17
+# Developer: Shcherbak Rodion
+# Date of Development: 2026-04-29
 # ---------------------------------------------------------
 
 from task5.matrix_creator import MatrixCreator, MatrixAnalyzer

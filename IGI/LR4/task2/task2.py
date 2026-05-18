@@ -3,8 +3,8 @@
 # Module: task2.py
 # Purpose: Main interface for text analysis system
 # Version: 1.0
-# Developer: Student
-# Date of Development: 2026-05-17
+# Developer: Developer: Shcherbak Rodion
+# Date of Development: 2026-04-29
 # ---------------------------------------------------------
 
 import os

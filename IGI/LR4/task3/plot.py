@@ -3,8 +3,8 @@
 # Module: plot.py
 # Purpose: Plotting utilities for series visualization
 # Version: 1.0
-# Developer: Vodnev Kirill
-# Date of Development: 2026-03-01
+# Developer: Developer: Shcherbak Rodion
+# Date of Development: 2026-04-29
 # ---------------------------------------------------------
 
 import os

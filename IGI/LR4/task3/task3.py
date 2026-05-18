@@ -3,8 +3,8 @@
 # Module: task3.py
 # Purpose: Calculate arccos(x) using series expansion
 # Version: 1.1 (IMPROVED)
-# Developer: Vodnev Kirill
-# Date of Development: 2026-03-01
+# Developer: Developer: Shcherbak Rodion
+# Date of Development: 2026-04-29
 # ---------------------------------------------------------
 
 from tabulate import tabulate

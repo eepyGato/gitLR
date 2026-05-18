@@ -2,8 +2,8 @@
 # Lab Work №4 - Task 6 (Variant 27 - Sberbank Housing)
 # Module: pandas_analyzer.py
 # Version: 1.0
-# Developer: Student
-# Date: 2026-05-17
+# Developer: Shcherbak Rodion
+# Date of Development: 2026-04-29
 # ---------------------------------------------------------
 
 import pandas as pd

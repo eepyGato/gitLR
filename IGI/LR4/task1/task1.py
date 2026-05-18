@@ -3,8 +3,8 @@
 # Module: task1.py
 # Purpose: Main interface for rational number management
 # Version: 1.0
-# Developer: Student
-# Date of Development: 2026-05-17
+# Developer: Shcherbak Rodion
+# Date of Development: 2026-04-29
 # ---------------------------------------------------------
 
 from task1.rational import RationalNumber

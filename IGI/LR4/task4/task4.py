@@ -3,8 +3,8 @@
 # Module: task4.py
 # Purpose: Main task logic for polygon construction
 # Version: 1.1
-# Developer: Vodnev Kirill
-# Date of Development: 2026-03-01
+# Developer: Shcherbak Rodion
+# Date of Development: 2026-04-29
 # ---------------------------------------------------------
 
 from task4.shapes import RegularPolygon, Rectangle

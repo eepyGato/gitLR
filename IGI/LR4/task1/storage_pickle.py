@@ -3,8 +3,8 @@
 # Module: storage_pickle.py
 # Purpose: Handle saving and loading rational numbers using pickle
 # Version: 1.0
-# Developer: Student
-# Date of Development: 2026-05-17
+# Developer: Shcherbak Rodion
+# Date of Development: 2026-04-29
 # ---------------------------------------------------------
 
 import os

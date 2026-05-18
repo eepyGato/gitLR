@@ -6,8 +6,8 @@
 #       collections, functions, modules, files, classes, serializers, regular expressions
 #       and reinforce them by developing interactive applications.
 # Version: 1.0
-# Developer: Vodnev Kirill
-# Date of Development: 2026-03-01
+# Developer: Shcherbak Rodion
+# Date of Development: 2026-04-29
 # ------------------------------------------------------------------------------------------
 
 from task1.task1 import task1

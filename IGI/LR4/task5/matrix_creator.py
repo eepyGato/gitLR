@@ -3,8 +3,8 @@
 # Module: matrix_creator.py
 # Purpose: Matrix creation and statistical operations
 # Version: 1.0
-# Developer: Student
-# Date of Development: 2026-05-17
+# Developer: Shcherbak Rodion
+# Date of Development: 2026-04-29
 # ---------------------------------------------------------
 
 import numpy as np

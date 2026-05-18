@@ -3,8 +3,8 @@
 # Module: rational.py
 # Purpose: Define rational number class for fraction storage
 # Version: 1.1 (Fixed - search doesn't add to list)
-# Developer: Student
-# Date of Development: 2026-05-17
+# Developer: Shcherbak Rodion
+# Date of Development: 2026-04-29
 # ---------------------------------------------------------
 
 

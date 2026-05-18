@@ -3,8 +3,8 @@
 # Module: storage_csv.py
 # Purpose: Handle saving and loading rational numbers from CSV files
 # Version: 1.0
-# Developer: Student
-# Date of Development: 2026-05-17
+# Developer: Shcherbak Rodion
+# Date of Development: 2026-04-29
 # ---------------------------------------------------------
 
 import csv
