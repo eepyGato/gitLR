@@ -1,0 +1,86 @@
+<!-- core/templates/core/about.html -->
+{% extends 'core/base.html' %}
+
+{% block title %}О компании - Страховая фирма{% endblock %}
+
+{% block content %}
+<h1>О БГУИРСтрахИнвест</h1>
+
+{% if company_info %}
+<div class="card">
+    <h2 class="card-title">{{ company_info.name }}</h2>
+    
+    {% if company_info.logo %}
+        <img src="{{ company_info.logo.url }}" alt="Логотип" style="max-width: 200px; margin-bottom: 1rem;">
+    {% endif %}
+    
+    <p><strong>Краткое описание:</strong> {{ company_info.short_description }}</p>
+    <p><strong>Полное описание:</strong> {{ company_info.full_description }}</p>
+    
+    <div style="margin-top: 1rem;">
+        <h3>📊 Основная информация</h3>
+        <ul>
+            <li>Год основания: {{ company_info.foundation_year }}</li>
+            <li>Генеральный директор: {{ company_info.ceo_name }}</li>
+            <li>Количество сотрудников: {{ company_info.employees_count }}</li>
+        </ul>
+    </div>
+    
+    <div style="margin-top: 1rem;">
+        <h3>📍 Реквизиты</h3>
+        <ul>
+            <li>Юридический адрес: {{ company_info.legal_address }}</li>
+            <li>Фактический адрес: {{ company_info.actual_address }}</li>
+            <li>ИНН: {{ company_info.inn }}</li>
+            <li>КПП: {{ company_info.kpp|default:"—" }}</li>
+            <li>ОГРН: {{ company_info.ogrn }}</li>
+        </ul>
+    </div>
+    
+    <div style="margin-top: 1rem;">
+        <h3>🏦 Банковские реквизиты</h3>
+        <ul>
+            <li>Банк: {{ company_info.bank_name }}</li>
+            <li>Расчётный счёт: {{ company_info.bank_account }}</li>
+            <li>БИК: {{ company_info.bik }}</li>
+        </ul>
+    </div>
+    
+    {% if company_info.video_url %}
+        <div style="margin-top: 1rem;">
+            <h3>📹 Видео о компании</h3>
+            <iframe width="560" height="315" src="{{ company_info.video_url }}" frameborder="0" allowfullscreen></iframe>
+        </div>
+    {% endif %}
+</div>
+
+<div class="card">
+    <h2 class="card-title">👥 Наши сотрудники</h2>
+    <div class="grid">
+        {% for staff in staff_members %}
+            <div style="text-align: center;">
+                {% if staff.photo %}
+                    <img src="{{ staff.photo.url }}" alt="{{ staff.full_name }}" 
+                         style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover;">
+                {% else %}
+                    <div style="width: 150px; height: 150px; border-radius: 50%; background: #ecf0f1; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                        👤
+                    </div>
+                {% endif %}
+                <h3>{{ staff.full_name }}</h3>
+                <p><strong>{{ staff.get_position_display }}</strong></p>
+                <p>{{ staff.department }}</p>
+                <p>📞 {{ staff.phone }}</p>
+                <p>✉️ {{ staff.email }}</p>
+            </div>
+        {% empty %}
+            <p>Информация о сотрудниках скоро появится</p>
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+    <div class="card">
+        <p>Информация о компании скоро появится</p>
+    </div>
+{% endif %}
+{% endblock %}

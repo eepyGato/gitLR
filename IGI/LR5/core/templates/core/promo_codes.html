@@ -1,0 +1,60 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Промокоды - Страховая фирма{% endblock %}
+
+{% block content %}
+<h1>Промокоды и купоны</h1>
+
+<!-- ФОРМА ДЛЯ ВВОДА ПРОМОКОДА -->
+<div class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+    <h2>🎫 Активировать промокод</h2>
+    <p>Введите код для получения скидки</p>
+    <form method="post" action="{% url 'core:apply_promo' %}" style="display: flex; gap: 10px; margin-top: 15px;">
+        {% csrf_token %}
+        <input type="text" name="promo_code" placeholder="Введите код промокода" 
+               style="flex: 1; padding: 12px; border: none; border-radius: 10px; font-size: 1rem;">
+        <button type="submit" style="background: #27ae60; color: white; border: none; padding: 12px 25px; border-radius: 10px; cursor: pointer;">
+            🔓 Активировать
+        </button>
+    </form>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" style="margin-top: 15px; background: rgba(255,255,255,0.2); border-radius: 10px; padding: 10px;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+<h2 style="margin-top: 2rem;">🎁 Активные промокоды</h2>
+<div class="grid">
+    {% for promo in active_promos %}
+        <div class="card" style="background: linear-gradient(135deg, #27ae60 0%, #229954 100%); color: white;">
+            <h2 class="card-title">🎫 {{ promo.code }}</h2>
+            <p style="font-size: 2rem; font-weight: bold;">-{{ promo.discount_percent }}%</p>
+            <p>{{ promo.description|default:"Скидка на страховые услуги" }}</p>
+            <p>✅ Действует до: {{ promo.valid_to|date:"d/m/Y H:i" }}</p>
+            <p>📊 Использовано: {{ promo.used_count }}/{{ promo.max_uses }}</p>
+        </div>
+    {% empty %}
+        <div class="card">
+            <p>Активных промокодов нет</p>
+        </div>
+    {% endfor %}
+</div>
+
+<h2 style="margin-top: 2rem;">📦 Архив промокодов</h2>
+<div class="grid">
+    {% for promo in expired_promos %}
+        <div class="card" style="opacity: 0.6;">
+            <h2 class="card-title">🎫 {{ promo.code }}</h2>
+            <p>-{{ promo.discount_percent }}%</p>
+            <p>❌ Истёк: {{ promo.valid_to|date:"d/m/Y H:i" }}</p>
+        </div>
+    {% empty %}
+        <div class="card">
+            <p>Архив пуст</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+<!-- core/templates/core/faq.html -->
+{% extends 'core/base.html' %}
+
+{% block title %}Часто задаваемые вопросы - Страховая фирма{% endblock %}
+
+{% block content %}
+<h1>Часто задаваемые вопросы</h1>
+
+<div>
+    {% for faq in faqs %}
+        <div class="card">
+            <h2 class="card-title">❓ {{ faq.question }}</h2>
+            <p><strong>Ответ:</strong> {{ faq.answer }}</p>
+            <small>📅 Добавлено: {{ faq.created_at|date:"d/m/Y" }}</small>
+        </div>
+    {% empty %}
+        <div class="card">
+            <p>Вопросов пока нет</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

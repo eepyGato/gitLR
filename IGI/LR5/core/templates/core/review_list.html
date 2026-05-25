@@ -1,0 +1,54 @@
+<!-- core/templates/core/review_list.html -->
+{% extends 'core/base.html' %}
+
+{% block title %}Отзывы - Страховая фирма{% endblock %}
+
+{% block content %}
+<h1>Отзывы наших клиентов</h1>
+
+<div class="card">
+    <div class="grid" style="grid-template-columns: repeat(4, 1fr);">
+        <div class="stat-card">
+            <div class="stat-number">{{ reviews|length }}</div>
+            <div class="stat-label">Всего отзывов</div>
+        </div>
+        {% if avg_rating %}
+            <div class="stat-card">
+                <div class="stat-number">{{ avg_rating|floatformat:1 }}</div>
+                <div class="stat-label">Средняя оценка</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ median_rating|floatformat:1 }}</div>
+                <div class="stat-label">Медиана оценок</div>
+            </div>
+            {% if mode_rating %}
+                <div class="stat-card">
+                    <div class="stat-number">{{ mode_rating|floatformat:0 }}</div>
+                    <div class="stat-label">Мода оценок</div>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+
+{% if user.is_authenticated %}
+    <a href="{% url 'core:review_create' %}" class="btn btn-primary" style="margin-bottom: 1rem;">✍️ Оставить отзыв</a>
+{% endif %}
+
+<div>
+    {% for review in reviews %}
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3>{{ review.client }}</h3>
+                <div>⭐ {{ review.rating }}/5</div>
+            </div>
+            <p style="margin: 1rem 0;">{{ review.text }}</p>
+            <small>📅 {{ review.created_at|date:"d/m/Y H:i" }}</small>
+        </div>
+    {% empty %}
+        <div class="card">
+            <p>Пока нет отзывов. Будьте первым!</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

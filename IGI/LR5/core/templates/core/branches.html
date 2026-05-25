@@ -1,0 +1,25 @@
+<!-- core/templates/core/branches.html -->
+{% extends 'core/base.html' %}
+
+{% block title %}Филиалы - Страховая фирма{% endblock %}
+
+{% block content %}
+<h1>Наши филиалы</h1>
+
+<div class="grid">
+    {% for branch in branches %}
+        <div class="card">
+            <h2 class="card-title">🏢 {{ branch.name }}</h2>
+            <p><strong>📍 Адрес:</strong> {{ branch.address }}</p>
+            <p><strong>📞 Телефон:</strong> {{ branch.phone }}</p>
+            <p><strong>📋 Количество договоров:</strong> {{ branch.contracts_count }}</p>
+            <p><strong>💰 Общая страховая сумма:</strong> {{ branch.total_insurance_sum|floatformat:2 }} руб.</p>
+            <p><strong>📅 Дата создания:</strong> {{ branch.created_at|date:"d/m/Y" }}</p>
+        </div>
+    {% empty %}
+        <div class="card">
+            <p>Информация о филиалах скоро появится</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

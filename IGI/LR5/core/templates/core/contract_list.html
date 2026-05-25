@@ -1,0 +1,88 @@
+<!-- core/templates/core/contract_list.html -->
+{% extends 'core/base.html' %}
+
+{% block title %}Договоры страхования - Страховая фирма{% endblock %}
+
+{% block content %}
+<h1>Договоры страхования</h1>
+
+<div class="card">
+    <h3>🔍 Поиск и фильтрация</h3>
+    <form method="get" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;">
+        {{ search_form.as_p }}
+        <div style="grid-column: 1/-1;">
+            <button type="submit" class="btn btn-primary">Поиск</button>
+            <a href="{% url 'core:contract_list' %}" class="btn">Сбросить</a>
+            <a href="{% url 'core:contract_create' %}" class="btn btn-success">➕ Новый договор</a>
+        </div>
+    </form>
+</div>
+
+<div style="margin-bottom: 1rem;">
+    <strong>Сортировка:</strong>
+    <a href="?sort=contract_number">По номеру</a> |
+    <a href="?sort=insurance_sum">По сумме</a> |
+    <a href="?sort=start_date">По дате</a> |
+    <a href="?sort=-created_at">По дате создания</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>№ договора</th>
+            <th>Клиент</th>
+            <th>Вид страхования</th>
+            <th>Страховая сумма</th>
+            <th>Статус</th>
+            <th>Дата начала</th>
+            <th>Дата окончания</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for contract in contracts %}
+            <tr>
+                <td>{{ contract.contract_number }}</td>
+                <td>{{ contract.client }}</td>
+                <td>{{ contract.insurance_type.name }}</td>
+                <td>{{ contract.insurance_sum|floatformat:2 }} руб.</td>
+                <td>
+                    {% if contract.status == 'active' %}
+                        ✅ Активен
+                    {% elif contract.status == 'expired' %}
+                        ⏰ Истёк
+                    {% else %}
+                        ❌ Расторгнут
+                    {% endif %}
+                </td>
+                <td>{{ contract.start_date|date:"d/m/Y" }}</td>
+                <td>{{ contract.end_date|date:"d/m/Y" }}</td>
+                <td>
+                    <a href="{% url 'core:contract_detail' contract.pk %}" class="btn">👁️</a>
+                    <a href="{% url 'core:contract_update' contract.pk %}" class="btn">✏️</a>
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="8" style="text-align: center;">Договоров не найдено</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if contracts.has_other_pages %}
+    <div style="margin-top: 1rem; text-align: center;">
+        {% if contracts.has_previous %}
+            <a href="?page=1{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}" class="btn">« Первая</a>
+            <a href="?page={{ contracts.previous_page_number }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}" class="btn">‹ Предыдущая</a>
+        {% endif %}
+        
+        <span>Страница {{ contracts.number }} из {{ contracts.paginator.num_pages }}</span>
+        
+        {% if contracts.has_next %}
+            <a href="?page={{ contracts.next_page_number }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}" class="btn">Следующая ›</a>
+            <a href="?page={{ contracts.paginator.num_pages }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}" class="btn">Последняя »</a>
+        {% endif %}
+    </div>
+{% endif %}
+{% endblock %}

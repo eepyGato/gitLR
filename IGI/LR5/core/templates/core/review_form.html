@@ -1,0 +1,271 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Оставить отзыв - Страховая фирма{% endblock %}
+
+{% block extra_css %}
+<style>
+    .review-container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .review-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+    }
+    
+    .review-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    
+    .review-header .icon {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+    }
+    
+    .review-header h1 {
+        color: #2c3e50;
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .review-header p {
+        color: #7f8c8d;
+    }
+    
+    .client-info {
+        background: #f0f9f0;
+        padding: 15px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    
+    .client-info strong {
+        color: #27ae60;
+        font-size: 1.1rem;
+    }
+    
+    .rating-stars {
+        margin-bottom: 20px;
+    }
+    
+    .rating-stars label {
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 10px;
+        display: block;
+    }
+    
+    .stars {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+    
+    .stars input {
+        display: none;
+    }
+    
+    .stars label {
+        font-size: 2rem;
+        cursor: pointer;
+        color: #ddd;
+        transition: all 0.3s;
+        margin: 0;
+    }
+    
+    .stars label:hover,
+    .stars label:hover ~ label,
+    .stars input:checked ~ label {
+        color: #f1c40f;
+    }
+    
+    .stars {
+        direction: rtl;
+        display: flex;
+        justify-content: flex-start;
+        gap: 5px;
+    }
+    
+    .stars label {
+        direction: ltr;
+        display: inline-block;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-group label {
+        display: block;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 8px;
+    }
+    
+    .form-group textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 12px;
+        font-size: 1rem;
+        resize: vertical;
+        min-height: 120px;
+        font-family: inherit;
+    }
+    
+    .form-group textarea:focus {
+        outline: none;
+        border-color: #3498db;
+        box-shadow: 0 0 0 3px rgba(52,152,219,0.1);
+    }
+    
+    .errorlist {
+        color: #e74c3c;
+        font-size: 0.85rem;
+        margin-top: 5px;
+        list-style: none;
+        padding-left: 0;
+    }
+    
+    .btn-submit {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    
+    .btn-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(39,174,96,0.4);
+    }
+    
+    .btn-cancel {
+        width: 100%;
+        padding: 12px;
+        background: #95a5a6;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 1rem;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        display: block;
+        margin-top: 10px;
+    }
+    
+    .btn-cancel:hover {
+        background: #7f8c8d;
+    }
+    
+    .help-text {
+        font-size: 0.8rem;
+        color: #7f8c8d;
+        margin-top: 5px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="review-container">
+    <div class="review-card">
+        <div class="review-header">
+            <div class="icon">⭐</div>
+            <h1>Оставить отзыв</h1>
+            <p>Поделитесь своим мнением о нашей работе</p>
+        </div>
+        
+        <div class="client-info">
+            👤 Отзыв оставляет: <strong>{{ client.full_name }}</strong>
+        </div>
+        
+        <form method="post">
+            {% csrf_token %}
+
+            {% if is_admin %}
+                <div class="form-group">
+                    <label for="client_id">👥 Выберите клиента *</label>
+                    <select name="client_id" id="client_id" class="form-control" required>
+                        <option value="">-- Выберите клиента --</option>
+                        {% for c in clients %}
+                            <option value="{{ c.id }}">{{ c.last_name }} {{ c.first_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            {% elif client %}
+                <div class="client-info">
+                    👤 Отзыв оставляет: <strong>{{ client.last_name }} {{ client.first_name }}</strong>
+                </div>
+            {% endif %}
+            
+            <div class="rating-stars">
+                <label>Ваша оценка *</label>
+                <div class="stars">
+                    <input type="radio" name="rating" id="star5" value="5" required>
+                    <label for="star5">★</label>
+                    <input type="radio" name="rating" id="star4" value="4">
+                    <label for="star4">★</label>
+                    <input type="radio" name="rating" id="star3" value="3">
+                    <label for="star3">★</label>
+                    <input type="radio" name="rating" id="star2" value="2">
+                    <label for="star2">★</label>
+                    <input type="radio" name="rating" id="star1" value="1">
+                    <label for="star1">★</label>
+                </div>
+                {% if form.rating.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.rating.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="id_text">📝 Текст отзыва *</label>
+                {{ form.text }}
+                <div class="help-text">Расскажите о вашем опыте сотрудничества с нашей компанией</div>
+                {% if form.text.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.text.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            
+            <button type="submit" class="btn-submit">✉️ Отправить отзыв</button>
+            <a href="{% url 'core:review_list' %}" class="btn-cancel">↩️ Вернуться к отзывам</a>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Подсветка звёзд
+    const stars = document.querySelectorAll('.stars input');
+    stars.forEach(star => {
+        star.addEventListener('change', function() {
+            const value = this.value;
+            const labels = document.querySelectorAll('.stars label');
+            labels.forEach((label, index) => {
+                if (index < 5 - value) {
+                    label.style.color = '#ddd';
+                } else {
+                    label.style.color = '#f1c40f';
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

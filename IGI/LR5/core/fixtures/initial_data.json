@@ -1,0 +1,74 @@
+[
+  {
+    "model": "core.branch",
+    "pk": 1,
+    "fields": {
+      "name": "Центральный офис",
+      "address": "г. Минск, ул. Ленина, 1",
+      "phone": "+375 (29) 111-11-11"
+    }
+  },
+  {
+    "model": "core.branch",
+    "pk": 2,
+    "fields": {
+      "name": "Филиал на Немиге",
+      "address": "г. Минск, ул. Немига, 10",
+      "phone": "+375 (29) 222-22-22"
+    }
+  },
+  {
+    "model": "core.branch",
+    "pk": 3,
+    "fields": {
+      "name": "Филиал на Победителей",
+      "address": "г. Минск, пр. Победителей, 100",
+      "phone": "+375 (29) 333-33-33"
+    }
+  },
+  {
+    "model": "core.insurancetype",
+    "pk": 1,
+    "fields": {
+      "name": "Страхование автомобиля",
+      "commission_percent": 10.00,
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.insurancetype",
+    "pk": 2,
+    "fields": {
+      "name": "Страхование имущества",
+      "commission_percent": 12.00,
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.insurancetype",
+    "pk": 3,
+    "fields": {
+      "name": "Медицинское страхование",
+      "commission_percent": 8.00,
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.insurancetype",
+    "pk": 4,
+    "fields": {
+      "name": "Страхование жизни",
+      "commission_percent": 15.00,
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.insurancetype",
+    "pk": 5,
+    "fields": {
+      "name": "Страхование путешествий",
+      "commission_percent": 7.00,
+      "is_active": true
+    }
+  }
+]

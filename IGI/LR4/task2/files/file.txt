@@ -1,0 +1,9 @@
+Hello World! This is a sample text for variant 26. Are you ready for analysis?
+The pattern test: рррbbbccc should be replaced with ddd. Another test: рb c, pbc, p bc are invalid.
+Words ending with special letter: good, ad, bad, red, word, and.
+Short words: a, an, the, cat, dog, bird, car.
+Check these smileys: :) :--( ;-] :---))))) :-[[[[ ;---------[[[[[[[[ :( ;) :)) ;-) :-] ;---).
+Uppercase letters appear HERE and THERE in the TEXT.
+The shortest word ending with SL is 'red' in this sentence.
+This text contains many different words of varying lengths.
+Sort all words by length descending to see the longest first.

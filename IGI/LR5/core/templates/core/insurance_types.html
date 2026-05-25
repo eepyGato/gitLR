@@ -1,0 +1,23 @@
+<!-- core/templates/core/insurance_types.html -->
+{% extends 'core/base.html' %}
+
+{% block title %}Виды страхования - Страховая фирма{% endblock %}
+
+{% block content %}
+<h1>Виды страхования</h1>
+
+<div class="grid">
+    {% for ins_type in insurance_types %}
+        <div class="card">
+            <h2 class="card-title">🛡️ {{ ins_type.name }}</h2>
+            <p>{{ ins_type.description|default:"Описание временно отсутствует" }}</p>
+            <p><strong>💰 Комиссия агента:</strong> {{ ins_type.commission_percent }}%</p>
+            <p><strong>📋 Количество договоров:</strong> {{ ins_type.contracts_count }}</p>
+        </div>
+    {% empty %}
+        <div class="card">
+            <p>Информация о видах страхования скоро появится</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

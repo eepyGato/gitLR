@@ -1,0 +1,92 @@
+======================================================================
+
+                  TEXT ANALYSIS RESULTS (Variant 26)                  
+
+======================================================================
+
+
+
+1. SENTENCE ANALYSIS
+
+----------------------------------------------------------------------
+
+   Total sentences:                           12
+
+   Declarative sentences (.):                 10
+
+   Interrogative sentences (?):               1
+
+   Imperative sentences (!):                  1
+
+   Average sentence length (characters):      34.92
+
+   Average word length:                       4.36
+
+
+
+2. WORD ANALYSIS
+
+----------------------------------------------------------------------
+
+   Total words:                               96
+
+   Uppercase English letters found:           A, C, E, H, L, R, S, T, U, W, X
+
+   Uppercase letters total count:             28
+
+
+
+3. PATTERN REPLACEMENT
+
+----------------------------------------------------------------------
+
+   Original text preview:
+
+      Hello World! This is a sample text for variant 26. Are you ready for analysis?
+The pattern test: рррbbbccc should be replaced with ddd. Another test: рb c, pbc, p bc are invalid.
+Words ending with spe...
+
+   After replacing 'р...рb...bc...c' with 'ddd':
+
+      Hello World! This is a sample text for variant 26. Are you ready for analysis?
+The pattern test: ddd should be replaced with ddd. Another test: рb c, pbc, p bc are invalid.
+Words ending with special l...
+
+
+
+4. WORD STATISTICS
+
+----------------------------------------------------------------------
+
+   Words with length < 5:                    58
+
+   Examples: This, is, a, text, for, 26, Are, you, for, The, test, be, with, ddd, test
+
+   Shortest word ending with 'd':            'ad'
+
+
+
+5. WORDS SORTED BY LENGTH (DESCENDING)
+
+----------------------------------------------------------------------
+
+   First 20: descending, рррbbbccc, Uppercase, different, analysis, replaced, shortest, sentence, contains, variant, pattern, Another, invalid, special, smileys, letters, varying, lengths, longest, sample
+
+
+
+6. SMILEY ANALYSIS
+
+----------------------------------------------------------------------
+
+   Total valid smileys:                       12
+
+   Smileys found: :), :--(, ;-], :---))))), :-[[[[, ;---------[[[[[[[[, :(, ;), :)), ;-), :-], ;---)
+
+
+
+======================================================================
+
+End of Analysis Report
+
+======================================================================
+
