@@ -3186,3 +3186,183 @@ INFO 2026-05-25 10:34:42,318 log 2336 19824 "GET /media/staff/Tom_the_Cat.webp H
 INFO 2026-05-25 10:34:46,872 views 2336 19824 Home page accessed by user1
 INFO 2026-05-25 10:34:46,954 log 2336 19824 "GET / HTTP/1.1" 200 15201
 INFO 2026-05-25 10:35:24,294 autoreload 19048 6072 Watching for file changes with StatReloader
+INFO 2026-05-25 10:35:28,770 views 19048 6944 Home page accessed by user1
+INFO 2026-05-25 10:35:28,842 log 19048 6944 "GET / HTTP/1.1" 200 15201
+INFO 2026-05-25 10:35:32,469 views 19048 6944 Home page accessed by user1
+INFO 2026-05-25 10:35:32,483 log 19048 6944 "GET / HTTP/1.1" 200 15201
+INFO 2026-05-25 10:35:37,152 log 19048 6944 "GET /admin/core/news/add/ HTTP/1.1" 302 0
+INFO 2026-05-25 10:35:37,346 log 19048 6944 "GET /admin/login/?next=/admin/core/news/add/ HTTP/1.1" 200 3883
+INFO 2026-05-25 10:35:45,961 log 19048 6944 "POST /admin/login/?next=/admin/core/news/add/ HTTP/1.1" 302 0
+INFO 2026-05-25 10:35:46,811 log 19048 6944 "GET /admin/core/news/add/ HTTP/1.1" 200 18124
+INFO 2026-05-25 10:35:47,064 log 19048 6944 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-05-25 10:36:22,363 log 19048 6944 "POST /admin/core/news/add/ HTTP/1.1" 302 0
+INFO 2026-05-25 10:36:22,551 log 19048 6944 "GET /admin/core/news/ HTTP/1.1" 200 32538
+INFO 2026-05-25 10:36:22,697 log 19048 6944 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-05-25 10:36:30,323 views 19048 6944 Home page accessed by admin
+INFO 2026-05-25 10:36:30,333 log 19048 6944 "GET / HTTP/1.1" 200 15199
+INFO 2026-05-25 10:36:32,573 views 19048 6944 Home page accessed by admin
+INFO 2026-05-25 10:36:32,587 log 19048 6944 "GET / HTTP/1.1" 200 15199
+INFO 2026-05-25 10:36:36,782 views 19048 20080 Home page accessed by admin
+INFO 2026-05-25 10:36:36,792 log 19048 20080 "GET / HTTP/1.1" 200 15199
+INFO 2026-05-25 10:36:42,631 log 19048 20080 "GET /news/ HTTP/1.1" 200 24255
+INFO 2026-05-25 10:36:42,974 log 19048 20080 "GET /media/news/Capture001.png HTTP/1.1" 200 982268
+INFO 2026-05-25 10:39:02,580 views 19048 15232 Home page accessed by admin
+INFO 2026-05-25 10:39:02,613 log 19048 15232 "GET / HTTP/1.1" 200 15240
+INFO 2026-05-25 10:39:28,913 log 19048 15232 "GET /news/ HTTP/1.1" 200 24255
+INFO 2026-05-25 10:39:29,121 log 19048 15232 "GET /media/news/Capture001.png HTTP/1.1" 304 0
+INFO 2026-05-25 10:39:32,882 log 19048 15232 "GET /news/ HTTP/1.1" 200 24255
+INFO 2026-05-25 10:41:09,836 autoreload 19048 6072 W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py changed, reloading.
+INFO 2026-05-25 10:41:11,292 autoreload 16016 12116 Watching for file changes with StatReloader
+INFO 2026-05-25 10:41:15,844 views 16016 11052 Home page accessed by admin
+INFO 2026-05-25 10:41:15,903 log 16016 11052 "GET / HTTP/1.1" 200 20965
+INFO 2026-05-25 10:41:16,123 log 16016 11052 "GET /media/news/Capture001.png HTTP/1.1" 304 0
+INFO 2026-05-25 10:41:26,189 log 16016 11052 "GET /admin/core/news/ HTTP/1.1" 200 32305
+INFO 2026-05-25 10:41:26,374 log 16016 11052 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-05-25 10:41:28,342 log 16016 11052 "GET /admin/core/news/19/change/ HTTP/1.1" 200 18787
+INFO 2026-05-25 10:41:28,481 log 16016 11052 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-05-25 10:41:40,916 log 16016 11052 "POST /admin/core/news/19/change/ HTTP/1.1" 302 0
+INFO 2026-05-25 10:41:41,047 log 16016 11052 "GET /admin/core/news/ HTTP/1.1" 200 32591
+INFO 2026-05-25 10:41:41,220 log 16016 11052 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-05-25 10:41:49,103 views 16016 11052 Home page accessed by admin
+INFO 2026-05-25 10:41:49,120 log 16016 11052 "GET / HTTP/1.1" 200 20999
+INFO 2026-05-25 10:41:49,301 log 16016 11052 "GET /media/news/Capture001.png HTTP/1.1" 304 0
+INFO 2026-05-25 10:41:58,318 log 16016 11052 "GET /statistics/ HTTP/1.1" 200 220790
+INFO 2026-05-25 10:43:12,183 log 16016 11052 "GET /statistics/ HTTP/1.1" 200 220824
+INFO 2026-05-25 10:43:14,208 log 16016 11052 "GET /promo-codes/ HTTP/1.1" 200 13736
+INFO 2026-05-25 10:43:16,092 log 16016 11052 "POST /logout/ HTTP/1.1" 302 0
+INFO 2026-05-25 10:43:16,274 views 16016 11052 Home page accessed by Anonymous
+INFO 2026-05-25 10:43:16,290 log 16016 11052 "GET / HTTP/1.1" 200 20544
+INFO 2026-05-25 10:43:16,430 log 16016 11052 "GET /media/news/Capture001.png HTTP/1.1" 304 0
+INFO 2026-05-25 10:43:37,199 log 16016 11052 "GET /privacy-policy/ HTTP/1.1" 200 11465
+INFO 2026-05-25 10:43:38,462 log 16016 11052 "GET /promo-codes/ HTTP/1.1" 200 13247
+INFO 2026-05-25 10:43:48,196 log 16016 11052 "GET /admin/core/promocode/ HTTP/1.1" 302 0
+INFO 2026-05-25 10:43:48,315 log 16016 11052 "GET /admin/login/?next=/admin/core/promocode/ HTTP/1.1" 200 4315
+INFO 2026-05-25 10:43:53,926 log 16016 11052 "POST /admin/login/?next=/admin/core/promocode/ HTTP/1.1" 302 0
+INFO 2026-05-25 10:43:54,121 log 16016 11052 "GET /admin/core/promocode/ HTTP/1.1" 200 24547
+INFO 2026-05-25 10:43:54,311 log 16016 11052 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-05-25 10:44:12,372 log 16016 11052 "POST /admin/core/promocode/ HTTP/1.1" 302 0
+INFO 2026-05-25 10:44:12,476 log 16016 11052 "GET /admin/core/promocode/ HTTP/1.1" 200 24699
+INFO 2026-05-25 10:44:12,627 log 16016 11052 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-05-25 10:44:16,422 log 16016 11052 "GET /promo-codes/ HTTP/1.1" 200 13162
+INFO 2026-05-25 10:47:47,495 views 16016 11052 Home page accessed by admin
+INFO 2026-05-25 10:47:47,510 log 16016 11052 "GET / HTTP/1.1" 200 21033
+INFO 2026-05-25 10:47:47,719 log 16016 11052 "GET /media/news/Capture001.png HTTP/1.1" 304 0
+INFO 2026-05-25 10:47:49,722 log 16016 11052 "POST /logout/ HTTP/1.1" 302 0
+INFO 2026-05-25 10:47:49,935 views 16016 11052 Home page accessed by Anonymous
+INFO 2026-05-25 10:47:49,948 log 16016 11052 "GET / HTTP/1.1" 200 20544
+INFO 2026-05-25 10:47:51,976 views 16016 11052 Home page accessed by Anonymous
+INFO 2026-05-25 10:47:51,990 log 16016 11052 "GET / HTTP/1.1" 200 20544
+INFO 2026-05-25 10:48:04,600 log 16016 11052 "GET /contracts/ HTTP/1.1" 302 0
+INFO 2026-05-25 10:48:05,227 log 16016 11052 "GET /login/ HTTP/1.1" 200 14165
+INFO 2026-05-25 10:48:07,362 views 16016 11052 Home page accessed by Anonymous
+INFO 2026-05-25 10:48:07,378 log 16016 11052 "GET / HTTP/1.1" 200 20544
+INFO 2026-05-25 10:53:24,354 log 16016 16340 "GET /news/ HTTP/1.1" 200 19670
+INFO 2026-05-25 10:53:24,482 log 16016 16340 "GET /media/news/Capture001.png HTTP/1.1" 304 0
+INFO 2026-05-25 10:53:30,587 log 16016 16340 "GET /login/ HTTP/1.1" 200 14165
+INFO 2026-05-25 10:53:34,347 log 16016 16340 "GET /login/ HTTP/1.1" 200 14165
+INFO 2026-05-25 10:53:42,326 log 16016 16340 "POST /login/ HTTP/1.1" 302 0
+INFO 2026-05-25 10:53:42,798 views 16016 16340 Home page accessed by admin
+INFO 2026-05-25 10:53:42,826 log 16016 16340 "GET / HTTP/1.1" 200 21033
+INFO 2026-05-25 10:53:45,655 log 16016 16340 "GET /statistics/ HTTP/1.1" 200 220824
+INFO 2026-05-25 10:55:35,763 log 16016 16340 "GET /reviews/ HTTP/1.1" 200 17251
+INFO 2026-05-25 10:55:41,856 log 16016 16340 "GET /reviews/ HTTP/1.1" 200 17251
+INFO 2026-05-25 10:56:12,898 basehttp 16016 16340 - Broken pipe from ('127.0.0.1', 51887)
+INFO 2026-05-25 10:56:14,647 log 16016 16012 "GET /reviews/create/ HTTP/1.1" 200 19672
+INFO 2026-05-25 10:56:14,654 basehttp 16016 15520 - Broken pipe from ('127.0.0.1', 51978)
+INFO 2026-05-25 10:56:14,737 basehttp 16016 18740 - Broken pipe from ('127.0.0.1', 51980)
+INFO 2026-05-25 10:56:41,493 log 16016 16012 "POST /reviews/create/ HTTP/1.1" 200 20328
+ERROR 2026-05-25 10:57:01,010 log 16016 16012 Internal Server Error: /reviews/create/
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: core_review.client_id
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 574, in review_create
+    review.save()
+    ~~~~~~~~~~~^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\base.py", line 874, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\base.py", line 966, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\base.py", line 1167, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, insert_fields, returning_fields, raw
+    )
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\base.py", line 1218, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\query.py", line 1918, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\sql\compiler.py", line 1925, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: UNIQUE constraint failed: core_review.client_id
+ERROR 2026-05-25 10:57:01,021 log 16016 16012 "POST /reviews/create/ HTTP/1.1" 500 164275
+INFO 2026-05-25 10:58:43,225 log 16016 16012 "GET /reviews/create/ HTTP/1.1" 200 19672
+INFO 2026-05-25 10:58:45,186 views 16016 16012 Home page accessed by admin
+INFO 2026-05-25 10:58:45,199 log 16016 16012 "GET / HTTP/1.1" 200 21033
+INFO 2026-05-25 10:58:45,328 log 16016 16012 "GET /media/news/Capture001.png HTTP/1.1" 304 0
+INFO 2026-05-25 10:58:49,277 log 16016 16012 "GET /about/ HTTP/1.1" 200 15759
+INFO 2026-05-25 10:58:49,463 log 16016 16012 "GET /media/logos/images111.png HTTP/1.1" 304 0
+INFO 2026-05-25 10:58:49,604 log 16016 16012 "GET /media/staff/Tom_the_Cat.webp HTTP/1.1" 304 0
+INFO 2026-05-25 10:58:52,412 log 16016 15416 "GET /reviews/ HTTP/1.1" 200 17251
+INFO 2026-05-25 10:58:53,936 log 16016 15416 "GET /reviews/create/ HTTP/1.1" 200 19672

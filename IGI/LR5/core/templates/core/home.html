@@ -34,6 +34,10 @@
                     <div style="display: flex; gap: 1rem; align-items: flex-start;">
                         {% if news.image %}
                             <img src="{{ news.image.url }}" alt="{{ news.title }}" style="width: 100px; height: 100px; object-fit: cover; border-radius: 10px;">
+                        {% else %}
+                            <div style="width: 100px; height: 100px; background: #ecf0f1; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                📰
+                            </div>
                         {% endif %}
                         <div style="flex: 1;">
                             <h3 style="margin: 0 0 0.5rem 0;">
@@ -42,14 +46,18 @@
                                 </a>
                             </h3>
                             <p style="color: #7f8c8d; margin-bottom: 0.5rem;">{{ news.short_description }}</p>
-                            <small style="color: #95a5a6;">📅 {{ news.created_at|date:"d/m/Y" }}</small>
+                            <small style="color: #95a5a6;">📅 {{ news.created_at|date:"d/m/Y H:i" }}</small>
                         </div>
                     </div>
                 </div>
             {% endfor %}
         </div>
     {% else %}
-        <p style="color: #7f8c8d;">Новостей пока нет. <a href="{% url 'admin:core_news_add' %}">Добавить первую новость</a></p>
+        <p style="color: #7f8c8d;">Новостей пока нет. 
+           {% if user.is_superuser %}
+               <a href="{% url 'core:news_create' %}">Добавить первую новость</a>
+           {% endif %}
+        </p>
     {% endif %}
 </div>
 

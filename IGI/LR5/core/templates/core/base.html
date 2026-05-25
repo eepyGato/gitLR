@@ -369,7 +369,9 @@
                 <li><a href="{% url 'core:review_list' %}">Отзывы</a></li>
                 <li><a href="{% url 'core:promo_codes' %}">Промокоды</a></li>
                 <li><a href="{% url 'core:privacy_policy' %}">Политика</a></li>
+                {% if user.is_superuser %}
                 <li><a href="{% url 'core:statistics' %}">Статистика</a></li>
+                {% endif %}
             </ul>
         </div>
     </nav>

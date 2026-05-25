@@ -39,6 +39,8 @@ from datetime import datetime, timedelta
 from django.db.models import Sum, Count
 import numpy as np
 
+# ========== Graphs functions ==========
+
 def generate_contracts_chart():
     """Генерирует график количества договоров по видам страхования"""
     
@@ -238,8 +240,12 @@ def home(request):
     
     # Get current time in user's timezone
     current_time = timezone.now()
+
+    # For getting news
+    latest_news = News.objects.filter(is_published=True).order_by('-created_at')[:5]
     
     context = {
+        'latest_news': latest_news,
         'latest_reviews': latest_reviews,
         'latest_vacancies': latest_vacancies,
         'latest_faqs': latest_faqs,
@@ -527,80 +533,37 @@ def contract_delete(request, pk):
 
 def review_list(request):
     """List of reviews"""
-    reviews = Review.objects.filter(is_published=True)
+    reviews = Review.objects.filter(is_published=True).order_by('-created_at')
     
-    # Statistics
+    # Статистика
     if reviews.exists():
         ratings = [r.rating for r in reviews]
-        avg_rating = mean(ratings)
-        median_rating = median(ratings)
-        try:
-            mode_rating = mode(ratings)
-        except:
-            mode_rating = None
+        avg_rating = sum(ratings) / len(ratings)
+        median_rating = sorted(ratings)[len(ratings)//2]
     else:
-        avg_rating = median_rating = mode_rating = None
+        avg_rating = median_rating = None
     
     context = {
         'reviews': reviews,
-        'avg_rating': avg_rating,
+        'avg_rating': round(avg_rating, 1) if avg_rating else None,
         'median_rating': median_rating,
-        'mode_rating': mode_rating,
     }
     return render(request, 'core/review_list.html', context)
 
 
 @login_required
 def review_create(request):
-    """Create new review (only one per client)"""
-    if not request.user.is_authenticated:
-        messages.error(request, 'Пожалуйста, войдите в систему чтобы оставить отзыв')
-        return redirect('login')
+    """Create new review - for regular users"""
     
-    # Для админа - показываем форму выбора клиента
-    if request.user.is_superuser:
-        if request.method == 'POST':
-            form = ReviewForm(request.POST)
-            if form.is_valid():
-                review = form.save(commit=False)
-                client_id = request.POST.get('client_id')
-                if client_id:
-                    try:
-                        review.client = Client.objects.get(id=client_id)
-                        review.save()
-                        messages.success(request, 'Отзыв успешно создан!')
-                        return redirect('core:review_list')
-                    except Client.DoesNotExist:
-                        messages.error(request, 'Клиент не найден')
-                else:
-                    messages.error(request, 'Выберите клиента')
-            else:
-                for field, errors in form.errors.items():
-                    for error in errors:
-                        messages.error(request, f'{error}')
-        else:
-            form = ReviewForm()
-        
-        # Получаем список клиентов для выбора
-        clients = Client.objects.all()
-        
-        context = {
-            'form': form,
-            'clients': clients,
-            'is_admin': True,
-            'is_edit': False,
-        }
-        return render(request, 'core/review_form.html', context)
-    
-    # Для обычного пользователя (как было раньше)
+    # Получаем клиента
     try:
         client = Client.objects.get(user=request.user)
     except Client.DoesNotExist:
         messages.error(request, 'Только клиенты могут оставлять отзывы')
-        return redirect('core:home')
+        return redirect('home')
     
+    # Проверяем, есть ли уже отзыв у этого клиента
     existing_review = Review.objects.filter(client=client).first()
-    
     if existing_review:
         return redirect('core:review_update', pk=existing_review.pk)
     
@@ -612,10 +575,6 @@ def review_create(request):
             review.save()
             messages.success(request, 'Спасибо за ваш отзыв!')
             return redirect('core:review_list')
-        else:
-            for field, errors in form.errors.items():
-                for error in errors:
-                    messages.error(request, f'{error}')
     else:
         form = ReviewForm()
     
@@ -627,12 +586,10 @@ def review_create(request):
     }
     return render(request, 'core/review_form.html', context)
 
+
 @login_required
 def review_update(request, pk):
     """Edit existing review"""
-    if not request.user.is_authenticated:
-        return redirect('login')
-    
     review = get_object_or_404(Review, pk=pk)
     
     # Проверка прав
@@ -652,10 +609,6 @@ def review_update(request, pk):
             form.save()
             messages.success(request, 'Отзыв успешно обновлён!')
             return redirect('core:review_list')
-        else:
-            for field, errors in form.errors.items():
-                for error in errors:
-                    messages.error(request, f'{error}')
     else:
         form = ReviewForm(instance=review)
     
@@ -663,25 +616,87 @@ def review_update(request, pk):
         'form': form,
         'review': review,
         'is_edit': True,
+        'is_admin': request.user.is_superuser,
     }
     return render(request, 'core/review_form.html', context)
 
+
 @login_required
-def review_delete(request, pk):
-    """Delete review (admin only)"""
-    if not request.user.is_superuser:
-        messages.error(request, 'У вас нет прав для удаления отзывов')
-        return redirect('core:review_list')
+@user_passes_test(lambda u: u.is_superuser)
+def review_create_for_client(request, client_id=None):
+    """Admin: create review for any client"""
     
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            client_id = request.POST.get('client_id')
+            if client_id:
+                try:
+                    review.client = Client.objects.get(id=client_id)
+                    review.save()
+                    messages.success(request, f'Отзыв для клиента {review.client} успешно создан!')
+                    return redirect('core:review_list')
+                except Client.DoesNotExist:
+                    messages.error(request, 'Клиент не найден')
+            else:
+                messages.error(request, 'Выберите клиента')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f'{error}')
+    else:
+        form = ReviewForm()
+    
+    clients = Client.objects.all().order_by('last_name', 'first_name')
+    
+    context = {
+        'form': form,
+        'clients': clients,
+        'is_admin': True,
+        'is_edit': False,
+    }
+    return render(request, 'core/review_form.html', context)
+
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def review_admin_edit(request, pk):
+    """Admin: edit any review"""
     review = get_object_or_404(Review, pk=pk)
     
     if request.method == 'POST':
+        form = ReviewForm(request.POST, instance=review)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Отзыв от {review.client} успешно обновлён!')
+            return redirect('core:review_list')
+    else:
+        form = ReviewForm(instance=review)
+    
+    context = {
+        'form': form,
+        'review': review,
+        'is_admin': True,
+        'is_edit': True,
+    }
+    return render(request, 'core/review_form.html', context)
+
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def review_delete(request, pk):
+    """Admin: delete any review"""
+    review = get_object_or_404(Review, pk=pk)
+    
+    if request.method == 'POST':
+        client_name = str(review.client)
         review.delete()
-        messages.success(request, 'Отзыв удалён')
+        messages.success(request, f'Отзыв от {client_name} удалён!')
         return redirect('core:review_list')
     
-    return render(request, 'core/review_confirm_delete.html', {'review': review})
-
+    context = {'review': review}
+    return render(request, 'core/review_confirm_delete.html', context)
 # ========== User authentication views ==========
 
 def register(request):
