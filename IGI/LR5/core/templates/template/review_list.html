@@ -1,0 +1,45 @@
+{% extends 'template/base.html' %}
+
+{% block title %}Отзывы - Страховая фирма{% endblock %}
+
+{% block content %}
+<h1>⭐ Отзывы наших клиентов</h1>
+
+{% if user.is_superuser %}
+    <div style="margin-bottom: 20px; display: flex; gap: 10px;">
+        <a href="{% url 'template:review_create_for_client' %}" class="btn btn-success">➕ Написать отзыв за клиента</a>
+    </div>
+{% elif user.is_authenticated %}
+    <div style="margin-bottom: 20px;">
+        <a href="{% url 'template:review_create' %}" class="btn btn-primary">✍️ Оставить отзыв</a>
+    </div>
+{% endif %}
+
+<div class="reviews-list">
+    {% for review in reviews %}
+        <div class="card">
+            <div class="review-header">
+                <span class="review-author">{{ review.client }}</span>
+                <span class="review-rating">⭐ {{ review.rating }}/5</span>
+            </div>
+            <div class="review-text">{{ review.text }}</div>
+            <div class="review-date">📅 {{ review.created_at|date:"d/m/Y" }}</div>
+            
+            {% if user.is_superuser %}
+                <div style="margin-top: 10px;">
+                    <a href="{% url 'template:review_admin_edit' review.pk %}" class="btn-edit">✏️ Редактировать</a>
+                    <a href="{% url 'template:review_delete' review.pk %}" class="btn-delete" onclick="return confirm('Удалить отзыв?')">🗑️ Удалить</a>
+                </div>
+            {% elif review.client.user == user %}
+                <div style="margin-top: 10px;">
+                    <a href="{% url 'template:review_update' review.pk %}" class="btn-edit">✏️ Редактировать</a>
+                </div>
+            {% endif %}
+        </div>
+    {% empty %}
+        <div class="card">
+            <p>Пока нет отзывов. Будьте первым!</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

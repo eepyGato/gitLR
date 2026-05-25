@@ -1,5 +1,5 @@
-<!-- core/templates/core/home.html -->
-{% extends 'core/base.html' %}
+<!-- template/templates/template/home.html -->
+{% extends 'template/base.html' %}
 
 {% block title %}Главная - Страховая фирма{% endblock %}
 
@@ -24,7 +24,7 @@
 <div class="card">
     <div style="display: flex; justify-content: space-between; align-items: center;">
         <h2 class="card-title">📰 Последние новости</h2>
-        <a href="{% url 'core:news_list' %}" class="btn btn-primary">Все новости →</a>
+        <a href="{% url 'template:news_list' %}" class="btn btn-primary">Все новости →</a>
     </div>
     
     {% if latest_news %}
@@ -41,7 +41,7 @@
                         {% endif %}
                         <div style="flex: 1;">
                             <h3 style="margin: 0 0 0.5rem 0;">
-                                <a href="{% url 'core:news_detail' news.pk %}" style="color: #2c3e50; text-decoration: none;">
+                                <a href="{% url 'template:news_detail' news.pk %}" style="color: #2c3e50; text-decoration: none;">
                                     {{ news.title }}
                                 </a>
                             </h3>
@@ -55,7 +55,7 @@
     {% else %}
         <p style="color: #7f8c8d;">Новостей пока нет. 
            {% if user.is_superuser %}
-               <a href="{% url 'core:news_create' %}">Добавить первую новость</a>
+               <a href="{% url 'template:news_create' %}">Добавить первую новость</a>
            {% endif %}
         </p>
     {% endif %}
@@ -74,7 +74,7 @@
         {% empty %}
             <p>Пока нет отзывов</p>
         {% endfor %}
-        <a href="{% url 'core:review_list' %}" class="btn btn-primary">Все отзывы →</a>
+        <a href="{% url 'template:review_list' %}" class="btn btn-primary">Все отзывы →</a>
     </div>
     
     <div class="card">
@@ -87,7 +87,7 @@
         {% empty %}
             <p>Нет открытых вакансий</p>
         {% endfor %}
-        <a href="{% url 'core:vacancies' %}" class="btn btn-primary">Все вакансии →</a>
+        <a href="{% url 'template:vacancies' %}" class="btn btn-primary">Все вакансии →</a>
     </div>
     
     <div class="card">
@@ -99,7 +99,7 @@
         {% empty %}
             <p>Пока нет вопросов</p>
         {% endfor %}
-        <a href="{% url 'core:faq' %}" class="btn btn-primary">Все вопросы →</a>
+        <a href="{% url 'template:faq' %}" class="btn btn-primary">Все вопросы →</a>
     </div>
 </div>
 {% endblock %}

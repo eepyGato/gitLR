@@ -1,4 +1,4 @@
-{% extends 'core/base.html' %}
+{% extends 'template/base.html' %}
 
 {% block title %}Новости - Страховая фирма{% endblock %}
 
@@ -20,7 +20,7 @@
 
 {% if user.is_superuser %}
 <div style="margin-bottom: 1rem;">
-    <a href="{% url 'core:news_create' %}" class="btn btn-success">➕ Добавить новость</a>
+    <a href="{% url 'template:news_create' %}" class="btn btn-success">➕ Добавить новость</a>
 </div>
 {% endif %}
 
@@ -34,10 +34,10 @@
             <p>{{ news.short_description }}</p>
             <small>📅 {{ news.created_at|date:"d/m/Y" }}</small>
             <div style="margin-top: 1rem;">
-                <a href="{% url 'core:news_detail' news.pk %}" class="btn btn-primary">Читать далее →</a>
+                <a href="{% url 'template:news_detail' news.pk %}" class="btn btn-primary">Читать далее →</a>
                 {% if user.is_superuser %}
-                    <a href="{% url 'core:news_update' news.pk %}" class="btn">✏️</a>
-                    <a href="{% url 'core:news_delete' news.pk %}" class="btn btn-danger" onclick="return confirm('Удалить?')">🗑️</a>
+                    <a href="{% url 'template:news_update' news.pk %}" class="btn">✏️</a>
+                    <a href="{% url 'template:news_delete' news.pk %}" class="btn btn-danger" onclick="return confirm('Удалить?')">🗑️</a>
                 {% endif %}
             </div>
         </div>

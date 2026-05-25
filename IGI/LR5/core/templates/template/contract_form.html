@@ -1,4 +1,4 @@
-{% extends 'core/base.html' %}
+{% extends 'template/base.html' %}
 
 {% block title %}Новый договор страхования{% endblock %}
 
@@ -241,7 +241,7 @@
         <!-- Кнопки -->
         <div class="buttons">
             <button type="submit" class="btn-save">✅ Оформить договор</button>
-            <a href="{% url 'core:contract_list' %}" class="btn-cancel">❌ Отмена</a>
+            <a href="{% url 'template:contract_list' %}" class="btn-cancel">❌ Отмена</a>
         </div>
     </form>
 </div>

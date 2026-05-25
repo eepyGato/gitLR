@@ -1,4 +1,4 @@
-{% extends 'core/base.html' %}
+{% extends 'template/base.html' %}
 {% load static %}
 
 {% block title %}Вход в систему - Страховая фирма{% endblock %}
@@ -186,7 +186,7 @@
         </form>
         
         <div class="auth-footer">
-            <p>Нет аккаунта? <a href="{% url 'core:register' %}">Зарегистрироваться</a></p>
+            <p>Нет аккаунта? <a href="{% url 'template:register' %}">Зарегистрироваться</a></p>
             <p style="margin-top: 0.5rem; font-size: 0.85rem;">
                 <a href="#">Забыли пароль?</a>
             </p>

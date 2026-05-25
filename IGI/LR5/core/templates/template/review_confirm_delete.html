@@ -1,0 +1,72 @@
+{% extends 'template/base.html' %}
+
+{% block title %}Удаление отзыва - Страховая фирма{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 600px; margin: 2rem auto;">
+    <div class="card" style="text-align: center;">
+        <div class="card-header">
+            <h1>🗑️ Удаление отзыва</h1>
+        </div>
+        
+        <div class="card-body">
+            <p>Вы уверены, что хотите удалить отзыв от <strong>{{ review.client }}</strong>?</p>
+            <p style="color: #666; margin-top: 1rem;">"{{ review.text|truncatewords:30 }}"</p>
+            <p style="color: #e74c3c; margin-top: 1rem;">Это действие нельзя отменить!</p>
+            
+            <form method="post" style="margin-top: 2rem;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger" style="background: #e74c3c; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+                    ✅ Да, удалить
+                </button>
+                <a href="{% url 'template:review_list' %}" class="btn" style="background: #95a5a6; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-left: 10px;">
+                    ↩️ Отмена
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+    
+    .card-header {
+        background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        color: white;
+        padding: 1.5rem;
+    }
+    
+    .card-header h1 {
+        margin: 0;
+        font-size: 1.5rem;
+    }
+    
+    .card-body {
+        padding: 2rem;
+    }
+    
+    .btn-danger {
+        background: #e74c3c;
+        transition: all 0.3s;
+    }
+    
+    .btn-danger:hover {
+        background: #c0392b;
+        transform: translateY(-2px);
+    }
+    
+    .btn {
+        transition: all 0.3s;
+        display: inline-block;
+    }
+    
+    .btn:hover {
+        transform: translateY(-2px);
+    }
+</style>
+{% endblock %}

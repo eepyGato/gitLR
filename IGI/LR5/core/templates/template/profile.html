@@ -1,5 +1,5 @@
-<!-- core/templates/core/profile.html -->
-{% extends 'core/base.html' %}
+<!-- template/templates/template/profile.html -->
+{% extends 'template/base.html' %}
 
 {% block title %}Профиль - Страховая фирма{% endblock %}
 
@@ -27,7 +27,7 @@
             <p><strong>Email:</strong> {{ client.email }}</p>
             <p><strong>Адрес:</strong> {{ client.address }}</p>
             <p><strong>Паспорт:</strong> {{ client.passport_number }}</p>
-            <a href="{% url 'core:client_profile_update' %}" class="btn btn-primary">✏️ Редактировать</a>
+            <a href="{% url 'template:client_profile_update' %}" class="btn btn-primary">✏️ Редактировать</a>
         </div>
     {% endif %}
     
@@ -63,7 +63,7 @@
                     <tbody>
                         {% for contract in client_contracts %}
                             <tr>
-                                <td><a href="{% url 'core:contract_detail' contract.pk %}">{{ contract.contract_number }}</a></td>
+                                <td><a href="{% url 'template:contract_detail' contract.pk %}">{{ contract.contract_number }}</a></td>
                                 <td>{{ contract.insurance_type.name }}</td>
                                 <td>{{ contract.insurance_sum|floatformat:2 }} руб.</td>
                                 <td>
@@ -94,7 +94,7 @@
                 </div>
             {% empty %}
                 <p>Вы ещё не оставляли отзывы</p>
-                <a href="{% url 'core:review_create' %}" class="btn btn-primary">Оставить отзыв</a>
+                <a href="{% url 'template:review_create' %}" class="btn btn-primary">Оставить отзыв</a>
             {% endfor %}
         {% endwith %}
     </div>

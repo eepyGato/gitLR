@@ -1,5 +1,5 @@
-<!-- core/templates/core/contract_list.html -->
-{% extends 'core/base.html' %}
+<!-- template/templates/template/contract_list.html -->
+{% extends 'template/base.html' %}
 
 {% block title %}Договоры страхования - Страховая фирма{% endblock %}
 
@@ -12,8 +12,8 @@
         {{ search_form.as_p }}
         <div style="grid-column: 1/-1;">
             <button type="submit" class="btn btn-primary">Поиск</button>
-            <a href="{% url 'core:contract_list' %}" class="btn">Сбросить</a>
-            <a href="{% url 'core:contract_create' %}" class="btn btn-success">➕ Новый договор</a>
+            <a href="{% url 'template:contract_list' %}" class="btn">Сбросить</a>
+            <a href="{% url 'template:contract_create' %}" class="btn btn-success">➕ Новый договор</a>
         </div>
     </form>
 </div>
@@ -58,8 +58,8 @@
                 <td>{{ contract.start_date|date:"d/m/Y" }}</td>
                 <td>{{ contract.end_date|date:"d/m/Y" }}</td>
                 <td>
-                    <a href="{% url 'core:contract_detail' contract.pk %}" class="btn">👁️</a>
-                    <a href="{% url 'core:contract_update' contract.pk %}" class="btn">✏️</a>
+                    <a href="{% url 'template:contract_detail' contract.pk %}" class="btn">👁️</a>
+                    <a href="{% url 'template:contract_update' contract.pk %}" class="btn">✏️</a>
                 </td>
             </tr>
         {% empty %}

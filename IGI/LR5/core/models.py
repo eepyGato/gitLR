@@ -392,7 +392,7 @@ class Review(models.Model):
         on_delete=models.CASCADE,
         related_name='reviews',
         verbose_name="Клиент",
-        unique=True  
+        #unique=True  
     )
     rating = models.IntegerField(
         "Оценка",

@@ -1,4 +1,4 @@
-{% extends 'core/base.html' %}
+{% extends 'template/base.html' %}
 
 {% block title %}Оставить отзыв - Страховая фирма{% endblock %}
 
@@ -194,16 +194,33 @@
             {% csrf_token %}
 
             {% if is_admin %}
-                <div class="form-group">
-                    <label for="client_id">👥 Выберите клиента *</label>
-                    <select name="client_id" id="client_id" class="form-control" required>
-                        <option value="">-- Выберите клиента --</option>
-                        {% for c in clients %}
-                            <option value="{{ c.id }}">{{ c.last_name }} {{ c.first_name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            {% elif client %}
+                {% if is_edit %}
+                    <!-- Режим редактирования: показываем имя клиента, но не даём менять -->
+                    <div class="form-group">
+                        <label>👥 Клиент</label>
+                        <div class="client-info" style="background: #f0f0f0; padding: 10px; border-radius: 8px;">
+                            <strong>{{ review.client.last_name }} {{ review.client.first_name }}</strong>
+                            <input type="hidden" name="client_id" value="{{ review.client.id }}">
+                        </div>
+                        <div class="help-text">Клиента нельзя изменить при редактировании отзыва</div>
+                    </div>
+                {% else %}
+                    <!-- Режим создания: показываем выбор клиента -->
+                    <div class="form-group">
+                        <label for="client_id">👥 Выберите клиента <span class="required">*</span></label>
+                        <select name="client_id" id="client_id" class="form-control" required>
+                            <option value="">-- Выберите клиента --</option>
+                            {% for c in clients %}
+                                <option value="{{ c.id }}" {% if review and review.client.id == c.id %}selected{% endif %}>
+                                    {{ c.last_name }} {{ c.first_name }} ({{ c.phone }})
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <div class="help-text">Выберите клиента, для которого создаётся отзыв</div>
+                    </div>
+                {% endif %}
+            {% else %}
+                <!-- Обычный пользователь - автоматически подставляется его имя -->
                 <div class="client-info">
                     👤 Отзыв оставляет: <strong>{{ client.last_name }} {{ client.first_name }}</strong>
                 </div>
@@ -246,7 +263,7 @@
             </div>
             
             <button type="submit" class="btn-submit">✉️ Отправить отзыв</button>
-            <a href="{% url 'core:review_list' %}" class="btn-cancel">↩️ Вернуться к отзывам</a>
+            <a href="{% url 'template:review_list' %}" class="btn-cancel">↩️ Вернуться к отзывам</a>
         </form>
     </div>
 </div>

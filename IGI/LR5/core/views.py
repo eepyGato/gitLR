@@ -1,4 +1,4 @@
-# core/views.py
+# template/views.py
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -254,7 +254,7 @@ def home(request):
         'total_branches': total_branches,
         'current_time': current_time,
     }
-    return render(request, 'core/home.html', context)
+    return render(request, 'template/home.html', context)
 
 
 def about(request):
@@ -278,7 +278,7 @@ def about(request):
         'contacts': contacts,
         'staff_members': staff_members,
     }
-    return render(request, 'core/about.html', context)
+    return render(request, 'template/about.html', context)
 
 
 def branches(request):
@@ -293,7 +293,7 @@ def branches(request):
         ).aggregate(Sum('insurance_sum'))['insurance_sum__sum'] or 0
     
     context = {'branches': branches_list}
-    return render(request, 'core/branches.html', context)
+    return render(request, 'template/branches.html', context)
 
 
 def insurance_types(request):
@@ -306,26 +306,26 @@ def insurance_types(request):
         ).count()
     
     context = {'insurance_types': types}
-    return render(request, 'core/insurance_types.html', context)
+    return render(request, 'template/insurance_types.html', context)
 
 
 def faq_list(request):
     """FAQ list page"""
     faqs = FAQ.objects.filter(is_published=True)
     context = {'faqs': faqs}
-    return render(request, 'core/faq.html', context)
+    return render(request, 'template/faq.html', context)
 
 
 def vacancies(request):
     """Vacancies list page"""
     vacancies_list = Vacancy.objects.filter(is_active=True)
     context = {'vacancies': vacancies_list}
-    return render(request, 'core/vacancies.html', context)
+    return render(request, 'template/vacancies.html', context)
 
 
 def privacy_policy(request):
     """Privacy policy page"""
-    return render(request, 'core/privacy_policy.html')
+    return render(request, 'template/privacy_policy.html')
 
 
 def promo_codes(request):
@@ -337,7 +337,7 @@ def promo_codes(request):
         'active_promos': active_promos,
         'expired_promos': expired_promos,
     }
-    return render(request, 'core/promo_codes.html', context)
+    return render(request, 'template/promo_codes.html', context)
 
 def apply_promo(request):
     """Apply promo code"""
@@ -360,7 +360,7 @@ def apply_promo(request):
         else:
             messages.error(request, 'Неверный или недействительный промокод')
     
-    return redirect('core:promo_codes')
+    return redirect('template:promo_codes')
 
 
 # ========== Contract views ==========
@@ -439,7 +439,7 @@ def contract_list(request):
         'search_form': search_form,
         'sort_by': sort_by,
     }
-    return render(request, 'core/contract_list.html', context)
+    return render(request, 'template/contract_list.html', context)
 
 @login_required
 def contract_detail(request, pk):
@@ -468,7 +468,7 @@ def contract_detail(request, pk):
         'insurance_payment': insurance_payment,
         'agent_commission': agent_commission,
     }
-    return render(request, 'core/contract_detail.html', context)
+    return render(request, 'template/contract_detail.html', context)
 
 
 @login_required
@@ -485,13 +485,13 @@ def contract_create(request):
             if 'active_promo' in request.session:
                 del request.session['active_promo']
             
-            return redirect('core:contract_detail', pk=contract.pk)
+            return redirect('template:contract_detail', pk=contract.pk)
     else:
         form = InsuranceContractForm(user=request.user)
         if active_promo:
             form.fields['promo_code'].initial = active_promo['code']
     
-    return render(request, 'core/contract_form.html', {'form': form})
+    return render(request, 'template/contract_form.html', {'form': form})
 
 @login_required
 def contract_update(request, pk):
@@ -504,12 +504,12 @@ def contract_update(request, pk):
             form.save()
             messages.success(request, f'Договор {contract.contract_number} успешно обновлён!')
             logger.info(f"User {request.user} updated contract {contract.contract_number}")
-            return redirect('core:contract_detail', pk=contract.pk)
+            return redirect('template:contract_detail', pk=contract.pk)
     else:
         form = InsuranceContractForm(instance=contract)
     
     context = {'form': form, 'contract': contract}
-    return render(request, 'core/contract_form.html', context)
+    return render(request, 'template/contract_form.html', context)
 
 
 @login_required
@@ -526,7 +526,7 @@ def contract_delete(request, pk):
         return redirect('contract_list')
     
     context = {'contract': contract}
-    return render(request, 'core/contract_confirm_delete.html', context)
+    return render(request, 'template/contract_confirm_delete.html', context)
 
 
 # ========== Review views ==========
@@ -548,7 +548,7 @@ def review_list(request):
         'avg_rating': round(avg_rating, 1) if avg_rating else None,
         'median_rating': median_rating,
     }
-    return render(request, 'core/review_list.html', context)
+    return render(request, 'template/review_list.html', context)
 
 
 @login_required
@@ -565,7 +565,7 @@ def review_create(request):
     # Проверяем, есть ли уже отзыв у этого клиента
     existing_review = Review.objects.filter(client=client).first()
     if existing_review:
-        return redirect('core:review_update', pk=existing_review.pk)
+        return redirect('template:review_update', pk=existing_review.pk)
     
     if request.method == 'POST':
         form = ReviewForm(request.POST)
@@ -574,7 +574,7 @@ def review_create(request):
             review.client = client
             review.save()
             messages.success(request, 'Спасибо за ваш отзыв!')
-            return redirect('core:review_list')
+            return redirect('template:review_list')
     else:
         form = ReviewForm()
     
@@ -584,7 +584,7 @@ def review_create(request):
         'is_admin': False,
         'is_edit': False,
     }
-    return render(request, 'core/review_form.html', context)
+    return render(request, 'template/review_form.html', context)
 
 
 @login_required
@@ -598,17 +598,17 @@ def review_update(request, pk):
             client = Client.objects.get(user=request.user)
             if review.client != client:
                 messages.error(request, 'Вы можете редактировать только свои отзывы')
-                return redirect('core:review_list')
+                return redirect('template:review_list')
         except Client.DoesNotExist:
             messages.error(request, 'Доступ запрещён')
-            return redirect('core:review_list')
+            return redirect('template:review_list')
     
     if request.method == 'POST':
         form = ReviewForm(request.POST, instance=review)
         if form.is_valid():
             form.save()
             messages.success(request, 'Отзыв успешно обновлён!')
-            return redirect('core:review_list')
+            return redirect('template:review_list')
     else:
         form = ReviewForm(instance=review)
     
@@ -618,7 +618,7 @@ def review_update(request, pk):
         'is_edit': True,
         'is_admin': request.user.is_superuser,
     }
-    return render(request, 'core/review_form.html', context)
+    return render(request, 'template/review_form.html', context)
 
 
 @login_required
@@ -636,7 +636,7 @@ def review_create_for_client(request, client_id=None):
                     review.client = Client.objects.get(id=client_id)
                     review.save()
                     messages.success(request, f'Отзыв для клиента {review.client} успешно создан!')
-                    return redirect('core:review_list')
+                    return redirect('template:review_list')
                 except Client.DoesNotExist:
                     messages.error(request, 'Клиент не найден')
             else:
@@ -656,7 +656,7 @@ def review_create_for_client(request, client_id=None):
         'is_admin': True,
         'is_edit': False,
     }
-    return render(request, 'core/review_form.html', context)
+    return render(request, 'template/review_form.html', context)
 
 
 @login_required
@@ -670,7 +670,7 @@ def review_admin_edit(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, f'Отзыв от {review.client} успешно обновлён!')
-            return redirect('core:review_list')
+            return redirect('template:review_list')
     else:
         form = ReviewForm(instance=review)
     
@@ -680,7 +680,7 @@ def review_admin_edit(request, pk):
         'is_admin': True,
         'is_edit': True,
     }
-    return render(request, 'core/review_form.html', context)
+    return render(request, 'template/review_form.html', context)
 
 
 @login_required
@@ -693,10 +693,10 @@ def review_delete(request, pk):
         client_name = str(review.client)
         review.delete()
         messages.success(request, f'Отзыв от {client_name} удалён!')
-        return redirect('core:review_list')
+        return redirect('template:review_list')
     
     context = {'review': review}
-    return render(request, 'core/review_confirm_delete.html', context)
+    return render(request, 'template/review_confirm_delete.html', context)
 # ========== User authentication views ==========
 
 def register(request):
@@ -712,7 +712,7 @@ def register(request):
         form = UserRegistrationForm()
     
     context = {'form': form}
-    return render(request, 'core/register.html', context)
+    return render(request, 'template/register.html', context)
 
 
 @login_required
@@ -727,7 +727,7 @@ def profile(request):
         'client': client,
         'agent': agent,
     }
-    return render(request, 'core/profile.html', context)
+    return render(request, 'template/profile.html', context)
 
 
 @login_required
@@ -749,7 +749,7 @@ def client_profile_update(request):
         form = ClientProfileForm(instance=client)
     
     context = {'form': form}
-    return render(request, 'core/client_profile_form.html', context)
+    return render(request, 'template/client_profile_form.html', context)
 
 
 # ========== Statistics and API views ==========
@@ -859,7 +859,7 @@ def statistics(request):
         'pie_chart': pie_chart,
     }
     
-    return render(request, 'core/statistics.html', context)
+    return render(request, 'template/statistics.html', context)
 
 
 def api_exchange_rate(request):
@@ -921,13 +921,13 @@ def news_list(request):
     if sort in ['title', 'created_at', '-title', '-created_at']:
         news_list = news_list.order_by(sort)
     
-    return render(request, 'core/news_list.html', {'news_list': news_list, 'query': query})
+    return render(request, 'template/news_list.html', {'news_list': news_list, 'query': query})
 
 
 def news_detail(request, pk):
     """Детальная страница новости"""
     news = get_object_or_404(News, pk=pk, is_published=True)
-    return render(request, 'core/news_detail.html', {'news': news})
+    return render(request, 'template/news_detail.html', {'news': news})
 
 
 @login_required
@@ -939,10 +939,10 @@ def news_create(request):
         if form.is_valid():
             news = form.save()
             messages.success(request, f'Новость "{news.title}" создана!')
-            return redirect('core:news_detail', pk=news.pk)
+            return redirect('template:news_detail', pk=news.pk)
     else:
         form = NewsForm()
-    return render(request, 'core/news_form.html', {'form': form, 'title': 'Создание новости'})
+    return render(request, 'template/news_form.html', {'form': form, 'title': 'Создание новости'})
 
 
 @login_required
@@ -955,10 +955,10 @@ def news_update(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, f'Новость "{news.title}" обновлена!')
-            return redirect('core:news_detail', pk=news.pk)
+            return redirect('template:news_detail', pk=news.pk)
     else:
         form = NewsForm(instance=news)
-    return render(request, 'core/news_form.html', {'form': form, 'title': 'Редактирование новости', 'news': news})
+    return render(request, 'template/news_form.html', {'form': form, 'title': 'Редактирование новости', 'news': news})
 
 
 @login_required
@@ -970,8 +970,8 @@ def news_delete(request, pk):
         title = news.title
         news.delete()
         messages.success(request, f'Новость "{title}" удалена!')
-        return redirect('core:news_list')
-    return render(request, 'core/news_confirm_delete.html', {'news': news})
+        return redirect('template:news_list')
+    return render(request, 'template/news_confirm_delete.html', {'news': news})
 
 
 # ========== История компании ==========
@@ -979,7 +979,7 @@ def news_delete(request, pk):
 def history_list(request):
     """Список истории компании"""
     history_items = CompanyHistory.objects.all().order_by('order', 'year')
-    return render(request, 'core/history_list.html', {'history_items': history_items})
+    return render(request, 'template/history_list.html', {'history_items': history_items})
 
 
 # ========== Сотрудники ==========
@@ -987,4 +987,4 @@ def history_list(request):
 def staff_list(request):
     """Список сотрудников"""
     staff_members = StaffMember.objects.filter(is_active=True).order_by('order', 'full_name')
-    return render(request, 'core/staff_list.html', {'staff_members': staff_members})
+    return render(request, 'template/staff_list.html', {'staff_members': staff_members})

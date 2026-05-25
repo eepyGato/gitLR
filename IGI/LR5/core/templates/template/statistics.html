@@ -1,5 +1,5 @@
-<!-- core/templates/core/statistics.html -->
-{% extends 'core/base.html' %}
+<!-- template/templates/template/statistics.html -->
+{% extends 'template/base.html' %}
 {% load static %}
 
 {% block title %}Статистика - Страховая фирма{% endblock %}
@@ -18,7 +18,7 @@
         {{ form.as_p }}
         <div>
             <button type="submit" class="btn btn-primary">Применить</button>
-            <a href="{% url 'core:statistics' %}" class="btn">Сбросить</a>
+            <a href="{% url 'template:statistics' %}" class="btn">Сбросить</a>
         </div>
     </form>
 </div>

@@ -22,11 +22,13 @@ urlpatterns = [
     path('contracts/<int:pk>/update/', views.contract_update, name='contract_update'),
     path('contracts/<int:pk>/delete/', views.contract_delete, name='contract_delete'),
     
-    # Отзывы
+    # Review URLs
     path('reviews/', views.review_list, name='review_list'),
     path('reviews/create/', views.review_create, name='review_create'),
-    path('reviews/<int:pk>/update/', views.review_update, name='review_update'),  # Добавить эту строку
-    path('reviews/<int:pk>/delete/', views.review_delete, name='review_delete'),  # Добавить эту строку 
+    path('reviews/<int:pk>/update/', views.review_update, name='review_update'),
+    path('reviews/<int:pk>/delete/', views.review_delete, name='review_delete'),
+    path('reviews/admin/create/', views.review_create_for_client, name='review_create_for_client'),
+    path('reviews/admin/<int:pk>/edit/', views.review_admin_edit, name='review_admin_edit'),
     
     # Authentication URLs
     path('register/', views.register, name='register'),

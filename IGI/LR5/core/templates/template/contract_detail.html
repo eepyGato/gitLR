@@ -1,5 +1,5 @@
-<!-- core/templates/core/contract_detail.html -->
-{% extends 'core/base.html' %}
+<!-- template/templates/template/contract_detail.html -->
+{% extends 'template/base.html' %}
 
 {% block title %}Договор №{{ contract.contract_number }} - Страховая фирма{% endblock %}
 
@@ -47,10 +47,10 @@
 </div>
 
 <div style="display: flex; gap: 1rem;">
-    <a href="{% url 'core:contract_update' contract.pk %}" class="btn btn-primary">✏️ Редактировать</a>
-    <a href="{% url 'core:contract_list' %}" class="btn">← Назад к списку</a>
+    <a href="{% url 'template:contract_update' contract.pk %}" class="btn btn-primary">✏️ Редактировать</a>
+    <a href="{% url 'template:contract_list' %}" class="btn">← Назад к списку</a>
     {% if user.is_superuser %}
-        <a href="{% url 'core:contract_delete' contract.pk %}" class="btn btn-danger" onclick="return confirm('Удалить договор?')">🗑️ Удалить</a>
+        <a href="{% url 'template:contract_delete' contract.pk %}" class="btn btn-danger" onclick="return confirm('Удалить договор?')">🗑️ Удалить</a>
     {% endif %}
 </div>
 {% endblock %}

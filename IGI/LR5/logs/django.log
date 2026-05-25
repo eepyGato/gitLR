@@ -3366,3 +3366,1544 @@ INFO 2026-05-25 10:58:49,463 log 16016 16012 "GET /media/logos/images111.png HTT
 INFO 2026-05-25 10:58:49,604 log 16016 16012 "GET /media/staff/Tom_the_Cat.webp HTTP/1.1" 304 0
 INFO 2026-05-25 10:58:52,412 log 16016 15416 "GET /reviews/ HTTP/1.1" 200 17251
 INFO 2026-05-25 10:58:53,936 log 16016 15416 "GET /reviews/create/ HTTP/1.1" 200 19672
+INFO 2026-05-25 11:04:59,144 autoreload 16016 12116 W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py changed, reloading.
+INFO 2026-05-25 11:05:01,716 autoreload 10684 10476 Watching for file changes with StatReloader
+INFO 2026-05-25 11:05:29,733 autoreload 10684 10476 W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\urls.py changed, reloading.
+INFO 2026-05-25 11:05:30,950 autoreload 10488 12976 Watching for file changes with StatReloader
+INFO 2026-05-25 11:05:34,104 autoreload 10488 12976 W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\models.py changed, reloading.
+INFO 2026-05-25 11:05:35,700 autoreload 19400 18752 Watching for file changes with StatReloader
+INFO 2026-05-25 11:06:41,090 views 19400 6908 Home page accessed by admin
+INFO 2026-05-25 11:06:41,145 log 19400 6908 "GET / HTTP/1.1" 200 21033
+INFO 2026-05-25 11:06:41,290 log 19400 6908 "GET /media/news/Capture001.png HTTP/1.1" 304 0
+INFO 2026-05-25 11:06:43,963 log 19400 6908 "GET /reviews/ HTTP/1.1" 200 21699
+INFO 2026-05-25 11:06:54,392 log 19400 6908 "GET /reviews/admin/create/ HTTP/1.1" 200 21967
+ERROR 2026-05-25 11:07:28,165 log 19400 2924 Internal Server Error: /reviews/admin/create/
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: core_review.client_id
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 637, in review_create_for_client
+    review.save()
+    ~~~~~~~~~~~^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\base.py", line 874, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\base.py", line 966, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\base.py", line 1167, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, insert_fields, returning_fields, raw
+    )
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\base.py", line 1218, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\query.py", line 1918, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\sql\compiler.py", line 1925, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: UNIQUE constraint failed: core_review.client_id
+ERROR 2026-05-25 11:07:28,174 log 19400 2924 "POST /reviews/admin/create/ HTTP/1.1" 500 169520
+INFO 2026-05-25 11:12:39,027 autoreload 19476 16664 Watching for file changes with StatReloader
+ERROR 2026-05-25 11:12:55,094 log 19476 6304 Internal Server Error: /reviews/admin/create/
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: core_review.client_id
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 637, in review_create_for_client
+    review.save()
+    ~~~~~~~~~~~^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\base.py", line 874, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\base.py", line 966, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\base.py", line 1167, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, insert_fields, returning_fields, raw
+    )
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\base.py", line 1218, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\query.py", line 1918, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\sql\compiler.py", line 1925, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: UNIQUE constraint failed: core_review.client_id
+ERROR 2026-05-25 11:12:55,136 log 19476 6304 "POST /reviews/admin/create/ HTTP/1.1" 500 169520
+INFO 2026-05-25 11:13:09,030 basehttp 19476 6304 - Broken pipe from ('127.0.0.1', 52676)
+INFO 2026-05-25 11:13:10,385 log 19476 7892 "GET /reviews/admin/18/edit/ HTTP/1.1" 200 16837
+INFO 2026-05-25 11:16:23,369 log 19476 15512 "GET /reviews/admin/18/edit/ HTTP/1.1" 200 17199
+INFO 2026-05-25 11:16:32,489 log 19476 15512 "POST /reviews/admin/18/edit/ HTTP/1.1" 302 0
+INFO 2026-05-25 11:16:36,163 log 19476 15512 "GET /reviews/ HTTP/1.1" 200 22008
+INFO 2026-05-25 11:16:42,034 log 19476 15512 "GET /reviews/admin/19/edit/ HTTP/1.1" 200 17182
+INFO 2026-05-25 11:16:47,315 log 19476 15512 "POST /reviews/admin/19/edit/ HTTP/1.1" 302 0
+INFO 2026-05-25 11:16:47,512 log 19476 15512 "GET /reviews/ HTTP/1.1" 200 22008
+INFO 2026-05-25 11:16:54,428 log 19476 15512 "GET /admin/auth/user/ HTTP/1.1" 200 19729
+INFO 2026-05-25 11:16:58,009 log 19476 15512 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-05-25 11:17:02,705 log 19476 15512 "GET /admin/core/review/ HTTP/1.1" 200 28986
+INFO 2026-05-25 11:17:03,174 log 19476 15512 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-05-25 11:17:07,143 log 19476 15512 "GET /admin/core/review/19/change/ HTTP/1.1" 200 20452
+INFO 2026-05-25 11:17:07,322 log 19476 15512 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-05-25 11:17:13,938 log 19476 15512 "GET /admin/core/client/18/change/?_to_field=id&_popup=1 HTTP/1.1" 200 11592
+INFO 2026-05-25 11:17:14,101 log 19476 15512 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-05-25 11:17:34,535 log 19476 15512 "POST /admin/core/client/18/change/?_to_field=id&_popup=1 HTTP/1.1" 200 11931
+INFO 2026-05-25 11:17:37,273 log 19476 15512 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-05-25 11:17:50,049 log 19476 15512 "POST /admin/core/client/18/change/?_to_field=id&_popup=1 HTTP/1.1" 200 11930
+INFO 2026-05-25 11:17:53,142 log 19476 15512 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-05-25 11:18:12,729 log 19476 15512 "POST /admin/core/client/18/change/?_to_field=id&_popup=1 HTTP/1.1" 200 532
+INFO 2026-05-25 11:18:13,005 log 19476 15512 "GET /static/admin/js/popup_response.js HTTP/1.1" 200 532
+INFO 2026-05-25 11:18:20,524 log 19476 15512 "POST /admin/core/review/19/change/ HTTP/1.1" 302 0
+INFO 2026-05-25 11:18:23,066 basehttp 19476 15512 - Broken pipe from ('127.0.0.1', 52766)
+INFO 2026-05-25 11:18:24,236 basehttp 19476 12492 - Broken pipe from ('127.0.0.1', 52805)
+INFO 2026-05-25 11:18:27,247 basehttp 19476 17928 - Broken pipe from ('127.0.0.1', 52808)
+INFO 2026-05-25 11:18:29,595 basehttp 19476 9916 - Broken pipe from ('127.0.0.1', 52812)
+INFO 2026-05-25 11:18:31,206 log 19476 3196 "POST /admin/core/review/19/change/ HTTP/1.1" 302 0
+ERROR 2026-05-25 11:18:31,369 log 19476 5800 Internal Server Error: /admin/core/review/19/change/
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: database is locked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\contrib\admin\options.py", line 710, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\contrib\admin\sites.py", line 247, in inner
+    return view(request, *args, **kwargs)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\contrib\admin\options.py", line 1945, in change_view
+    return self.changeform_view(request, object_id, form_url, extra_context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\contrib\admin\options.py", line 1801, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\contrib\admin\options.py", line 1852, in _changeform_view
+    self.save_model(request, new_object, form, not add)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\contrib\admin\options.py", line 1272, in save_model
+    obj.save()
+    ~~~~~~~~^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\base.py", line 874, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\base.py", line 966, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\base.py", line 1110, in _save_table
+    results = self._do_update(
+        base_qs,
+    ...<5 lines>...
+        returning_fields,
+    )
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\base.py", line 1211, in _do_update
+    return filtered._update(values, returning_fields)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\query.py", line 1327, in _update
+    return query.get_compiler(self.db).execute_returning_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\sql\compiler.py", line 2140, in execute_returning_sql
+    row_count = self.execute_sql(ROW_COUNT)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\sql\compiler.py", line 2111, in execute_sql
+    row_count = super().execute_sql(result_type)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: database is locked
+INFO 2026-05-25 11:18:31,379 basehttp 19476 5800 - Broken pipe from ('127.0.0.1', 52814)
+INFO 2026-05-25 11:18:33,117 log 19476 16068 "GET /admin/core/review/ HTTP/1.1" 200 29451
+INFO 2026-05-25 11:18:33,122 basehttp 19476 3196 - Broken pipe from ('127.0.0.1', 52818)
+INFO 2026-05-25 11:18:35,020 log 19476 16068 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-05-25 11:19:05,026 log 19476 16068 "POST /admin/core/review/ HTTP/1.1" 302 0
+INFO 2026-05-25 11:19:26,123 basehttp 19476 16068 - Broken pipe from ('127.0.0.1', 52820)
+INFO 2026-05-25 11:19:29,930 log 19476 6928 "POST /admin/core/review/ HTTP/1.1" 302 0
+INFO 2026-05-25 11:19:30,667 basehttp 19476 5392 - Broken pipe from ('127.0.0.1', 52832)
+INFO 2026-05-25 11:19:33,027 log 19476 6928 "GET /admin/core/review/ HTTP/1.1" 200 29128
+INFO 2026-05-25 11:19:33,041 log 19476 18496 "GET /reviews/ HTTP/1.1" 200 18753
+INFO 2026-05-25 11:19:36,500 log 19476 12608 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-05-25 11:19:42,136 log 19476 12608 "GET /reviews/admin/create/ HTTP/1.1" 200 22742
+INFO 2026-05-25 11:19:54,073 log 19476 12608 "POST /reviews/admin/create/ HTTP/1.1" 302 0
+INFO 2026-05-25 11:19:54,266 log 19476 12608 "GET /reviews/ HTTP/1.1" 200 19524
+ERROR 2026-05-25 11:19:58,381 log 19476 12608 Internal Server Error: /reviews/20/delete/
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 699, in review_delete
+    return render(request, 'core/review_confirm_delete.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: core/review_confirm_delete.html
+ERROR 2026-05-25 11:19:58,383 log 19476 12608 "GET /reviews/20/delete/ HTTP/1.1" 500 98611
+INFO 2026-05-25 11:21:08,934 log 19476 12608 "GET /reviews/20/delete/ HTTP/1.1" 200 12349
+INFO 2026-05-25 11:21:13,009 log 19476 12608 "POST /reviews/20/delete/ HTTP/1.1" 302 0
+INFO 2026-05-25 11:21:15,074 log 19476 12608 "GET /reviews/ HTTP/1.1" 200 18754
+INFO 2026-05-25 11:28:38,743 log 19476 6652 "GET /reviews/admin/19/edit/ HTTP/1.1" 200 17188
+INFO 2026-05-25 11:28:50,731 log 19476 6652 "POST /reviews/admin/19/edit/ HTTP/1.1" 302 0
+INFO 2026-05-25 11:28:52,026 log 19476 6652 "GET /reviews/ HTTP/1.1" 200 18783
+INFO 2026-05-25 11:28:57,615 log 19476 6652 "GET /reviews/19/delete/ HTTP/1.1" 200 12419
+INFO 2026-05-25 11:29:00,807 log 19476 6652 "POST /reviews/19/delete/ HTTP/1.1" 302 0
+INFO 2026-05-25 11:29:01,009 log 19476 6652 "GET /reviews/ HTTP/1.1" 200 17956
+INFO 2026-05-25 11:29:23,353 log 19476 6652 "GET /statistics/ HTTP/1.1" 200 220824
+INFO 2026-05-25 11:29:36,004 views 19476 6652 Home page accessed by admin
+INFO 2026-05-25 11:29:36,070 log 19476 6652 "GET / HTTP/1.1" 200 21037
+INFO 2026-05-25 11:29:37,646 log 19476 6652 "GET /media/news/Capture001.png HTTP/1.1" 304 0
+INFO 2026-05-25 11:29:49,181 log 19476 19508 "GET /news/ HTTP/1.1" 200 24323
+INFO 2026-05-25 11:29:49,639 basehttp 19476 6652 - Broken pipe from ('127.0.0.1', 52994)
+INFO 2026-05-25 11:29:58,968 log 19476 14432 "GET /about/ HTTP/1.1" 200 15759
+INFO 2026-05-25 11:29:59,355 log 19476 14432 "GET /media/logos/images111.png HTTP/1.1" 304 0
+INFO 2026-05-25 11:29:59,356 log 19476 13828 "GET /media/staff/Tom_the_Cat.webp HTTP/1.1" 304 0
+INFO 2026-05-25 13:16:42,043 autoreload 20120 17592 Watching for file changes with StatReloader
+INFO 2026-05-25 13:17:10,454 views 20120 18088 Home page accessed by admin
+ERROR 2026-05-25 13:17:14,474 log 20120 18088 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 257, in home
+    return render(request, 'core/home.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: core/home.html
+ERROR 2026-05-25 13:17:14,479 log 20120 18088 "GET / HTTP/1.1" 500 94516
+INFO 2026-05-25 13:18:30,464 views 20120 18088 Home page accessed by admin
+ERROR 2026-05-25 13:18:30,557 log 20120 18088 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 257, in home
+    return render(request, 'core/home.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: core/home.html
+ERROR 2026-05-25 13:18:30,560 log 20120 18088 "GET / HTTP/1.1" 500 94653
+INFO 2026-05-25 13:19:52,670 views 20120 18088 Home page accessed by admin
+ERROR 2026-05-25 13:19:52,743 log 20120 18088 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 257, in home
+    return render(request, 'core/home.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: core/home.html
+ERROR 2026-05-25 13:19:52,745 log 20120 18088 "GET / HTTP/1.1" 500 94653
+INFO 2026-05-25 13:19:53,452 views 20120 18088 Home page accessed by admin
+ERROR 2026-05-25 13:19:53,530 log 20120 18088 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 257, in home
+    return render(request, 'core/home.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: core/home.html
+ERROR 2026-05-25 13:19:53,533 log 20120 18088 "GET / HTTP/1.1" 500 94653
+INFO 2026-05-25 13:19:54,044 views 20120 18088 Home page accessed by admin
+ERROR 2026-05-25 13:19:54,116 log 20120 18088 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 257, in home
+    return render(request, 'core/home.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: core/home.html
+ERROR 2026-05-25 13:19:54,118 log 20120 18088 "GET / HTTP/1.1" 500 94649
+INFO 2026-05-25 13:20:02,632 autoreload 8752 15236 Watching for file changes with StatReloader
+INFO 2026-05-25 13:20:04,145 views 8752 20076 Home page accessed by admin
+ERROR 2026-05-25 13:20:04,238 log 8752 20076 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 257, in home
+    return render(request, 'core/home.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: core/home.html
+ERROR 2026-05-25 13:20:04,242 log 8752 20076 "GET / HTTP/1.1" 500 94649
+INFO 2026-05-25 13:20:05,213 views 8752 20076 Home page accessed by admin
+ERROR 2026-05-25 13:20:05,299 log 8752 20076 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 257, in home
+    return render(request, 'core/home.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: core/home.html
+ERROR 2026-05-25 13:20:05,302 log 8752 20076 "GET / HTTP/1.1" 500 94649
+INFO 2026-05-25 13:20:10,232 views 8752 20076 Home page accessed by admin
+ERROR 2026-05-25 13:20:10,308 log 8752 20076 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 257, in home
+    return render(request, 'core/home.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: core/home.html
+ERROR 2026-05-25 13:20:10,310 log 8752 20076 "GET / HTTP/1.1" 500 94653
+INFO 2026-05-25 13:21:57,744 autoreload 12876 19036 Watching for file changes with StatReloader
+INFO 2026-05-25 13:21:59,567 views 12876 17192 Home page accessed by admin
+ERROR 2026-05-25 13:21:59,657 log 12876 17192 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 257, in home
+    return render(request, 'core/home.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: core/home.html
+ERROR 2026-05-25 13:21:59,661 log 12876 17192 "GET / HTTP/1.1" 500 94653
+INFO 2026-05-25 13:25:30,611 autoreload 2940 10100 Watching for file changes with StatReloader
+INFO 2026-05-25 13:27:23,120 autoreload 2940 10100 W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py changed, reloading.
+INFO 2026-05-25 13:27:24,712 autoreload 2912 16092 Watching for file changes with StatReloader
+INFO 2026-05-25 13:30:25,361 autoreload 2912 16092 W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py changed, reloading.
+INFO 2026-05-25 13:30:26,799 autoreload 5680 13520 Watching for file changes with StatReloader
+ERROR 2026-05-25 13:30:40,373 log 5680 6188 Internal Server Error: /about/
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 135, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 132, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 110, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\engine.py", line 163, in find_template
+    raise TemplateDoesNotExist(name, tried=tried)
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 281, in about
+    return render(request, 'template/about.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 109, in render
+    reraise(exc, self.backend)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+ERROR 2026-05-25 13:30:40,382 log 5680 6188 "GET /about/ HTTP/1.1" 500 144486
+INFO 2026-05-25 13:30:41,873 views 5680 3912 Home page accessed by admin
+ERROR 2026-05-25 13:30:42,108 log 5680 3912 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 135, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 132, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 110, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\engine.py", line 163, in find_template
+    raise TemplateDoesNotExist(name, tried=tried)
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 257, in home
+    return render(request, 'template/home.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 109, in render
+    reraise(exc, self.backend)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+ERROR 2026-05-25 13:30:42,113 log 5680 3912 "GET / HTTP/1.1" 500 156511
+INFO 2026-05-25 13:30:45,710 log 5680 6188 "GET /admin/core/review/ HTTP/1.1" 200 28279
+INFO 2026-05-25 13:30:52,384 log 5680 6188 "GET /admin/core/review/17/change/ HTTP/1.1" 200 20468
+INFO 2026-05-25 13:30:53,340 log 5680 6188 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-05-25 13:30:55,376 log 5680 6188 "GET /admin/core/review/ HTTP/1.1" 200 28279
+ERROR 2026-05-25 13:30:58,457 log 5680 6188 Internal Server Error: /about/
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 135, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 132, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 110, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\engine.py", line 163, in find_template
+    raise TemplateDoesNotExist(name, tried=tried)
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 281, in about
+    return render(request, 'template/about.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 109, in render
+    reraise(exc, self.backend)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+ERROR 2026-05-25 13:30:58,461 log 5680 6188 "GET /about/ HTTP/1.1" 500 144486
+ERROR 2026-05-25 13:31:00,607 log 5680 6188 Internal Server Error: /about/
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 135, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 132, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 110, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\engine.py", line 163, in find_template
+    raise TemplateDoesNotExist(name, tried=tried)
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 281, in about
+    return render(request, 'template/about.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 109, in render
+    reraise(exc, self.backend)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+ERROR 2026-05-25 13:31:00,613 log 5680 6188 "GET /about/ HTTP/1.1" 500 144486
+ERROR 2026-05-25 13:31:04,175 log 5680 6188 Internal Server Error: /faq/
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 135, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 132, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 110, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\engine.py", line 163, in find_template
+    raise TemplateDoesNotExist(name, tried=tried)
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 316, in faq_list
+    return render(request, 'template/faq.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 109, in render
+    reraise(exc, self.backend)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+ERROR 2026-05-25 13:31:04,179 log 5680 6188 "GET /faq/ HTTP/1.1" 500 139068
+INFO 2026-05-25 13:31:24,754 autoreload 5680 13520 W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\urls.py changed, reloading.
+INFO 2026-05-25 13:31:26,143 autoreload 10208 76 Watching for file changes with StatReloader
+ERROR 2026-05-25 13:31:30,063 log 10208 3548 Internal Server Error: /faq/
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 135, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 132, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 110, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\engine.py", line 163, in find_template
+    raise TemplateDoesNotExist(name, tried=tried)
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 316, in faq_list
+    return render(request, 'template/faq.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 109, in render
+    reraise(exc, self.backend)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+ERROR 2026-05-25 13:31:30,071 log 10208 3548 "GET /faq/ HTTP/1.1" 500 139205
+ERROR 2026-05-25 13:31:32,820 log 10208 3548 Internal Server Error: /faq/
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 135, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 132, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 110, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\engine.py", line 163, in find_template
+    raise TemplateDoesNotExist(name, tried=tried)
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 316, in faq_list
+    return render(request, 'template/faq.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 109, in render
+    reraise(exc, self.backend)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+ERROR 2026-05-25 13:31:32,824 log 10208 3548 "GET /faq/ HTTP/1.1" 500 139205
+ERROR 2026-05-25 13:32:48,428 log 10208 3548 Internal Server Error: /faq/
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 135, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 132, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 110, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\engine.py", line 163, in find_template
+    raise TemplateDoesNotExist(name, tried=tried)
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 316, in faq_list
+    return render(request, 'template/faq.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 109, in render
+    reraise(exc, self.backend)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+ERROR 2026-05-25 13:32:48,432 log 10208 3548 "GET /faq/ HTTP/1.1" 500 139205
+ERROR 2026-05-25 13:32:50,378 log 10208 3548 Internal Server Error: /faq/
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 135, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 132, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 110, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\engine.py", line 163, in find_template
+    raise TemplateDoesNotExist(name, tried=tried)
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 316, in faq_list
+    return render(request, 'template/faq.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 109, in render
+    reraise(exc, self.backend)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+ERROR 2026-05-25 13:32:50,382 log 10208 3548 "GET /faq/ HTTP/1.1" 500 139205
+INFO 2026-05-25 13:32:56,327 autoreload 16748 2940 Watching for file changes with StatReloader
+ERROR 2026-05-25 13:32:57,724 log 16748 18160 Internal Server Error: /faq/
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 135, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 132, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 110, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\engine.py", line 163, in find_template
+    raise TemplateDoesNotExist(name, tried=tried)
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 316, in faq_list
+    return render(request, 'template/faq.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 109, in render
+    reraise(exc, self.backend)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+ERROR 2026-05-25 13:32:57,731 log 16748 18160 "GET /faq/ HTTP/1.1" 500 139205
+ERROR 2026-05-25 13:32:59,199 log 16748 18160 Internal Server Error: /faq/
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 135, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 132, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 110, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\engine.py", line 163, in find_template
+    raise TemplateDoesNotExist(name, tried=tried)
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 316, in faq_list
+    return render(request, 'template/faq.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 109, in render
+    reraise(exc, self.backend)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+ERROR 2026-05-25 13:32:59,202 log 16748 18160 "GET /faq/ HTTP/1.1" 500 139205
+ERROR 2026-05-25 13:32:59,855 log 16748 18160 Internal Server Error: /faq/
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 135, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 132, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 110, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\engine.py", line 163, in find_template
+    raise TemplateDoesNotExist(name, tried=tried)
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 316, in faq_list
+    return render(request, 'template/faq.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 109, in render
+    reraise(exc, self.backend)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+ERROR 2026-05-25 13:32:59,860 log 16748 18160 "GET /faq/ HTTP/1.1" 500 139205
+ERROR 2026-05-25 13:33:00,476 log 16748 18160 Internal Server Error: /faq/
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 135, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 132, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 110, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\engine.py", line 163, in find_template
+    raise TemplateDoesNotExist(name, tried=tried)
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 316, in faq_list
+    return render(request, 'template/faq.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 109, in render
+    reraise(exc, self.backend)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+ERROR 2026-05-25 13:33:00,480 log 16748 18160 "GET /faq/ HTTP/1.1" 500 139205
+ERROR 2026-05-25 13:33:00,776 log 16748 18160 Internal Server Error: /faq/
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 135, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 132, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 110, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\engine.py", line 163, in find_template
+    raise TemplateDoesNotExist(name, tried=tried)
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 316, in faq_list
+    return render(request, 'template/faq.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 109, in render
+    reraise(exc, self.backend)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+ERROR 2026-05-25 13:33:00,779 log 16748 18160 "GET /faq/ HTTP/1.1" 500 139205
+ERROR 2026-05-25 13:33:02,409 log 16748 18160 Internal Server Error: /faq/
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 135, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 132, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 110, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\engine.py", line 163, in find_template
+    raise TemplateDoesNotExist(name, tried=tried)
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 316, in faq_list
+    return render(request, 'template/faq.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 109, in render
+    reraise(exc, self.backend)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: core/base.html
+ERROR 2026-05-25 13:33:02,413 log 16748 18160 "GET /faq/ HTTP/1.1" 500 139205
+ERROR 2026-05-25 13:33:46,892 log 16748 18160 Internal Server Error: /faq/
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\urls\base.py", line 81, in reverse
+    extra, resolver = resolver.namespace_dict[ns]
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^
+KeyError: 'core'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 316, in faq_list
+    return render(request, 'template/faq.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 160, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\defaulttags.py", line 511, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\urls\base.py", line 92, in reverse
+    raise NoReverseMatch("%s is not a registered namespace" % key)
+django.urls.exceptions.NoReverseMatch: 'core' is not a registered namespace
+ERROR 2026-05-25 13:33:46,897 log 16748 18160 "GET /faq/ HTTP/1.1" 500 151080
+INFO 2026-05-25 13:34:36,793 log 16748 18160 "GET /faq/ HTTP/1.1" 200 11956
+INFO 2026-05-25 13:35:45,760 views 16748 18160 Home page accessed by admin
+ERROR 2026-05-25 13:35:45,963 log 16748 18160 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\urls\base.py", line 81, in reverse
+    extra, resolver = resolver.namespace_dict[ns]
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^
+KeyError: 'core'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 257, in home
+    return render(request, 'template/home.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 160, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 66, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\defaulttags.py", line 511, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\urls\base.py", line 92, in reverse
+    raise NoReverseMatch("%s is not a registered namespace" % key)
+django.urls.exceptions.NoReverseMatch: 'core' is not a registered namespace
+ERROR 2026-05-25 13:35:45,967 log 16748 18160 "GET / HTTP/1.1" 500 192235
+INFO 2026-05-25 13:36:04,004 views 16748 18160 Home page accessed by admin
+INFO 2026-05-25 13:36:04,037 log 16748 18160 "GET / HTTP/1.1" 200 21053
+INFO 2026-05-25 13:36:04,162 log 16748 18160 "GET /media/news/Capture001.png HTTP/1.1" 304 0
+INFO 2026-05-25 13:37:21,042 views 16748 18160 Home page accessed by admin
+INFO 2026-05-25 13:37:21,064 log 16748 18160 "GET / HTTP/1.1" 200 21053
+INFO 2026-05-25 13:37:25,313 log 16748 18160 "GET /about/ HTTP/1.1" 200 15775
+INFO 2026-05-25 13:37:25,459 log 16748 18160 "GET /media/logos/images111.png HTTP/1.1" 304 0
+INFO 2026-05-25 13:37:25,528 log 16748 18160 "GET /media/staff/Tom_the_Cat.webp HTTP/1.1" 304 0
+INFO 2026-05-25 13:37:28,127 log 16748 18160 "GET /insurance-types/ HTTP/1.1" 200 17844
+INFO 2026-05-25 13:37:29,818 log 16748 18160 "GET /contracts/ HTTP/1.1" 200 27630
+INFO 2026-05-25 13:37:31,869 log 16748 18160 "GET /branches/ HTTP/1.1" 200 15975
+INFO 2026-05-25 13:37:32,858 log 16748 18160 "GET /faq/ HTTP/1.1" 200 11964
+INFO 2026-05-25 13:37:34,158 log 16748 18160 "GET /vacancies/ HTTP/1.1" 200 12330
+ERROR 2026-05-25 13:37:36,736 log 16748 18160 Internal Server Error: /statistics/
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 774, in statistics
+    from template.models import StaffMember
+ModuleNotFoundError: No module named 'template'
+ERROR 2026-05-25 13:37:36,740 log 16748 18160 "GET /statistics/ HTTP/1.1" 500 73845
+ERROR 2026-05-25 13:38:17,982 log 16748 18160 Internal Server Error: /statistics/
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 774, in statistics
+    from template.models import StaffMember
+ModuleNotFoundError: No module named 'template'
+ERROR 2026-05-25 13:38:17,983 log 16748 18160 "GET /statistics/ HTTP/1.1" 500 73982
+INFO 2026-05-25 13:38:20,603 autoreload 16748 2940 W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py changed, reloading.
+INFO 2026-05-25 13:38:21,928 autoreload 10856 3196 Watching for file changes with StatReloader
+INFO 2026-05-25 13:38:24,626 log 10856 16016 "GET /statistics/ HTTP/1.1" 200 220840
+INFO 2026-05-25 13:38:29,345 log 10856 16016 "GET /privacy-policy/ HTTP/1.1" 200 11970
+INFO 2026-05-25 13:38:30,813 log 10856 16016 "GET /promo-codes/ HTTP/1.1" 200 13170
+INFO 2026-05-25 13:38:32,014 log 10856 16016 "GET /reviews/ HTTP/1.1" 200 17668
+INFO 2026-05-25 13:38:32,852 log 10856 16016 "GET /vacancies/ HTTP/1.1" 200 12330
+INFO 2026-05-25 13:38:34,796 log 10856 16016 "GET /faq/ HTTP/1.1" 200 11964

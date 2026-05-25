@@ -1,5 +1,5 @@
-<!-- core/templates/core/client_profile_form.html -->
-{% extends 'core/base.html' %}
+<!-- template/templates/template/client_profile_form.html -->
+{% extends 'template/base.html' %}
 {% load crispy_forms_tags %}
 
 {% block title %}Редактирование профиля - Страховая фирма{% endblock %}
@@ -13,7 +13,7 @@
         {{ form|crispy }}
         <div style="margin-top: 1rem;">
             <button type="submit" class="btn btn-primary">💾 Сохранить</button>
-            <a href="{% url 'core:profile' %}" class="btn">Отмена</a>
+            <a href="{% url 'template:profile' %}" class="btn">Отмена</a>
         </div>
     </form>
 </div>
