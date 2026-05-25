@@ -1,0 +1,56 @@
+<!-- core/templates/core/contract_detail.html -->
+{% extends 'core/base.html' %}
+
+{% block title %}Договор №{{ contract.contract_number }} - Страховая фирма{% endblock %}
+
+{% block content %}
+<h1>Договор страхования №{{ contract.contract_number }}</h1>
+
+<div class="card">
+    <h2>📋 Основная информация</h2>
+    <p><strong>Клиент:</strong> {{ contract.client.last_name }} {{ contract.client.first_name }} {{ contract.client.middle_name }}</p>
+    <p><strong>Страховой агент:</strong> {{ contract.agent.last_name }} {{ contract.agent.first_name }}</p>
+    <p><strong>Филиал:</strong> {{ contract.branch.name }}</p>
+    <p><strong>Вид страхования:</strong> {{ contract.insurance_type.name }}</p>
+    <p><strong>Объект страхования:</strong> {{ contract.insured_object.get_object_type_display }}</p>
+    <p><strong>Статус:</strong> 
+        {% if contract.status == 'active' %}
+            ✅ Активен
+        {% elif contract.status == 'expired' %}
+            ⏰ Истёк
+        {% else %}
+            ❌ Расторгнут
+        {% endif %}
+    </p>
+</div>
+
+<div class="card">
+    <h2>💰 Финансовая информация</h2>
+    <p><strong>Страховая сумма:</strong> {{ contract.insurance_sum|floatformat:2 }} руб.</p>
+    <p><strong>Тарифная ставка:</strong> {{ contract.tariff_rate }}%</p>
+    <p><strong>Страховой платёж:</strong> {{ insurance_payment|floatformat:2 }} руб.</p>
+
+     {% if contract.final_payment and contract.final_payment != contract.insurance_payment %}
+        <p><strong>Скидка по промокоду:</strong> включена</p>
+        <p><strong>Итоговый платёж:</strong> <span style="color: #27ae60; font-weight: bold;">{{ contract.final_payment|floatformat:2 }} руб.</span></p>
+    {% endif %}
+    
+    <p><strong>Комиссия агента:</strong> {{ agent_commission|floatformat:2 }} руб.</p>
+</div>
+
+<div class="card">
+    <h2>📅 Даты</h2>
+    <p><strong>Дата начала:</strong> {{ contract.start_date|date:"d/m/Y" }}</p>
+    <p><strong>Дата окончания:</strong> {{ contract.end_date|date:"d/m/Y" }}</p>
+    <p><strong>Создан:</strong> {{ contract.created_at|date:"d/m/Y H:i" }}</p>
+    <p><strong>Обновлён:</strong> {{ contract.updated_at|date:"d/m/Y H:i" }}</p>
+</div>
+
+<div style="display: flex; gap: 1rem;">
+    <a href="{% url 'core:contract_update' contract.pk %}" class="btn btn-primary">✏️ Редактировать</a>
+    <a href="{% url 'core:contract_list' %}" class="btn">← Назад к списку</a>
+    {% if user.is_superuser %}
+        <a href="{% url 'core:contract_delete' contract.pk %}" class="btn btn-danger" onclick="return confirm('Удалить договор?')">🗑️ Удалить</a>
+    {% endif %}
+</div>
+{% endblock %}

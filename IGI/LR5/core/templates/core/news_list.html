@@ -1,0 +1,50 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Новости - Страховая фирма{% endblock %}
+
+{% block content %}
+<h1>Новости компании</h1>
+
+<!-- Поиск -->
+<div class="card">
+    <form method="get" style="display: flex; gap: 1rem;">
+        <input type="text" name="q" placeholder="Поиск новостей..." value="{{ query }}" style="flex: 1;">
+        <select name="sort">
+            <option value="-created_at">Сначала новые</option>
+            <option value="created_at">Сначала старые</option>
+            <option value="title">По названию</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Найти</button>
+    </form>
+</div>
+
+{% if user.is_superuser %}
+<div style="margin-bottom: 1rem;">
+    <a href="{% url 'core:news_create' %}" class="btn btn-success">➕ Добавить новость</a>
+</div>
+{% endif %}
+
+<div class="grid">
+    {% for news in news_list %}
+        <div class="card">
+            {% if news.image %}
+                <img src="{{ news.image.url }}" alt="{{ news.title }}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px;">
+            {% endif %}
+            <h2 class="card-title">{{ news.title }}</h2>
+            <p>{{ news.short_description }}</p>
+            <small>📅 {{ news.created_at|date:"d/m/Y" }}</small>
+            <div style="margin-top: 1rem;">
+                <a href="{% url 'core:news_detail' news.pk %}" class="btn btn-primary">Читать далее →</a>
+                {% if user.is_superuser %}
+                    <a href="{% url 'core:news_update' news.pk %}" class="btn">✏️</a>
+                    <a href="{% url 'core:news_delete' news.pk %}" class="btn btn-danger" onclick="return confirm('Удалить?')">🗑️</a>
+                {% endif %}
+            </div>
+        </div>
+    {% empty %}
+        <div class="card">
+            <p>Новостей пока нет</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

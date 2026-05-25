@@ -21,7 +21,7 @@ from utils.inputValidator import input_data
 
 def run_task1():
     """Execute Task 1"""
-    task1()
+    #task1()
 
 
 def run_task2():

@@ -15,7 +15,7 @@ class PrintableMixin:
     def print_all(numbers):
         """
         Print all rational numbers passed as a list.
-
+3935
         Args:
             numbers: List of rational number objects to display
         """

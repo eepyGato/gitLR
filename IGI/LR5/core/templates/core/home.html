@@ -1,0 +1,65 @@
+<!-- core/templates/core/home.html -->
+{% extends 'core/base.html' %}
+
+{% block title %}Главная - Страховая фирма{% endblock %}
+
+{% block content %}
+<h1>Добро пожаловать в нашу страховую компанию!</h1>
+
+<div class="grid" style="margin-top: 2rem;">
+    <div class="card">
+        <div class="stat-number">{{ total_clients }}</div>
+        <div class="stat-label">Довольных клиентов</div>
+    </div>
+    <div class="card">
+        <div class="stat-number">{{ total_contracts }}</div>
+        <div class="stat-label">Активных договоров</div>
+    </div>
+    <div class="card">
+        <div class="stat-number">{{ total_branches }}</div>
+        <div class="stat-label">Филиалов по стране</div>
+    </div>
+</div>
+
+<div class="grid" style="margin-top: 2rem;">
+    <div class="card">
+        <h2 class="card-title">📝 Последние отзывы</h2>
+        {% for review in latest_reviews %}
+            <div style="margin-bottom: 1rem;">
+                <strong>{{ review.client }}</strong>
+                <span>⭐ {{ review.rating }}/5</span>
+                <p style="color: #666; font-size: 0.9rem;">{{ review.text|truncatewords:20 }}</p>
+                <small>{{ review.created_at|date:"d/m/Y" }}</small>
+            </div>
+        {% empty %}
+            <p>Пока нет отзывов</p>
+        {% endfor %}
+        <a href="{% url 'core:review_list' %}" class="btn btn-primary">Все отзывы →</a>
+    </div>
+    
+    <div class="card">
+        <h2 class="card-title">💼 Актуальные вакансии</h2>
+        {% for vacancy in latest_vacancies %}
+            <div style="margin-bottom: 1rem;">
+                <strong>{{ vacancy.title }}</strong>
+                <p style="color: #666; font-size: 0.9rem;">📍 {{ vacancy.location }}</p>
+            </div>
+        {% empty %}
+            <p>Нет открытых вакансий</p>
+        {% endfor %}
+        <a href="{% url 'core:vacancies' %}" class="btn btn-primary">Все вакансии →</a>
+    </div>
+    
+    <div class="card">
+        <h2 class="card-title">❓ Часто задаваемые вопросы</h2>
+        {% for faq in latest_faqs %}
+            <div style="margin-bottom: 1rem;">
+                <strong>{{ faq.question }}</strong>
+            </div>
+        {% empty %}
+            <p>Пока нет вопросов</p>
+        {% endfor %}
+        <a href="{% url 'core:faq' %}" class="btn btn-primary">Все вопросы →</a>
+    </div>
+</div>
+{% endblock %}

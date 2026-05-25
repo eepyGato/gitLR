@@ -1,0 +1,102 @@
+<!-- core/templates/core/profile.html -->
+{% extends 'core/base.html' %}
+
+{% block title %}Профиль - Страховая фирма{% endblock %}
+
+{% block content %}
+<h1>Личный кабинет</h1>
+
+<div class="grid">
+    <div class="card">
+        <h2 class="card-title">👤 Информация о пользователе</h2>
+        <p><strong>Имя пользователя:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Имя:</strong> {{ user.first_name|default:"Не указано" }}</p>
+        <p><strong>Фамилия:</strong> {{ user.last_name|default:"Не указано" }}</p>
+        <p><strong>Дата регистрации:</strong> {{ user.date_joined|date:"d/m/Y H:i" }}</p>
+        <p><strong>Последний вход:</strong> {{ user.last_login|date:"d/m/Y H:i"|default:"Никогда" }}</p>
+    </div>
+    
+    {% if client %}
+        <div class="card">
+            <h2 class="card-title">📋 Профиль клиента</h2>
+            <p><strong>ФИО:</strong> {{ client.last_name }} {{ client.first_name }} {{ client.middle_name }}</p>
+            <p><strong>Дата рождения:</strong> {{ client.birth_date|date:"d/m/Y" }}</p>
+            <p><strong>Возраст:</strong> {{ client.age }} лет</p>
+            <p><strong>Телефон:</strong> {{ client.phone }}</p>
+            <p><strong>Email:</strong> {{ client.email }}</p>
+            <p><strong>Адрес:</strong> {{ client.address }}</p>
+            <p><strong>Паспорт:</strong> {{ client.passport_number }}</p>
+            <a href="{% url 'core:client_profile_update' %}" class="btn btn-primary">✏️ Редактировать</a>
+        </div>
+    {% endif %}
+    
+    {% if agent %}
+        <div class="card">
+            <h2 class="card-title">🏢 Профиль агента</h2>
+            <p><strong>ФИО:</strong> {{ agent.last_name }} {{ agent.first_name }} {{ agent.middle_name }}</p>
+            <p><strong>Дата рождения:</strong> {{ agent.birth_date|date:"d/m/Y" }}</p>
+            <p><strong>Возраст:</strong> {{ agent.age }} лет</p>
+            <p><strong>Телефон:</strong> {{ agent.phone }}</p>
+            <p><strong>Филиал:</strong> {{ agent.branch.name }}</p>
+            <p><strong>Дата приёма:</strong> {{ agent.hire_date|date:"d/m/Y" }}</p>
+        </div>
+    {% endif %}
+</div>
+
+{% if client %}
+    <div class="card">
+        <h2 class="card-title">📄 Мои договоры страхования</h2>
+        {% with client_contracts=client.contracts.all %}
+            {% if client_contracts %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>№ договора</th>
+                            <th>Вид страхования</th>
+                            <th>Страховая сумма</th>
+                            <th>Статус</th>
+                            <th>Дата начала</th>
+                            <th>Дата окончания</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for contract in client_contracts %}
+                            <tr>
+                                <td><a href="{% url 'core:contract_detail' contract.pk %}">{{ contract.contract_number }}</a></td>
+                                <td>{{ contract.insurance_type.name }}</td>
+                                <td>{{ contract.insurance_sum|floatformat:2 }} руб.</td>
+                                <td>
+                                    {% if contract.status == 'active' %}✅ Активен
+                                    {% elif contract.status == 'expired' %}⏰ Истёк
+                                    {% else %}❌ Расторгнут{% endif %}
+                                </td>
+                                <td>{{ contract.start_date|date:"d/m/Y" }}</td>
+                                <td>{{ contract.end_date|date:"d/m/Y" }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>У вас пока нет договоров страхования</p>
+            {% endif %}
+        {% endwith %}
+    </div>
+    
+    <div class="card">
+        <h2 class="card-title">⭐ Мои отзывы</h2>
+        {% with client_reviews=client.reviews.all %}
+            {% for review in client_reviews %}
+                <div style="border-bottom: 1px solid #eee; padding: 1rem 0;">
+                    <p><strong>Оценка:</strong> ⭐ {{ review.rating }}/5</p>
+                    <p>{{ review.text }}</p>
+                    <small>{{ review.created_at|date:"d/m/Y H:i" }}</small>
+                </div>
+            {% empty %}
+                <p>Вы ещё не оставляли отзывы</p>
+                <a href="{% url 'core:review_create' %}" class="btn btn-primary">Оставить отзыв</a>
+            {% endfor %}
+        {% endwith %}
+    </div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,237 @@
+<!-- core/templates/core/statistics.html -->
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Статистика - Страховая фирма{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<h1>Статистика страховой компании</h1>
+
+<!-- Фильтр по датам -->
+<div class="card">
+    <h3>Фильтр по дате</h3>
+    <form method="get" style="display: flex; gap: 1rem; align-items: flex-end; flex-wrap: wrap;">
+        {{ form.as_p }}
+        <div>
+            <button type="submit" class="btn btn-primary">Применить</button>
+            <a href="{% url 'core:statistics' %}" class="btn">Сбросить</a>
+        </div>
+    </form>
+</div>
+
+<!-- Общая статистика -->
+<div class="grid">
+    <div class="card stat-card">
+        <div class="stat-number">{{ total_contracts }}</div>
+        <div class="stat-label">Всего договоров</div>
+    </div>
+    <div class="card stat-card">
+        <div class="stat-number">{{ total_clients }}</div>
+        <div class="stat-label">Клиентов</div>
+    </div>
+    <div class="card stat-card">
+        <div class="stat-number">{{ total_agents }}</div>
+        <div class="stat-label">Страховых агентов</div>
+    </div>
+    <div class="card stat-card">
+        <div class="stat-number">{{ total_branches }}</div>
+        <div class="stat-label">Филиалов</div>
+    </div>
+</div>
+
+<!-- Финансовая статистика -->
+<div class="grid">
+    <div class="card stat-card">
+        <div class="stat-number">{{ total_insurance_sum|floatformat:0 }}</div>
+        <div class="stat-label">Общая страховая сумма (руб.)</div>
+    </div>
+    <div class="card stat-card">
+        <div class="stat-number">{{ total_insurance_payment|floatformat:0 }}</div>
+        <div class="stat-label">Общий страховой платёж (руб.)</div>
+    </div>
+    <div class="card stat-card">
+        <div class="stat-number">{{ total_agent_commission|floatformat:0 }}</div>
+        <div class="stat-label">Общая комиссия агентов (руб.)</div>
+    </div>
+</div>
+
+<!-- Статистические показатели -->
+<div class="card">
+    <h2>Статистические показатели страховых сумм</h2>
+    <div class="grid" style="grid-template-columns: repeat(5, 1fr);">
+        {% if mean_sum %}
+            <div class="stat-card">
+                <div class="stat-number">{{ mean_sum|floatformat:2 }}</div>
+                <div class="stat-label">Среднее</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ median_sum|floatformat:2 }}</div>
+                <div class="stat-label">Медиана</div>
+            </div>
+            {% if mode_sum %}
+                <div class="stat-card">
+                    <div class="stat-number">{{ mode_sum|floatformat:2 }}</div>
+                    <div class="stat-label">Мода</div>
+                </div>
+            {% endif %}
+            <div class="stat-card">
+                <div class="stat-number">{{ min_sum|floatformat:2 }}</div>
+                <div class="stat-label">Минимум</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ max_sum|floatformat:2 }}</div>
+                <div class="stat-label">Максимум</div>
+            </div>
+        {% else %}
+            <p>Нет данных для отображения</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Популярность видов страхования -->
+<div class="grid">
+    <div class="card">
+        <h2>Наиболее популярный вид страхования</h2>
+        {% if most_popular_type %}
+            <p style="font-size: 1.5rem; font-weight: bold;">{{ most_popular_type.name }}</p>
+            <p>Количество договоров: {{ most_popular_type.count }}</p>
+            <p>Общая страховая сумма: {{ most_popular_type.total_sum|floatformat:2 }} руб.</p>
+        {% else %}
+            <p>Нет данных</p>
+        {% endif %}
+    </div>
+    
+    <div class="card">
+        <h2>Наиболее прибыльный вид страхования</h2>
+        {% if most_profitable_type %}
+            <p style="font-size: 1.5rem; font-weight: bold;">{{ most_profitable_type.name }}</p>
+            <p>Общая страховая сумма: {{ most_profitable_type.total_sum|floatformat:2 }} руб.</p>
+            <p>Количество договоров: {{ most_profitable_type.count }}</p>
+        {% else %}
+            <p>Нет данных</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Статистика по видам страхования (график) -->
+<div class="card">
+    <h2>Статистика по видам страхования</h2>
+    <canvas id="typeChart" width="400" height="200"></canvas>
+</div>
+
+<!-- Статистика по филиалам (график) -->
+<div class="card">
+    <h2>Статистика по филиалам</h2>
+    <canvas id="branchChart" width="400" height="200"></canvas>
+</div>
+
+<!-- Динамика по месяцам -->
+<div class="card">
+    <h2>Динамика заключения договоров по месяцам</h2>
+    <canvas id="monthlyChart" width="400" height="200"></canvas>
+</div>
+
+<script>
+(function() {
+    // График по видам страхования
+    const typeCtx = document.getElementById('typeChart');
+    if (typeCtx) {
+        const typeStats = {{ type_stats|safe }};
+        new Chart(typeCtx, {
+            type: 'bar',
+            data: {
+                labels: typeStats.map(function(item) { return item.name; }),
+                datasets: [{
+                    label: 'Количество договоров',
+                    data: typeStats.map(function(item) { return item.count; }),
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { stepSize: 1 }
+                    }
+                }
+            }
+        });
+    }
+
+    // График по филиалам
+    const branchCtx = document.getElementById('branchChart');
+    if (branchCtx) {
+        const branchStats = {{ branch_stats|safe }};
+        new Chart(branchCtx, {
+            type: 'pie',
+            data: {
+                labels: branchStats.map(function(item) { return item.name; }),
+                datasets: [{
+                    data: branchStats.map(function(item) { return item.count; }),
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 206, 86, 0.5)',
+                        'rgba(75, 192, 192, 0.5)',
+                        'rgba(153, 102, 255, 0.5)'
+                    ]
+                }]
+            }
+        });
+    }
+
+    // Динамика по месяцам
+    const monthlyCtx = document.getElementById('monthlyChart');
+    if (monthlyCtx) {
+        const monthlyStats = {{ monthly_stats|safe }};
+        const months = Object.keys(monthlyStats);
+        new Chart(monthlyCtx, {
+            type: 'line',
+            data: {
+                labels: months,
+                datasets: [
+                    {
+                        label: 'Количество договоров',
+                        data: months.map(function(m) { return monthlyStats[m].count; }),
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        tension: 0.1,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'Страховая сумма (млн руб.)',
+                        data: months.map(function(m) { return monthlyStats[m].sum / 1000000; }),
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        tension: 0.1,
+                        yAxisID: 'y1'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Количество договоров' }
+                    },
+                    y1: {
+                        position: 'right',
+                        beginAtZero: true,
+                        title: { display: true, text: 'Страховая сумма (млн руб.)' },
+                        grid: { drawOnChartArea: false }
+                    }
+                }
+            }
+        });
+    }
+})();
+</script>
+{% endblock %}

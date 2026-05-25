@@ -1,0 +1,288 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Новый договор страхования{% endblock %}
+
+{% block extra_css %}
+<style>
+    .contract-form {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    
+    .form-section {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 25px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    
+    .form-section h3 {
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #3498db;
+        color: #2c3e50;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+    
+    .form-group label .required {
+        color: #e74c3c;
+    }
+    
+    .form-group select,
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: all 0.3s;
+        box-sizing: border-box;
+    }
+    
+    .form-group select:focus,
+    .form-group input:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: #3498db;
+        box-shadow: 0 0 0 3px rgba(52,152,219,0.1);
+    }
+    
+    .help-text {
+        font-size: 0.8rem;
+        color: #7f8c8d;
+        margin-top: 5px;
+    }
+    
+    .error-text {
+        color: #e74c3c;
+        font-size: 0.85rem;
+        margin-top: 5px;
+    }
+    
+    .tariff-display {
+        background: #f0f9f0;
+        border: 1px solid #27ae60;
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+    
+    .tariff-display span {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #27ae60;
+    }
+    
+    .client-info {
+        background: #f8f9fa;
+        padding: 12px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+    }
+    
+    .btn-save {
+        background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 25px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    
+    .btn-save:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(39,174,96,0.3);
+    }
+    
+    .btn-cancel {
+        background: #95a5a6;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 25px;
+        font-size: 1rem;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+    }
+    
+    .btn-cancel:hover {
+        background: #7f8c8d;
+    }
+    
+    .warning-text {
+        color: #e67e22;
+        font-size: 0.85rem;
+        margin-top: 5px;
+    }
+    
+    .buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 30px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="contract-form">
+    <h1>📝 Оформление договора страхования</h1>
+    
+    <form method="post" id="contractForm">
+        {% csrf_token %}
+        
+        <!-- Информация о клиенте -->
+        <div class="form-section">
+            <h3>👤 Информация о клиенте</h3>
+            
+            {% if user.is_superuser %}
+                <div class="form-group">
+                    <label for="id_client">👥 Клиент <span class="required">*</span></label>
+                    {{ form.client }}
+                    <div class="help-text">Выберите клиента, для которого оформляется договор</div>
+                </div>
+            {% else %}
+                <div class="client-info">
+                    <strong>{{ user.get_full_name|default:user.username }}</strong><br>
+                    <span class="help-text">Договор будет оформлен на вас автоматически</span>
+                </div>
+                {{ form.client.as_hidden }}
+            {% endif %}
+        </div>
+        
+        <!-- Выбор агента и филиала -->
+        <div class="form-section">
+            <h3>🏢 Выбор агента и филиала</h3>
+            
+            <div class="form-group">
+                <label for="id_agent">👨‍💼 Страховой агент <span class="required">*</span></label>
+                {{ form.agent }}
+                <div class="help-text">Выберите агента, который будет вас обслуживать</div>
+                {{ form.agent.errors }}
+            </div>
+            
+            <div class="form-group">
+                <label for="id_branch">🏢 Филиал <span class="required">*</span></label>
+                {{ form.branch }}
+                <div class="help-text">Выберите удобный филиал</div>
+                {{ form.branch.errors }}
+            </div>
+        </div>
+        
+        <!-- Выбор страхования -->
+        <div class="form-section">
+            <h3>📋 Выбор страхования</h3>
+            
+            <div class="form-group">
+                <label for="id_insurance_type">📋 Вид страхования <span class="required">*</span></label>
+                {{ form.insurance_type }}
+                <div class="help-text">Выберите, что хотите застраховать</div>
+                {{ form.insurance_type.errors }}
+            </div>
+
+            <!-- Отображение тарифа -->
+            <div class="tariff-display" id="tariffDisplay" style="display: none;">
+                📊 Тарифная ставка: <span id="tariffRate">-</span>%
+            </div>
+            
+            <div class="form-group">
+                <label for="id_object_description">🏷️ Описание объекта страхования <span class="required">*</span></label>
+                {{ form.object_description }}
+                <div class="help-text">Например: автомобиль Toyota Camry, квартира на Ленина</div>
+                {{ form.object_description.errors }}
+            </div>
+            
+            <div class="form-group">
+                <label for="id_object_value">💰 Страховая стоимость <span class="required">*</span></label>
+                {{ form.object_value }}
+                <div class="help-text">Рыночная стоимость объекта (руб.)</div>
+                {{ form.object_value.errors }}
+            </div>
+            
+            <div class="form-group">
+                <label for="id_insurance_sum">💵 Страховая сумма <span class="required">*</span></label>
+                {{ form.insurance_sum }}
+                <div class="help-text">Сумма, на которую вы страхуете объект (не может превышать страховую стоимость)</div>
+                {{ form.insurance_sum.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="id_promo_code">🎫 Промокод</label>
+                {{ form.promo_code }}
+                <div class="help-text">Введите промокод для получения скидки (если есть)</div>
+                {% if form.promo_code.errors %}
+                    <div class="error-text">{{ form.promo_code.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Скрытые поля -->
+        {{ form.start_date.as_hidden }}
+        {{ form.end_date.as_hidden }}
+        {{ form.tariff_rate.as_hidden }}
+        {{ form.insured_object.as_hidden }}
+        
+        <!-- Кнопки -->
+        <div class="buttons">
+            <button type="submit" class="btn-save">✅ Оформить договор</button>
+            <a href="{% url 'core:contract_list' %}" class="btn-cancel">❌ Отмена</a>
+        </div>
+    </form>
+</div>
+
+<!-- JAVASCRIPT - ВСТАВИТЬ СЮДА -->
+<script>
+    function checkInsuranceSum() {
+        const objectValue = document.getElementById('id_object_value');
+        const insuranceSum = document.getElementById('id_insurance_sum');
+        const sumWarning = document.getElementById('sumWarning');
+        
+        if (objectValue && insuranceSum) {
+            const objVal = parseFloat(objectValue.value) || 0;
+            const insSum = parseFloat(insuranceSum.value) || 0;
+            
+            if (insSum > objVal && objVal > 0) {
+                if (sumWarning) {
+                    sumWarning.style.display = 'block';
+                    sumWarning.innerHTML = '⚠️ Ошибка! Страховая сумма ( ' + insSum + ' ) не может превышать страховую стоимость ( ' + objVal + ' )';
+                    sumWarning.style.color = '#e74c3c';
+                    sumWarning.style.fontWeight = 'bold';
+                }
+                insuranceSum.style.borderColor = '#e74c3c';
+            } else {
+                if (sumWarning) {
+                    sumWarning.style.display = 'none';
+                }
+                insuranceSum.style.borderColor = '#e0e0e0';
+            }
+        }
+    }
+    
+    // Привязываем события
+    const objectValueInput = document.getElementById('id_object_value');
+    const insuranceSumInput = document.getElementById('id_insurance_sum');
+    
+    if (objectValueInput) {
+        objectValueInput.addEventListener('input', checkInsuranceSum);
+    }
+    if (insuranceSumInput) {
+        insuranceSumInput.addEventListener('input', checkInsuranceSum);
+    }
+</script>
+{% endblock %}

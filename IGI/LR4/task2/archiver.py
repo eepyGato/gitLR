@@ -3,7 +3,7 @@
 # Module: archiver.py
 # Purpose: Archive results and manage ZIP files
 # Version: 1.0
-# Developer: Developer: Shcherbak Rodion
+# Developer: Shcherbak Rodion
 # Date of Development: 2026-04-29
 # ---------------------------------------------------------
 
