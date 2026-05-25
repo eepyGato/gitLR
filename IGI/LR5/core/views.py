@@ -30,6 +30,154 @@ from .forms import (
 
 logger = logging.getLogger(__name__)
 
+import matplotlib
+matplotlib.use('Agg')  # Используем бэкенд без GUI (важно для сервера)
+import matplotlib.pyplot as plt
+import io
+import base64
+from datetime import datetime, timedelta
+from django.db.models import Sum, Count
+import numpy as np
+
+def generate_contracts_chart():
+    """Генерирует график количества договоров по видам страхования"""
+    
+    # Получаем данные
+    insurance_types = InsuranceType.objects.filter(is_active=True)
+    types_names = []
+    contracts_counts = []
+    
+    for ins_type in insurance_types:
+        count = InsuranceContract.objects.filter(insurance_type=ins_type).count()
+        if count > 0:  # Показываем только те, у которых есть договоры
+            types_names.append(ins_type.name)
+            contracts_counts.append(count)
+    
+    if not types_names:
+        # Если нет данных, создаём пустой график с сообщением
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.text(0.5, 0.5, 'Нет данных для отображения', 
+                ha='center', va='center', fontsize=14)
+        ax.axis('off')
+    else:
+        # Создаём столбчатую диаграмму
+        fig, ax = plt.subplots(figsize=(10, 6))
+        bars = ax.bar(types_names, contracts_counts, color='steelblue', edgecolor='navy')
+        
+        # Добавляем значения на столбцы
+        for bar, count in zip(bars, contracts_counts):
+            ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.5,
+                   str(count), ha='center', va='bottom', fontsize=10)
+        
+        ax.set_xlabel('Вид страхования', fontsize=12)
+        ax.set_ylabel('Количество договоров', fontsize=12)
+        ax.set_title('Распределение договоров по видам страхования', fontsize=14, fontweight='bold')
+        plt.xticks(rotation=45, ha='right')
+        ax.grid(True, alpha=0.3, axis='y')
+    
+    plt.tight_layout()
+    
+    # Сохраняем график в буфер
+    buffer = io.BytesIO()
+    plt.savefig(buffer, format='png', dpi=100, bbox_inches='tight')
+    buffer.seek(0)
+    
+    # Кодируем в base64 для вставки в HTML
+    image_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
+    plt.close(fig)
+    
+    return image_base64
+
+
+def generate_contracts_by_month_chart():
+    """Генерирует график динамики договоров по месяцам"""
+    
+    # Получаем данные за последние 12 месяцев
+    today = datetime.now().date()
+    start_date = today - timedelta(days=365)
+    
+    # Группируем договоры по месяцам
+    contracts = InsuranceContract.objects.filter(
+        start_date__gte=start_date
+    ).extra({'month': "strftime('%%Y-%%m', start_date)"}).values('month').annotate(
+        count=Count('id'),
+        total_sum=Sum('insurance_sum')
+    ).order_by('month')
+    
+    if not contracts:
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.text(0.5, 0.5, 'Нет данных за последние 12 месяцев', 
+                ha='center', va='center', fontsize=14)
+        ax.axis('off')
+    else:
+        months = [c['month'] for c in contracts]
+        counts = [c['count'] for c in contracts]
+        
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.plot(months, counts, 'o-', color='green', linewidth=2, markersize=8)
+        ax.fill_between(months, counts, alpha=0.3, color='green')
+        
+        ax.set_xlabel('Месяц', fontsize=12)
+        ax.set_ylabel('Количество договоров', fontsize=12)
+        ax.set_title('Динамика заключения договоров по месяцам', fontsize=14, fontweight='bold')
+        plt.xticks(rotation=45)
+        ax.grid(True, alpha=0.3)
+    
+    plt.tight_layout()
+    
+    buffer = io.BytesIO()
+    plt.savefig(buffer, format='png', dpi=100, bbox_inches='tight')
+    buffer.seek(0)
+    image_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
+    plt.close(fig)
+    
+    return image_base64
+
+
+def generate_insurance_sum_by_type_chart():
+    """Генерирует круговую диаграмму страховых сумм по видам страхования"""
+    
+    # Получаем данные
+    insurance_types = InsuranceType.objects.filter(is_active=True)
+    types_names = []
+    sums = []
+    
+    for ins_type in insurance_types:
+        total_sum = InsuranceContract.objects.filter(
+            insurance_type=ins_type
+        ).aggregate(total=Sum('insurance_sum'))['total'] or 0
+        if total_sum > 0:
+            types_names.append(ins_type.name)
+            sums.append(float(total_sum))
+    
+    if not types_names:
+        fig, ax = plt.subplots(figsize=(8, 8))
+        ax.text(0.5, 0.5, 'Нет данных для отображения', 
+                ha='center', va='center', fontsize=14)
+        ax.axis('off')
+    else:
+        fig, ax = plt.subplots(figsize=(8, 8))
+        colors = plt.cm.Set3(np.linspace(0, 1, len(types_names)))
+        wedges, texts, autotexts = ax.pie(
+            sums, 
+            labels=types_names, 
+            autopct='%1.1f%%',
+            colors=colors,
+            startangle=90
+        )
+        ax.set_title('Распределение страховых сумм по видам страхования', 
+                     fontsize=14, fontweight='bold')
+    
+    plt.tight_layout()
+    
+    buffer = io.BytesIO()
+    plt.savefig(buffer, format='png', dpi=100, bbox_inches='tight')
+    buffer.seek(0)
+    image_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
+    plt.close(fig)
+    
+    return image_base64
+
 
 # ========== Helper functions ==========
 
@@ -479,7 +627,7 @@ def review_create(request):
     }
     return render(request, 'core/review_form.html', context)
 
-
+@login_required
 def review_update(request, pk):
     """Edit existing review"""
     if not request.user.is_authenticated:
@@ -518,7 +666,7 @@ def review_update(request, pk):
     }
     return render(request, 'core/review_form.html', context)
 
-
+@login_required
 def review_delete(request, pk):
     """Delete review (admin only)"""
     if not request.user.is_superuser:
@@ -608,7 +756,8 @@ def statistics(request):
     # Basic statistics
     total_contracts = contracts.count()
     total_clients = Client.objects.count()
-    total_agents = InsuranceAgent.objects.filter(is_active=True).count()
+    from core.models import StaffMember
+    total_agents = StaffMember.objects.filter(position='agent', is_active=True).count()
     total_branches = Branch.objects.count()
     
     # Financial statistics
@@ -666,6 +815,10 @@ def statistics(request):
     
     # Most profitable insurance type
     most_profitable_type = max(type_stats, key=lambda x: x['total_sum']) if type_stats else None
+
+    contracts_chart = generate_contracts_chart()
+    monthly_chart = generate_contracts_by_month_chart()
+    pie_chart = generate_insurance_sum_by_type_chart()
     
     context = {
         'form': form,
@@ -686,6 +839,9 @@ def statistics(request):
         'max_sum': max_sum,
         'most_popular_type': most_popular_type,
         'most_profitable_type': most_profitable_type,
+        'contracts_chart': contracts_chart,
+        'monthly_chart': monthly_chart,
+        'pie_chart': pie_chart,
     }
     
     return render(request, 'core/statistics.html', context)
@@ -716,7 +872,7 @@ def api_weather(request):
     """API endpoint for weather (example)"""
     try:
         # Using free API for weather (example)
-        response = requests.get('https://wttr.in/Minsk?format=j1')
+        response = requests.get('https://wttr.in/SOMETHING?format=j1')
         data = response.json()
         
         weather = {

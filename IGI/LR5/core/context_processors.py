@@ -5,7 +5,7 @@ from django.utils import timezone
 def site_info(request):
     """Context processor to add site-wide information"""
     now_utc = timezone.now()
-    now_local = timezone.localtime(now_utc)  # Это преобразует UTC в локальное время
+    now_local = timezone.localtime(now_utc)  #UTC into local
     
     return {
         'current_year': now_local.year,

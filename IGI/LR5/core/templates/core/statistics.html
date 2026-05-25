@@ -117,7 +117,7 @@
     </div>
 </div>
 
-<!-- Статистика по видам страхования (график) -->
+{% comment %} <!-- Статистика по видам страхования (график) -->
 <div class="card">
     <h2>Статистика по видам страхования</h2>
     <canvas id="typeChart" width="400" height="200"></canvas>
@@ -133,6 +133,27 @@
 <div class="card">
     <h2>Динамика заключения договоров по месяцам</h2>
     <canvas id="monthlyChart" width="400" height="200"></canvas>
+</div> {% endcomment %}
+
+<div class="card">
+    <h2>📊 Распределение договоров по видам страхования</h2>
+    <div style="text-align: center;">
+        <img src="data:image/png;base64,{{ contracts_chart }}" alt="График договоров по видам страхования" style="max-width: 100%;">
+    </div>
+</div>
+
+<div class="card">
+    <h2>📈 Динамика заключения договоров по месяцам</h2>
+    <div style="text-align: center;">
+        <img src="data:image/png;base64,{{ monthly_chart }}" alt="Динамика договоров" style="max-width: 100%;">
+    </div>
+</div>
+
+<div class="card">
+    <h2>🥧 Распределение страховых сумм по видам страхования</h2>
+    <div style="text-align: center;">
+        <img src="data:image/png;base64,{{ pie_chart }}" alt="Распределение страховых сумм" style="max-width: 100%;">
+    </div>
 </div>
 
 <script>

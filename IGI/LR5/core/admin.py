@@ -165,6 +165,11 @@ class NewsAdmin(admin.ModelAdmin):
     list_filter = ('is_published', 'created_at')
     search_fields = ('title', 'content')
     list_editable = ('is_published',)
+    prepopulated_fields = {'short_description': ('title',)}
+    
+    def short_description_preview(self, obj):
+        return obj.short_description[:50] + '...' if len(obj.short_description) > 50 else obj.short_description
+    short_description_preview.short_description = 'Краткое описание'
 
 
 class CompanyHistoryAdmin(admin.ModelAdmin):

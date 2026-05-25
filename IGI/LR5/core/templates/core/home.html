@@ -21,6 +21,38 @@
     </div>
 </div>
 
+<div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2 class="card-title">📰 Последние новости</h2>
+        <a href="{% url 'core:news_list' %}" class="btn btn-primary">Все новости →</a>
+    </div>
+    
+    {% if latest_news %}
+        <div style="margin-top: 1rem;">
+            {% for news in latest_news %}
+                <div style="border-bottom: 1px solid #eee; padding: 1rem 0;">
+                    <div style="display: flex; gap: 1rem; align-items: flex-start;">
+                        {% if news.image %}
+                            <img src="{{ news.image.url }}" alt="{{ news.title }}" style="width: 100px; height: 100px; object-fit: cover; border-radius: 10px;">
+                        {% endif %}
+                        <div style="flex: 1;">
+                            <h3 style="margin: 0 0 0.5rem 0;">
+                                <a href="{% url 'core:news_detail' news.pk %}" style="color: #2c3e50; text-decoration: none;">
+                                    {{ news.title }}
+                                </a>
+                            </h3>
+                            <p style="color: #7f8c8d; margin-bottom: 0.5rem;">{{ news.short_description }}</p>
+                            <small style="color: #95a5a6;">📅 {{ news.created_at|date:"d/m/Y" }}</small>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p style="color: #7f8c8d;">Новостей пока нет. <a href="{% url 'admin:core_news_add' %}">Добавить первую новость</a></p>
+    {% endif %}
+</div>
+
 <div class="grid" style="margin-top: 2rem;">
     <div class="card">
         <h2 class="card-title">📝 Последние отзывы</h2>

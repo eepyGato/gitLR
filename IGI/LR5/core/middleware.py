@@ -20,13 +20,13 @@ def get_user_timezone(request):
         data = response.json()
 
         print(f"Ответ API: {data}")
-        
+
         if data['status'] == 'success':
-            return data['timezone']  # Например: 'Europe/Minsk'
+            return data['timezone']
     except:
         pass
     
-    return 'Europe/Minsk'  # Часовой пояс по умолчанию
+    return 'Europe/Minsk'
 
 
 class TimezoneMiddleware:
