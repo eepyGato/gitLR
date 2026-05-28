@@ -4907,3 +4907,179 @@ INFO 2026-05-25 13:38:30,813 log 10856 16016 "GET /promo-codes/ HTTP/1.1" 200 13
 INFO 2026-05-25 13:38:32,014 log 10856 16016 "GET /reviews/ HTTP/1.1" 200 17668
 INFO 2026-05-25 13:38:32,852 log 10856 16016 "GET /vacancies/ HTTP/1.1" 200 12330
 INFO 2026-05-25 13:38:34,796 log 10856 16016 "GET /faq/ HTTP/1.1" 200 11964
+INFO 2026-05-28 14:42:34,192 autoreload 5636 7964 Watching for file changes with StatReloader
+ERROR 2026-05-28 14:42:58,688 log 5636 14068 Internal Server Error: /faq/
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\urls\base.py", line 81, in reverse
+    extra, resolver = resolver.namespace_dict[ns]
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^
+KeyError: 'template'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 316, in faq_list
+    return render(request, 'template/faq.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 160, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\defaulttags.py", line 511, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\urls\base.py", line 92, in reverse
+    raise NoReverseMatch("%s is not a registered namespace" % key)
+django.urls.exceptions.NoReverseMatch: 'template' is not a registered namespace
+ERROR 2026-05-28 14:42:58,703 log 5636 14068 "GET /faq/ HTTP/1.1" 500 149817
+WARNING 2026-05-28 14:42:59,366 log 5636 14068 Not Found: /favicon.ico
+WARNING 2026-05-28 14:42:59,367 log 5636 14068 "GET /favicon.ico HTTP/1.1" 404 11778
+ERROR 2026-05-28 14:43:04,535 log 5636 14068 Internal Server Error: /faq/
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\urls\base.py", line 81, in reverse
+    extra, resolver = resolver.namespace_dict[ns]
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^
+KeyError: 'template'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 316, in faq_list
+    return render(request, 'template/faq.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 160, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\defaulttags.py", line 511, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\urls\base.py", line 92, in reverse
+    raise NoReverseMatch("%s is not a registered namespace" % key)
+django.urls.exceptions.NoReverseMatch: 'template' is not a registered namespace
+ERROR 2026-05-28 14:43:04,546 log 5636 14068 "GET /faq/ HTTP/1.1" 500 149954
+ERROR 2026-05-28 14:43:06,345 log 5636 14068 Internal Server Error: /faq/
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\urls\base.py", line 81, in reverse
+    extra, resolver = resolver.namespace_dict[ns]
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^
+KeyError: 'template'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "W:\GIT\453504_SHCHERBAK_26\IGI\LR5\core\views.py", line 316, in faq_list
+    return render(request, 'template/faq.html', context)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\loader_tags.py", line 160, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\template\defaulttags.py", line 511, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Скай АВ Тех\AppData\Local\Programs\Python\Python314\Lib\site-packages\django\urls\base.py", line 92, in reverse
+    raise NoReverseMatch("%s is not a registered namespace" % key)
+django.urls.exceptions.NoReverseMatch: 'template' is not a registered namespace
+ERROR 2026-05-28 14:43:06,366 log 5636 14068 "GET /faq/ HTTP/1.1" 500 149954
+INFO 2026-05-28 14:43:55,665 autoreload 5636 7964 W:\GIT\453504_SHCHERBAK_26\IGI\LR5\insurance_firm\urls.py changed, reloading.
+INFO 2026-05-28 14:43:57,206 autoreload 9988 14736 Watching for file changes with StatReloader
+INFO 2026-05-28 14:44:36,390 log 9988 17852 "GET /faq/ HTTP/1.1" 200 11964
+INFO 2026-05-28 14:44:38,381 views 9988 17852 Home page accessed by admin
+INFO 2026-05-28 14:44:38,433 log 9988 17852 "GET / HTTP/1.1" 200 21053
+INFO 2026-05-28 14:44:38,769 log 9988 17852 "GET /media/news/Capture001.png HTTP/1.1" 200 982268
+INFO 2026-05-28 14:44:39,683 log 9988 17852 "GET /about/ HTTP/1.1" 200 15775
+INFO 2026-05-28 14:44:39,851 log 9988 17852 "GET /media/logos/images111.png HTTP/1.1" 200 4877
+INFO 2026-05-28 14:44:39,851 log 9988 14268 "GET /media/staff/Tom_the_Cat.webp HTTP/1.1" 200 15354
+INFO 2026-05-28 14:44:41,446 log 9988 14268 "GET /contracts/ HTTP/1.1" 200 27630
+INFO 2026-05-28 14:44:42,397 log 9988 14268 "GET /faq/ HTTP/1.1" 200 11964

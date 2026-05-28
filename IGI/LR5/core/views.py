@@ -30,19 +30,32 @@ from .forms import (
 
 logger = logging.getLogger(__name__)
 
-import matplotlib
-matplotlib.use('Agg')  # Используем бэкенд без GUI (важно для сервера)
-import matplotlib.pyplot as plt
 import io
 import base64
 from datetime import datetime, timedelta
 from django.db.models import Sum, Count
-import numpy as np
+
+# Optional heavy deps (matplotlib/numpy). On hosting with strict disk quotas
+# (e.g., PythonAnywhere free), these may be intentionally not installed.
+try:
+    import matplotlib  # type: ignore
+    matplotlib.use('Agg')  # backend without GUI
+    import matplotlib.pyplot as plt  # type: ignore
+    import numpy as np  # type: ignore
+    _CHARTS_AVAILABLE = True
+except Exception:  # pragma: no cover
+    matplotlib = None
+    plt = None
+    np = None
+    _CHARTS_AVAILABLE = False
 
 # ========== Graphs functions ==========
 
 def generate_contracts_chart():
     """Генерирует график количества договоров по видам страхования"""
+
+    if not _CHARTS_AVAILABLE:
+        return None
     
     # Получаем данные
     insurance_types = InsuranceType.objects.filter(is_active=True)
@@ -93,6 +106,9 @@ def generate_contracts_chart():
 
 def generate_contracts_by_month_chart():
     """Генерирует график динамики договоров по месяцам"""
+
+    if not _CHARTS_AVAILABLE:
+        return None
     
     # Получаем данные за последние 12 месяцев
     today = datetime.now().date()
@@ -138,6 +154,9 @@ def generate_contracts_by_month_chart():
 
 def generate_insurance_sum_by_type_chart():
     """Генерирует круговую диаграмму страховых сумм по видам страхования"""
+
+    if not _CHARTS_AVAILABLE:
+        return None
     
     # Получаем данные
     insurance_types = InsuranceType.objects.filter(is_active=True)
