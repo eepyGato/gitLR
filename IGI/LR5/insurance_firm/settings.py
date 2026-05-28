@@ -65,11 +65,15 @@ WSGI_APPLICATION = 'insurance_firm.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-import dj_database_url
 DATABASE_URL = os.getenv('DATABASE_URL', 'sqlite:///db.sqlite3')
-DATABASES = {
-    'default': dj_database_url.parse(DATABASE_URL)
-}
+try:
+    import dj_database_url  # type: ignore
+
+    DATABASES = {"default": dj_database_url.parse(DATABASE_URL)}
+except ModuleNotFoundError:
+    # Fallback for hosts where dj-database-url is not installed.
+    # Works with default SQLite database.
+    DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "db.sqlite3"}}
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
