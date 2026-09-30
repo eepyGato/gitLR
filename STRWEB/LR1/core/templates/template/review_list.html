@@ -1,0 +1,73 @@
+<!-- template/templates/template/review_list.html -->
+{% extends 'template/base.html' %}
+
+{% block title %}Отзывы - Страховая фирма{% endblock %}
+
+{% block meta_description %}Отзывы клиентов страховой компании БГУИРСтрахИнвест.{% endblock %}
+
+{% block content %}
+
+<section>
+    <h1>Отзывы наших клиентов</h1>
+
+    {% if user.is_superuser %}
+        <p>
+            <a href="{% url 'core:review_create_for_client' %}">Написать отзыв за клиента</a>
+        </p>
+    {% elif user.is_authenticated %}
+        <p>
+            <a href="{% url 'core:review_create' %}">Оставить отзыв</a>
+        </p>
+    {% endif %}
+
+    {% for review in reviews %}
+        <article>
+            <header>
+                <h2>{{ review.client }}</h2>
+                <p>Оценка: {{ review.rating }} из 5</p>
+            </header>
+
+            <p>{{ review.text }}</p>
+
+            <footer>
+                <small>
+                    <time datetime="{{ review.created_at|date:'Y-m-d' }}">
+                        {{ review.created_at|date:"d/m/Y" }}
+                    </time>
+                </small>
+            </footer>
+
+            {% if user.is_superuser %}
+                <nav aria-label="Действия с отзывом">
+                    <ul>
+                        <li>
+                            <a href="{% url 'core:review_admin_edit' review.pk %}">
+                                Редактировать
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'core:review_delete' review.pk %}"
+                               onclick="return confirm('Удалить отзыв?')">
+                                Удалить
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            {% elif review.client.user == user %}
+                <nav aria-label="Действия с отзывом">
+                    <ul>
+                        <li>
+                            <a href="{% url 'core:review_update' review.pk %}">
+                                Редактировать
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            {% endif %}
+        </article>
+    {% empty %}
+        <p>Пока нет отзывов. Будьте первым!</p>
+    {% endfor %}
+</section>
+
+{% endblock %}

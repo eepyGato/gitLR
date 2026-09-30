@@ -1,0 +1,149 @@
+<!-- template/templates/template/home.html -->
+{% extends 'template/base.html' %}
+
+{% block title %}Главная - Страховая фирма{% endblock %}
+
+{% block meta_description %}Страховая компания БГУИРСтрахИнвест: надёжная защита, выгодные условия, широкий спектр страховых услуг.{% endblock %}
+
+{% block content %}
+
+<section>
+    <h1>Добро пожаловать в нашу страховую компанию!</h1>
+
+    <section>
+        <h2>Наши показатели</h2>
+        <dl>
+            <dt>Довольных клиентов</dt>
+            <dd>{{ total_clients }}</dd>
+
+            <dt>Активных договоров</dt>
+            <dd>{{ total_contracts }}</dd>
+
+            <dt>Филиалов по стране</dt>
+            <dd>{{ total_branches }}</dd>
+        </dl>
+    </section>
+
+    <section>
+        <h2>Последние новости</h2>
+
+        {% if latest_news %}
+            {% for news in latest_news %}
+                <article>
+                    <h3>
+                        <a href="{% url 'core:news_detail' news.pk %}">
+                            {{ news.title }}
+                        </a>
+                    </h3>
+
+                    {% if news.image %}
+                        <figure>
+                            <img src="{{ news.image.url }}"
+                                 alt="{{ news.title }}"
+                                 width="100"
+                                 height="100">
+                        </figure>
+                    {% endif %}
+
+                    <p>{{ news.short_description }}</p>
+
+                    <footer>
+                        <small>
+                            <time datetime="{{ news.created_at|date:'Y-m-d\TH:i' }}">
+                                {{ news.created_at|date:"d/m/Y H:i" }}
+                            </time>
+                        </small>
+                    </footer>
+                </article>
+            {% endfor %}
+
+            <p>
+                <a href="{% url 'core:news_list' %}">Все новости</a>
+            </p>
+        {% else %}
+            <p>
+                Новостей пока нет.
+                {% if user.is_superuser %}
+                    <a href="{% url 'core:news_create' %}">Добавить первую новость</a>
+                {% endif %}
+            </p>
+        {% endif %}
+    </section>
+
+    <section>
+        <h2>Последние отзывы</h2>
+
+        {% for review in latest_reviews %}
+            <article>
+                <h3>{{ review.client }}</h3>
+
+                <p>
+                    <!-- это конечно костыль, но он работает для валидатора-->
+                    Оценка:
+                    {% if review.rating == 1 %}
+                        <meter min="1" max="5" value="1">1 из 5</meter>
+                    {% elif review.rating == 2 %}
+                        <meter min="1" max="5" value="2">2 из 5</meter>
+                    {% elif review.rating == 3 %}
+                        <meter min="1" max="5" value="3">3 из 5</meter>
+                    {% elif review.rating == 4 %}
+                        <meter min="1" max="5" value="4">4 из 5</meter>
+                    {% elif review.rating == 5 %}
+                        <meter min="1" max="5" value="5">5 из 5</meter>
+                    {% endif %}
+                </p>
+
+                <p>{{ review.text|truncatewords:20 }}</p>
+
+                <footer>
+                    <small>
+                        <time datetime="{{ review.created_at|date:'Y-m-d' }}">
+                            {{ review.created_at|date:"d/m/Y" }}
+                        </time>
+                    </small>
+                </footer>
+            </article>
+        {% empty %}
+            <p>Пока нет отзывов</p>
+        {% endfor %}
+
+        <p>
+            <a href="{% url 'core:review_list' %}">Все отзывы</a>
+        </p>
+    </section>
+
+    <section>
+        <h2>Актуальные вакансии</h2>
+
+        {% for vacancy in latest_vacancies %}
+            <article>
+                <h3>{{ vacancy.title }}</h3>
+                <p>Местоположение: {{ vacancy.location }}</p>
+            </article>
+        {% empty %}
+            <p>Нет открытых вакансий</p>
+        {% endfor %}
+
+        <p>
+            <a href="{% url 'core:vacancies' %}">Все вакансии</a>
+        </p>
+    </section>
+
+    <section>
+        <h2>Часто задаваемые вопросы</h2>
+
+        {% for faq in latest_faqs %}
+            <article>
+                <h3>{{ faq.question }}</h3>
+            </article>
+        {% empty %}
+            <p>Пока нет вопросов</p>
+        {% endfor %}
+
+        <p>
+            <a href="{% url 'core:faq' %}">Все вопросы</a>
+        </p>
+    </section>
+</section>
+
+{% endblock %}

@@ -1,0 +1,97 @@
+<!-- template/templates/template/promo_codes.html -->
+{% extends 'template/base.html' %}
+
+{% block title %}Промокоды - Страховая фирма{% endblock %}
+
+{% block meta_description %}Активные промокоды и купоны на скидку для клиентов страховой компании БГУИРСтрахИнвест.{% endblock %}
+
+{% block content %}
+
+<section>
+    <h1>Промокоды и купоны</h1>
+
+    <section>
+        <h2>Активировать промокод</h2>
+
+        <p>Введите код для получения скидки</p>
+
+        <form method="post" action="{% url 'core:apply_promo' %}">
+            {% csrf_token %}
+
+            <p>
+                <label for="id_promo_code">Код промокода</label>
+                <input type="text"
+                       name="promo_code"
+                       id="id_promo_code"
+                       placeholder="Введите код промокода"
+                       required>
+            </p>
+
+            <p>
+                <button type="submit">Активировать</button>
+            </p>
+        </form>
+
+        {% if messages %}
+            <section>
+                <h3>Сообщения</h3>
+                {% for message in messages %}
+                    <p role="alert">{{ message }}</p>
+                {% endfor %}
+            </section>
+        {% endif %}
+    </section>
+
+    <section>
+        <h2>Активные промокоды</h2>
+
+        {% for promo in active_promos %}
+            <article>
+                <h3>{{ promo.code }}</h3>
+
+                <p>Скидка: <strong>{{ promo.discount_percent }}%</strong></p>
+
+                <p>{{ promo.description|default:"Скидка на страховые услуги" }}</p>
+
+                <dl>
+                    <dt>Действует до</dt>
+                    <dd>
+                        <time datetime="{{ promo.valid_to|date:'Y-m-d\TH:i' }}">
+                            {{ promo.valid_to|date:"d/m/Y H:i" }}
+                        </time>
+                    </dd>
+
+                    <dt>Использовано</dt>
+                    <dd>{{ promo.used_count }} из {{ promo.max_uses }}</dd>
+                </dl>
+            </article>
+        {% empty %}
+            <p>Активных промокодов нет</p>
+        {% endfor %}
+    </section>
+
+    <section>
+        <h2>Архив промокодов</h2>
+
+        {% for promo in expired_promos %}
+            <article>
+                <h3><s>{{ promo.code }}</s></h3>
+
+                <p><s>Скидка: {{ promo.discount_percent }}%</s></p>
+
+                <dl>
+                    <dt>Истёк</dt>
+                    <dd>
+                        <time datetime="{{ promo.valid_to|date:'Y-m-d\TH:i' }}">
+                            {{ promo.valid_to|date:"d/m/Y H:i" }}
+                        </time>
+                    </dd>
+                </dl>
+            </article>
+        {% empty %}
+            <p>Архив пуст</p>
+        {% endfor %}
+    </section>
+</section>
+
+{% endblock %}

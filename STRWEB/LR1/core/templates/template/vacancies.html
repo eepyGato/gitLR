@@ -1,0 +1,59 @@
+<!-- template/templates/template/vacancies.html -->
+{% extends 'template/base.html' %}
+
+{% block title %}Вакансии - Страховая фирма{% endblock %}
+
+{% block meta_description %}Актуальные вакансии страховой компании БГУИРСтрахИнвест.{% endblock %}
+
+{% block content %}
+
+<section>
+    <h1>Вакансии</h1>
+
+    {% for vacancy in vacancies %}
+        <article>
+            <h2>{{ vacancy.title }}</h2>
+
+            <dl>
+                <dt>Местоположение</dt>
+                <dd>{{ vacancy.location }}</dd>
+
+                {% if vacancy.salary_from or vacancy.salary_to %}
+                    <dt>Зарплата</dt>
+                    <dd>
+                        {% if vacancy.salary_from %}
+                            от {{ vacancy.salary_from|floatformat:0 }}
+                        {% endif %}
+                        {% if vacancy.salary_to %}
+                            до {{ vacancy.salary_to|floatformat:0 }}
+                        {% endif %}
+                        руб.
+                    </dd>
+                {% endif %}
+            </dl>
+
+            <section>
+                <h3>Описание</h3>
+                <p>{{ vacancy.description|truncatewords:50 }}</p>
+            </section>
+
+            <section>
+                <h3>Требования</h3>
+                <p>{{ vacancy.requirements|truncatewords:30 }}</p>
+            </section>
+
+            <footer>
+                <small>
+                    Добавлено:
+                    <time datetime="{{ vacancy.created_at|date:'Y-m-d' }}">
+                        {{ vacancy.created_at|date:"d/m/Y" }}
+                    </time>
+                </small>
+            </footer>
+        </article>
+    {% empty %}
+        <p>Актуальных вакансий нет</p>
+    {% endfor %}
+</section>
+
+{% endblock %}

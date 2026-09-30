@@ -1,0 +1,89 @@
+<!-- template/templates/template/review_form.html -->
+{% extends 'template/base.html' %}
+
+{% block title %}{% if is_edit %}Редактирование отзыва{% else %}Оставить отзыв{% endif %} - Страховая фирма{% endblock %}
+
+{% block meta_description %}{% if is_edit %}Редактирование отзыва{% else %}Оставить отзыв{% endif %} о страховой компании БГУИРСтрахИнвест.{% endblock %}
+
+{% block content %}
+
+<section>
+    <h1>{% if is_edit %}Редактирование отзыва{% else %}Оставить отзыв{% endif %}</h1>
+
+    <p>Поделитесь своим мнением о нашей работе</p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <fieldset>
+            <legend>Клиент</legend>
+
+            {% if is_admin %}
+                {% if is_edit %}
+                    <p>
+                        <strong>{{ review.client.last_name }} {{ review.client.first_name }}</strong>
+                        <input type="hidden" name="client_id" value="{{ review.client.id }}">
+                        <small>Клиента нельзя изменить при редактировании отзыва</small>
+                    </p>
+                {% else %}
+                    <p>
+                        <label for="client_id">Выберите клиента</label>
+                        <select name="client_id" id="client_id" required>
+                            <option value="">-- Выберите клиента --</option>
+                            {% for c in clients %}
+                                <option value="{{ c.id }}"
+                                        {% if review and review.client.id == c.id %}selected{% endif %}>
+                                    {{ c.last_name }} {{ c.first_name }} ({{ c.phone }})
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <small>Выберите клиента, для которого создаётся отзыв</small>
+                    </p>
+                {% endif %}
+            {% else %}
+                <p>
+                    Отзыв оставляет:
+                    <strong>{{ client.last_name }} {{ client.first_name }}</strong>
+                </p>
+            {% endif %}
+        </fieldset>
+
+        <fieldset>
+            <legend>Оценка</legend>
+
+            <p>
+                <label for="rating">Ваша оценка (от 1 до 5)</label>
+                {{ form.rating }}
+                {% if form.rating.errors %}
+                    {% for error in form.rating.errors %}
+                        <span role="alert">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
+            </p>
+        </fieldset>
+
+        <fieldset>
+            <legend>Текст отзыва</legend>
+
+            <p>
+                <label for="id_text">Текст отзыва</label>
+                {{ form.text }}
+                <small>Расскажите о вашем опыте сотрудничества с нашей компанией</small>
+                {% if form.text.errors %}
+                    {% for error in form.text.errors %}
+                        <span role="alert">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
+            </p>
+        </fieldset>
+
+        <p>
+            <button type="submit">
+                {% if is_edit %}Сохранить изменения{% else %}Отправить отзыв{% endif %}
+            </button>
+            <a href="{% url 'core:review_list' %}">Вернуться к отзывам</a>
+        </p>
+    </form>
+</section>
+
+{% endblock %}

@@ -1,0 +1,76 @@
+<!-- template/templates/template/news_detail.html -->
+{% extends 'template/base.html' %}
+
+{% block title %}{{ news.title }} - Страховая фирма{% endblock %}
+
+{% block meta_description %}{{ news.short_description }}{% endblock %}
+
+{% block content %}
+
+<article>
+    <header>
+        <h1>{{ news.title }}</h1>
+
+        <p>
+            <small>
+                Опубликовано:
+                <time datetime="{{ news.created_at|date:'Y-m-d\TH:i' }}">
+                    {{ news.created_at|date:"d/m/Y H:i" }}
+                </time>
+            </small>
+        </p>
+    </header>
+
+    {% if news.image %}
+        <figure>
+            <img src="{{ news.image.url }}"
+                 alt="{{ news.title }}"
+                 width="800"
+                 height="400">
+            <figcaption>{{ news.title }}</figcaption>
+        </figure>
+    {% endif %}
+
+    <section>
+        <h2>Краткое описание</h2>
+        <p>{{ news.short_description }}</p>
+    </section>
+
+    <section>
+        <h2>Полный текст</h2>
+        <p>{{ news.content }}</p>
+    </section>
+
+    <footer>
+        <nav aria-label="Действия с новостью">
+            <ul>
+                <li>
+                    <a href="{% url 'core:news_list' %}">
+                        Вернуться к списку новостей
+                    </a>
+                </li>
+                {% if user.is_superuser %}
+                    <li>
+                        <a href="{% url 'core:news_update' news.pk %}">
+                            Редактировать
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'core:news_delete' news.pk %}">
+                            Удалить
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+
+        <p>
+            Последнее обновление:
+            <time datetime="{{ news.updated_at|date:'Y-m-d\TH:i' }}">
+                {{ news.updated_at|date:"d/m/Y H:i" }}
+            </time>
+        </p>
+    </footer>
+</article>
+
+{% endblock %}

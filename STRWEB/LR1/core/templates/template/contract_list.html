@@ -1,0 +1,131 @@
+<!-- template/templates/template/contract_list.html -->
+{% extends 'template/base.html' %}
+
+{% block title %}Договоры страхования - Страховая фирма{% endblock %}
+
+{% block meta_description %}Список договоров страхования компании БГУИРСтрахИнвест.{% endblock %}
+
+{% block content %}
+
+<section>
+    <h1>Договоры страхования</h1>
+
+    <!-- Поиск и фильтрация -->
+    <section>
+        <h2>Поиск и фильтрация</h2>
+
+        <form method="get">
+            {{ search_form.as_p }}
+
+            <p>
+                <button type="submit">Поиск</button>
+                <a href="{% url 'core:contract_list' %}">Сбросить</a>
+                <a href="{% url 'core:contract_create' %}">Новый договор</a>
+            </p>
+        </form>
+    </section>
+
+    <!-- Сортировка -->
+    <nav aria-label="Сортировка договоров">
+        <strong>Сортировка:</strong>
+        <ul>
+            <li><a href="?sort=contract_number">По номеру</a></li>
+            <li><a href="?sort=insurance_sum">По сумме</a></li>
+            <li><a href="?sort=start_date">По дате</a></li>
+            <li><a href="?sort=-created_at">По дате создания</a></li>
+        </ul>
+    </nav>
+
+    <!-- Таблица договоров -->
+    <table>
+        <caption>Список договоров страхования</caption>
+        <thead>
+            <tr>
+                <th scope="col" id="col-number">№ договора</th>
+                <th scope="col" id="col-client">Клиент</th>
+                <th scope="col" id="col-type">Вид страхования</th>
+                <th scope="col" id="col-sum">Страховая сумма</th>
+                <th scope="col" id="col-status">Статус</th>
+                <th scope="col" id="col-start">Дата начала</th>
+                <th scope="col" id="col-end">Дата окончания</th>
+                <th scope="col" id="col-actions">Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for contract in contracts %}
+                <tr>
+                    <td headers="col-number">{{ contract.contract_number }}</td>
+                    <td headers="col-client">{{ contract.client }}</td>
+                    <td headers="col-type">{{ contract.insurance_type.name }}</td>
+                    <td headers="col-sum">{{ contract.insurance_sum|floatformat:2 }} руб.</td>
+                    <td headers="col-status">
+                        {% if contract.status == 'active' %}
+                            Активен
+                        {% elif contract.status == 'expired' %}
+                            Истёк
+                        {% else %}
+                            Расторгнут
+                        {% endif %}
+                    </td>
+                    <td headers="col-start">
+                        <time datetime="{{ contract.start_date|date:'Y-m-d' }}">
+                            {{ contract.start_date|date:"d/m/Y" }}
+                        </time>
+                    </td>
+                    <td headers="col-end">
+                        <time datetime="{{ contract.end_date|date:'Y-m-d' }}">
+                            {{ contract.end_date|date:"d/m/Y" }}
+                        </time>
+                    </td>
+                    <td headers="col-actions">
+                        <a href="{% url 'core:contract_detail' contract.pk %}">Просмотр</a>
+                        <a href="{% url 'core:contract_update' contract.pk %}">Редактировать</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="8">Договоров не найдено</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Пагинация -->
+    {% if contracts.has_other_pages %}
+    <nav aria-label="Постраничная навигация">
+        <ul>
+            {% if contracts.has_previous %}
+                <li>
+                    <a href="?page=1{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">
+                        Первая
+                    </a>
+                </li>
+                <li>
+                    <a href="?page={{ contracts.previous_page_number }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">
+                        Предыдущая
+                    </a>
+                </li>
+            {% endif %}
+
+            <li>
+                Страница {{ contracts.number }} из {{ contracts.paginator.num_pages }}
+            </li>
+
+            {% if contracts.has_next %}
+                <li>
+                    <a href="?page={{ contracts.next_page_number }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">
+                        Следующая
+                    </a>
+                </li>
+                <li>
+                    <a href="?page={{ contracts.paginator.num_pages }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">
+                        Последняя
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</section>
+
+{% endblock %}

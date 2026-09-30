@@ -1,0 +1,36 @@
+<!-- template/templates/template/review_confirm_delete.html -->
+{% extends 'template/base.html' %}
+
+{% block title %}Удаление отзыва - Страховая фирма{% endblock %}
+
+{% block meta_description %}Подтверждение удаления отзыва в страховой компании БГУИРСтрахИнвест.{% endblock %}
+
+{% block content %}
+
+<section>
+    <h1>Удаление отзыва</h1>
+
+    <article>
+        <p>
+            Вы уверены, что хотите удалить отзыв от
+            <strong>{{ review.client }}</strong>?
+        </p>
+
+        <blockquote>
+            <p>{{ review.text|truncatewords:30 }}</p>
+        </blockquote>
+
+        <p><strong>Это действие нельзя отменить!</strong></p>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <p>
+                <button type="submit">Да, удалить</button>
+                <a href="{% url 'core:review_list' %}">Отмена</a>
+            </p>
+        </form>
+    </article>
+</section>
+
+{% endblock %}

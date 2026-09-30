@@ -1,0 +1,56 @@
+<!-- template/templates/template/login.html -->
+{% extends 'template/base.html' %}
+
+{% block title %}Вход в систему - Страховая фирма{% endblock %}
+
+{% block meta_description %}Вход в личный кабинет страховой компании БГУИРСтрахИнвест.{% endblock %}
+
+{% block content %}
+
+<section>
+    <h1>Вход в систему</h1>
+
+    {% if messages %}
+        <section>
+            <h2>Сообщения</h2>
+            {% for message in messages %}
+                <p role="alert">{{ message }}</p>
+            {% endfor %}
+        </section>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <p>
+            <label for="id_username">Имя пользователя</label>
+            <input type="text"
+                   name="username"
+                   id="id_username"
+                   placeholder="Введите имя пользователя"
+                   required
+                   autocomplete="username">
+        </p>
+
+        <p>
+            <label for="id_password">Пароль</label>
+            <input type="password"
+                   name="password"
+                   id="id_password"
+                   placeholder="Введите пароль"
+                   required
+                   autocomplete="current-password">
+        </p>
+
+        <p>
+            <button type="submit">Войти в систему</button>
+        </p>
+    </form>
+
+    <footer>
+        <p>Нет аккаунта? <a href="{% url 'core:register' %}">Зарегистрироваться</a></p>
+        <p><a href="#">Забыли пароль?</a></p>
+    </footer>
+</section>
+
+{% endblock %}

@@ -1,0 +1,152 @@
+<!-- template/templates/template/statistics.html -->
+{% extends 'template/base.html' %}
+
+{% block title %}Статистика - Страховая фирма{% endblock %}
+
+{% block meta_description %}Статистические показатели страховой компании БГУИРСтрахИнвест.{% endblock %}
+
+{% block content %}
+
+<section>
+    <h1>Статистика страховой компании</h1>
+
+    <section>
+        <h2>Фильтр по дате</h2>
+
+        <form method="get">
+            {{ form.as_p }}
+
+            <p>
+                <button type="submit">Применить</button>
+                <a href="{% url 'core:statistics' %}">Сбросить</a>
+            </p>
+        </form>
+    </section>
+
+    <section>
+        <h2>Общая статистика</h2>
+
+        <dl>
+            <dt>Всего договоров</dt>
+            <dd>{{ total_contracts }}</dd>
+
+            <dt>Клиентов</dt>
+            <dd>{{ total_clients }}</dd>
+
+            <dt>Страховых агентов</dt>
+            <dd>{{ total_agents }}</dd>
+
+            <dt>Филиалов</dt>
+            <dd>{{ total_branches }}</dd>
+        </dl>
+    </section>
+
+    <section>
+        <h2>Финансовая статистика</h2>
+
+        <dl>
+            <dt>Общая страховая сумма (руб.)</dt>
+            <dd>{{ total_insurance_sum|floatformat:0 }}</dd>
+
+            <dt>Общий страховой платёж (руб.)</dt>
+            <dd>{{ total_insurance_payment|floatformat:0 }}</dd>
+
+            <dt>Общая комиссия агентов (руб.)</dt>
+            <dd>{{ total_agent_commission|floatformat:0 }}</dd>
+        </dl>
+    </section>
+
+    <section>
+        <h2>Статистические показатели страховых сумм</h2>
+
+        {% if mean_sum %}
+            <dl>
+                <dt>Среднее</dt>
+                <dd>{{ mean_sum|floatformat:2 }}</dd>
+
+                <dt>Медиана</dt>
+                <dd>{{ median_sum|floatformat:2 }}</dd>
+
+                {% if mode_sum %}
+                    <dt>Мода</dt>
+                    <dd>{{ mode_sum|floatformat:2 }}</dd>
+                {% endif %}
+
+                <dt>Минимум</dt>
+                <dd>{{ min_sum|floatformat:2 }}</dd>
+
+                <dt>Максимум</dt>
+                <dd>{{ max_sum|floatformat:2 }}</dd>
+            </dl>
+        {% else %}
+            <p>Нет данных для отображения</p>
+        {% endif %}
+    </section>
+
+    <section>
+        <h2>Наиболее популярный вид страхования</h2>
+
+        {% if most_popular_type %}
+            <dl>
+                <dt>Название</dt>
+                <dd>{{ most_popular_type.name }}</dd>
+
+                <dt>Количество договоров</dt>
+                <dd>{{ most_popular_type.count }}</dd>
+
+                <dt>Общая страховая сумма</dt>
+                <dd>{{ most_popular_type.total_sum|floatformat:2 }} руб.</dd>
+            </dl>
+        {% else %}
+            <p>Нет данных</p>
+        {% endif %}
+    </section>
+
+    <section>
+        <h2>Наиболее прибыльный вид страхования</h2>
+
+        {% if most_profitable_type %}
+            <dl>
+                <dt>Название</dt>
+                <dd>{{ most_profitable_type.name }}</dd>
+
+                <dt>Общая страховая сумма</dt>
+                <dd>{{ most_profitable_type.total_sum|floatformat:2 }} руб.</dd>
+
+                <dt>Количество договоров</dt>
+                <dd>{{ most_profitable_type.count }}</dd>
+            </dl>
+        {% else %}
+            <p>Нет данных</p>
+        {% endif %}
+    </section>
+
+    <section>
+        <h2>Распределение договоров по видам страхования</h2>
+        <figure>
+            <img src="data:image/png;base64,{{ contracts_chart }}"
+                 alt="График распределения договоров по видам страхования">
+            <figcaption>Распределение договоров по видам страхования</figcaption>
+        </figure>
+    </section>
+
+    <section>
+        <h2>Динамика заключения договоров по месяцам</h2>
+        <figure>
+            <img src="data:image/png;base64,{{ monthly_chart }}"
+                 alt="Динамика заключения договоров по месяцам">
+            <figcaption>Динамика заключения договоров по месяцам</figcaption>
+        </figure>
+    </section>
+
+    <section>
+        <h2>Распределение страховых сумм по видам страхования</h2>
+        <figure>
+            <img src="data:image/png;base64,{{ pie_chart }}"
+                 alt="Круговая диаграмма распределения страховых сумм по видам страхования">
+            <figcaption>Распределение страховых сумм по видам страхования</figcaption>
+        </figure>
+    </section>
+</section>
+
+{% endblock %}

@@ -1,0 +1,23 @@
+<!-- template/templates/template/client_profile_form.html -->
+{% extends 'template/base.html' %}
+
+{% block title %}Редактирование профиля - Страховая фирма{% endblock %}
+
+{% block meta_description %}Редактирование профиля клиента страховой компании БГУИРСтрахИнвест.{% endblock %}
+
+{% block content %}
+
+<section>
+    <h1>Редактирование профиля клиента</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">Сохранить</button>
+        <a href="{% url 'core:profile' %}">Отмена</a>
+    </form>
+</section>
+
+{% endblock %}

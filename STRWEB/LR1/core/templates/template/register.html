@@ -1,0 +1,225 @@
+<!-- template/templates/template/register.html -->
+{% extends 'template/base.html' %}
+
+{% block title %}Регистрация - Страховая фирма{% endblock %}
+
+{% block meta_description %}Регистрация нового пользователя в страховой компании БГУИРСтрахИнвест.{% endblock %}
+
+{% block content %}
+
+<section>
+    <h1>Регистрация</h1>
+
+    <p>Создайте новый аккаунт</p>
+
+    {% if messages %}
+        <section>
+            <h2>Сообщения</h2>
+            {% for message in messages %}
+                <p role="alert">{{ message }}</p>
+            {% endfor %}
+        </section>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <fieldset>
+            <legend>Учётная запись</legend>
+
+            <p>
+                <label for="id_username">Имя пользователя</label>
+                <input type="text"
+                       name="username"
+                       id="id_username"
+                       placeholder="Введите имя пользователя"
+                       required
+                       autocomplete="username"
+                       value="{{ form.username.value|default:'' }}">
+                <small>Только буквы, цифры и @/./+/-/_</small>
+                {% if form.username.errors %}
+                    {% for error in form.username.errors %}
+                        <span role="alert">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
+            </p>
+
+            <p>
+                <label for="id_email">Email</label>
+                <input type="email"
+                       name="email"
+                       id="id_email"
+                       placeholder="example@mail.com"
+                       required
+                       autocomplete="email"
+                       value="{{ form.email.value|default:'' }}">
+                {% if form.email.errors %}
+                    {% for error in form.email.errors %}
+                        <span role="alert">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
+            </p>
+
+            <p>
+                <label for="id_password1">Пароль</label>
+                <input type="password"
+                       name="password1"
+                       id="id_password1"
+                       placeholder="Введите пароль"
+                       required
+                       autocomplete="new-password"
+                       minlength="8">
+                <small>
+                    Не менее 8 символов, не слишком простой,
+                    не только из цифр.
+                </small>
+                {% if form.password1.errors %}
+                    {% for error in form.password1.errors %}
+                        <span role="alert">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
+            </p>
+
+            <p>
+                <label for="id_password2">Подтверждение пароля</label>
+                <input type="password"
+                       name="password2"
+                       id="id_password2"
+                       placeholder="Повторите пароль"
+                       required
+                       autocomplete="new-password"
+                       minlength="8">
+                {% if form.password2.errors %}
+                    {% for error in form.password2.errors %}
+                        <span role="alert">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
+            </p>
+        </fieldset>
+
+        <fieldset>
+            <legend>Личные данные</legend>
+
+            <p>
+                <label for="id_last_name">Фамилия</label>
+                <input type="text"
+                       name="last_name"
+                       id="id_last_name"
+                       placeholder="Введите вашу фамилию"
+                       required
+                       autocomplete="family-name"
+                       value="{{ form.last_name.value|default:'' }}">
+                {% if form.last_name.errors %}
+                    {% for error in form.last_name.errors %}
+                        <span role="alert">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
+            </p>
+
+            <p>
+                <label for="id_first_name">Имя</label>
+                <input type="text"
+                       name="first_name"
+                       id="id_first_name"
+                       placeholder="Введите ваше имя"
+                       required
+                       autocomplete="given-name"
+                       value="{{ form.first_name.value|default:'' }}">
+                {% if form.first_name.errors %}
+                    {% for error in form.first_name.errors %}
+                        <span role="alert">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
+            </p>
+
+            <p>
+                <label for="id_middle_name">Отчество</label>
+                <input type="text"
+                       name="middle_name"
+                       id="id_middle_name"
+                       placeholder="Введите ваше отчество (необязательно)"
+                       autocomplete="additional-name"
+                       value="{{ form.middle_name.value|default:'' }}">
+            </p>
+
+            <p>
+                <label for="id_birth_date">Дата рождения</label>
+                <input type="date"
+                       name="birth_date"
+                       id="id_birth_date"
+                       required
+                       autocomplete="bday"
+                       value="{{ form.birth_date.value|default:'' }}">
+                {% if form.birth_date.errors %}
+                    {% for error in form.birth_date.errors %}
+                        <span role="alert">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
+            </p>
+
+            <p>
+                <label for="id_passport_number">Номер паспорта</label>
+                <input type="text"
+                       name="passport_number"
+                       id="id_passport_number"
+                       placeholder="AB1234567"
+                       required
+                       value="{{ form.passport_number.value|default:'' }}">
+                {% if form.passport_number.errors %}
+                    {% for error in form.passport_number.errors %}
+                        <span role="alert">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
+            </p>
+        </fieldset>
+
+        <fieldset>
+            <legend>Контакты</legend>
+
+            <p>
+                <label for="id_phone">Телефон</label>
+                <input type="tel"
+                       name="phone"
+                       id="id_phone"
+                       placeholder="+375 (29) 123-45-67"
+                       required
+                       autocomplete="tel"
+                       pattern="\+375\s\(\d{2}\)\s\d{3}-\d{2}-\d{2}"
+                       value="{{ form.phone.value|default:'' }}">
+                <small>Формат: +375 (29) XXX-XX-XX</small>
+                {% if form.phone.errors %}
+                    {% for error in form.phone.errors %}
+                        <span role="alert">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
+            </p>
+
+            <p>
+                <label for="id_address">Адрес</label>
+                <textarea name="address"
+                          id="id_address"
+                          placeholder="Ваш адрес проживания"
+                          required
+                          autocomplete="street-address">{{ form.address.value|default:'' }}</textarea>
+                {% if form.address.errors %}
+                    {% for error in form.address.errors %}
+                        <span role="alert">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
+            </p>
+        </fieldset>
+
+        <p>
+            <button type="submit">Зарегистрироваться</button>
+        </p>
+    </form>
+
+    <footer>
+        <p>
+            Уже есть аккаунт?
+            <a href="{% url 'login' %}">Войти</a>
+        </p>
+    </footer>
+</section>
+
+{% endblock %}

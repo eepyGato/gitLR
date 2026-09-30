@@ -1,0 +1,219 @@
+<!-- template/templates/template/about.html -->
+{% extends 'template/base.html' %}
+
+{% block title %}О компании - Страховая фирма{% endblock %}
+
+{% block meta_description %}Информация о страховой компании БГУИРСтрахИнвест: история, реквизиты, сотрудники, сертификаты.{% endblock %}
+
+{% block content %}
+
+<section>
+    <h1>О компании БГУИРСтрахИнвест</h1>
+
+    {% if company_info %}
+
+    <!-- ============================================ -->
+    <!-- Основная информация о компании -->
+    <!-- ============================================ -->
+    <article>
+        <h2>{{ company_info.name }}</h2>
+
+        {% if company_info.logo %}
+            <figure>
+                <img src="{{ company_info.logo.url }}"
+                     alt="Логотип компании {{ company_info.name }}">
+                <figcaption>Логотип компании {{ company_info.name }}</figcaption>
+            </figure>
+        {% endif %}
+
+        <p><strong>Краткое описание:</strong> {{ company_info.short_description }}</p>
+        <p><strong>Полное описание:</strong> {{ company_info.full_description }}</p>
+    </article>
+
+    <!-- ============================================ -->
+    <!-- История компании по годам -->
+    <!-- ============================================ -->
+    {% if history_years %}
+    <section>
+        <h2>История компании по годам</h2>
+
+        <table>
+            <caption>Ключевые события в истории компании {{ company_info.name }}</caption>
+            <thead>
+                <tr>
+                    <th scope="col" id="col-year">Год</th>
+                    <th scope="col" id="col-event">Событие</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in history_years %}
+                <tr>
+                    <th scope="row" headers="col-year">
+                        <time datetime="{{ item.year }}">{{ item.year }}</time>
+                    </th>
+                    <td headers="col-event">{{ item.event }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    {% endif %}
+
+    <!-- ============================================ -->
+    <!-- Видео о компании -->
+    <!-- ============================================ -->
+    {% if company_info.video_url %}
+    <section>
+        <h2>Видео о компании</h2>
+        <figure>
+            <iframe width="560" height="315"
+                    src="{{ company_info.video_url }}"
+                    title="Видео о компании {{ company_info.name }}"
+                    allowfullscreen>
+            </iframe>
+            <figcaption>Презентационный ролик компании {{ company_info.name }}</figcaption>
+        </figure>
+    </section>
+    {% endif %}
+
+    <!-- ============================================ -->
+    <!-- Реквизиты компании -->
+    <!-- ============================================ -->
+    <section>
+        <h2>Реквизиты компании</h2>
+
+        <h3>Основные реквизиты</h3>
+        <dl>
+            <dt>Полное наименование</dt>
+            <dd>{{ company_info.name }}</dd>
+
+            <dt>Юридический адрес</dt>
+            <dd>{{ company_info.legal_address }}</dd>
+
+            <dt>Фактический адрес</dt>
+            <dd>{{ company_info.actual_address }}</dd>
+
+            <dt>ИНН</dt>
+            <dd>{{ company_info.inn }}</dd>
+
+            <dt>КПП</dt>
+            <dd>{{ company_info.kpp|default:"—" }}</dd>
+
+            <dt>ОГРН</dt>
+            <dd>{{ company_info.ogrn }}</dd>
+        </dl>
+
+        <h3>Банковские реквизиты</h3>
+        <dl>
+            <dt>Банк</dt>
+            <dd>{{ company_info.bank_name }}</dd>
+
+            <dt>Расчётный счёт</dt>
+            <dd>{{ company_info.bank_account }}</dd>
+
+            <dt>БИК</dt>
+            <dd>{{ company_info.bik }}</dd>
+        </dl>
+    </section>
+
+    <section>
+        <h2>Основная информация</h2>
+        <dl>
+            <dt>Год основания</dt>
+            <dd><time datetime="{{ company_info.foundation_year }}">{{ company_info.foundation_year }}</time></dd>
+
+            <dt>Генеральный директор</dt>
+            <dd>{{ company_info.ceo_name }}</dd>
+
+            <dt>Количество сотрудников</dt>
+            <dd>{{ company_info.employees_count }}</dd>
+        </dl>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Сертификат -->
+    <!-- ============================================ -->
+    {% if company_info.certificate_text %}
+    <section>
+        <h2>Сертификат</h2>
+
+        <article>
+            <h3>Свидетельство о внесении сведений в единый реестр турагентов</h3>
+
+            <pre>
+СЕРТИФИКАТ О ЧЛЕНСТВЕ В РТА (РЕЕСТР ТУРИСТИЧЕСКИХ АГЕНТОВ)
+АССОЦИАЦИЯ ТУРОПЕРАТОРОВ "ТУРИЗМОБЩЬ"
+
+                    ЕДИНЫЙ РЕЕСТР ТУРАГЕНТОВ
+
+                      СВИДЕТЕЛЬСТВО
+                    о внесении сведений
+
+г. Минск                                          17 ноября 2017
+
+Общество с ограниченной ответственностью «Турел Технологии»
+(ИНН 7731340252)
+Реестровый номер: 8241
+
+Ослушенко А.П.
+Директор Ассоциации "ТУРИЗМОБЩЬ"
+            </pre>
+
+            <p>
+                <small>
+                    Ассоциация "Объединение туроператоров в сфере выездного туризма
+                    "ТУРИЗМОБЩЬ", г. Москва, ул. Макарова, дом 67,
+                    тел.: +7(495)678-12-03, e-mail: info@turizmobsh.ru
+                </small>
+            </p>
+        </article>
+    </section>
+    {% endif %}
+
+    <!-- ============================================ -->
+    <!-- Сотрудники компании -->
+    <!-- ============================================ -->
+    <section>
+        <h2>Наши сотрудники</h2>
+
+        {% for staff in staff_members %}
+            <article>
+                <h3>{{ staff.full_name }}</h3>
+
+                {% if staff.photo %}
+                    <figure>
+                        <img src="{{ staff.photo.url }}"
+                             alt="Фото сотрудника {{ staff.full_name }}"
+                             width="150"
+                             height="150">
+                        <figcaption>
+                            {{ staff.get_position_display }}, {{ staff.department }}
+                        </figcaption>
+                    </figure>
+                {% endif %}
+
+                <dl>
+                    <dt>Должность</dt>
+                    <dd>{{ staff.get_position_display }}</dd>
+
+                    <dt>Отдел</dt>
+                    <dd>{{ staff.department }}</dd>
+
+                    <dt>Телефон</dt>
+                    <dd><a href="tel:{{ staff.phone|cut:' ' }}">{{staff.phone}}</a></dd>
+
+                    <dt>Email</dt>
+                    <dd><a href="mailto:{{ staff.email }}">{{ staff.email }}</a></dd>
+                </dl>
+            </article>
+        {% empty %}
+            <p>Информация о сотрудниках скоро появится</p>
+        {% endfor %}
+    </section>
+
+    {% else %}
+    <p>Информация о компании скоро появится</p>
+    {% endif %}
+</section>
+
+{% endblock %}

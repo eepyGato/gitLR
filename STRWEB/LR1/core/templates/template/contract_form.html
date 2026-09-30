@@ -1,0 +1,147 @@
+<!-- template/templates/template/contract_form.html -->
+{% extends 'template/base.html' %}
+
+{% block title %}Новый договор страхования{% endblock %}
+
+{% block meta_description %}Оформление нового договора страхования в компании БГУИРСтрахИнвест.{% endblock %}
+
+{% block content %}
+
+<section>
+    <h1>Оформление договора страхования</h1>
+
+    <form method="post" id="contractForm">
+        {% csrf_token %}
+
+        <!-- Информация о клиенте -->
+        <fieldset>
+            <legend>Информация о клиенте</legend>
+
+            {% if user.is_superuser %}
+                <p>
+                    <label for="id_client">Клиент <span aria-hidden="true">*</span></label>
+                    {{ form.client }}
+                    <small>Выберите клиента, для которого оформляется договор</small>
+                </p>
+            {% else %}
+                <p>
+                    <strong>{{ user.get_full_name|default:user.username }}</strong><br>
+                    <small>Договор будет оформлен на вас автоматически</small>
+                </p>
+                {{ form.client.as_hidden }}
+            {% endif %}
+        </fieldset>
+
+        <!-- Выбор агента и филиала -->
+        <fieldset>
+            <legend>Выбор агента и филиала</legend>
+
+            <p>
+                <label for="id_agent">Страховой агент <span aria-hidden="true">*</span></label>
+                {{ form.agent }}
+                <small>Выберите агента, который будет вас обслуживать</small>
+                {{ form.agent.errors }}
+            </p>
+
+            <p>
+                <label for="id_branch">Филиал <span aria-hidden="true">*</span></label>
+                {{ form.branch }}
+                <small>Выберите удобный филиал</small>
+                {{ form.branch.errors }}
+            </p>
+        </fieldset>
+
+        <!-- Выбор страхования -->
+        <fieldset>
+            <legend>Выбор страхования</legend>
+
+            <p>
+                <label for="id_insurance_type">Вид страхования <span aria-hidden="true">*</span></label>
+                {{ form.insurance_type }}
+                <small>Выберите, что хотите застраховать</small>
+                {{ form.insurance_type.errors }}
+            </p>
+
+            <p id="tariffDisplay" hidden>
+                Тарифная ставка: <output id="tariffRate">-</output>%
+            </p>
+
+            <p>
+                <label for="id_object_description">Описание объекта страхования <span aria-hidden="true">*</span></label>
+                {{ form.object_description }}
+                <small>Например: автомобиль Toyota Camry, квартира на Ленина</small>
+                {{ form.object_description.errors }}
+            </p>
+
+            <p>
+                <label for="id_object_value">Страховая стоимость <span aria-hidden="true">*</span></label>
+                {{ form.object_value }}
+                <small>Рыночная стоимость объекта (руб.)</small>
+                {{ form.object_value.errors }}
+            </p>
+
+            <p>
+                <label for="id_insurance_sum">Страховая сумма <span aria-hidden="true">*</span></label>
+                {{ form.insurance_sum }}
+                <small>Сумма, на которую вы страхуете объект (не может превышать страховую стоимость)</small>
+                {{ form.insurance_sum.errors }}
+            </p>
+
+            <p>
+                <label for="id_promo_code">Промокод</label>
+                {{ form.promo_code }}
+                <small>Введите промокод для получения скидки (если есть)</small>
+                {% if form.promo_code.errors %}
+                    <span role="alert">{{ form.promo_code.errors }}</span>
+                {% endif %}
+            </p>
+        </fieldset>
+
+        <!-- Скрытые поля -->
+        {{ form.start_date.as_hidden }}
+        {{ form.end_date.as_hidden }}
+        {{ form.tariff_rate.as_hidden }}
+        {{ form.insured_object.as_hidden }}
+
+        <!-- Кнопки -->
+        <p>
+            <button type="submit">Оформить договор</button>
+            <a href="{% url 'core:contract_list' %}">Отмена</a>
+        </p>
+    </form>
+</section>
+
+<!-- JavaScript: валидация страховой суммы -->
+<script>
+    (function () {
+        const objectValue = document.getElementById('id_object_value');
+        const insuranceSum = document.getElementById('id_insurance_sum');
+        const warning = document.getElementById('sumWarning');
+
+        if (!objectValue || !insuranceSum) return;
+
+        function checkInsuranceSum() {
+            const objVal = parseFloat(objectValue.value) || 0;
+            const insSum = parseFloat(insuranceSum.value) || 0;
+
+            if (insSum > objVal && objVal > 0) {
+                if (warning) {
+                    warning.hidden = false;
+                    warning.textContent = 'Ошибка! Страховая сумма (' + insSum +
+                        ') не может превышать страховую стоимость (' + objVal + ')';
+                }
+                insuranceSum.setCustomValidity('Сумма превышает страховую стоимость');
+            } else {
+                if (warning) {
+                    warning.hidden = true;
+                }
+                insuranceSum.setCustomValidity('');
+            }
+        }
+
+        objectValue.addEventListener('input', checkInsuranceSum);
+        insuranceSum.addEventListener('input', checkInsuranceSum);
+    })();
+</script>
+
+{% endblock %}

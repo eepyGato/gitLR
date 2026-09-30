@@ -1,0 +1,216 @@
+<!-- template/templates/template/profile.html -->
+{% extends 'template/base.html' %}
+
+{% block title %}Профиль - Страховая фирма{% endblock %}
+
+{% block meta_description %}Личный кабинет пользователя страховой компании БГУИРСтрахИнвест.{% endblock %}
+
+{% block content %}
+
+<section>
+    <h1>Личный кабинет</h1>
+
+    <article>
+        <h2>Информация о пользователе</h2>
+
+        <dl>
+            <dt>Имя пользователя</dt>
+            <dd>{{ user.username }}</dd>
+
+            <dt>Email</dt>
+            <dd><a href="mailto:{{ user.email }}">{{ user.email }}</a></dd>
+
+            <dt>Имя</dt>
+            <dd>{{ user.first_name|default:"Не указано" }}</dd>
+
+            <dt>Фамилия</dt>
+            <dd>{{ user.last_name|default:"Не указано" }}</dd>
+
+            <dt>Дата регистрации</dt>
+            <dd>
+                <time datetime="{{ user.date_joined|date:'Y-m-d\TH:i' }}">
+                    {{ user.date_joined|date:"d/m/Y H:i" }}
+                </time>
+            </dd>
+
+            <dt>Последний вход</dt>
+            <dd>
+                {% if user.last_login %}
+                    <time datetime="{{ user.last_login|date:'Y-m-d\TH:i' }}">
+                        {{ user.last_login|date:"d/m/Y H:i" }}
+                    </time>
+                {% else %}
+                    Никогда
+                {% endif %}
+            </dd>
+        </dl>
+    </article>
+
+    {% if client %}
+        <article>
+            <h2>Профиль клиента</h2>
+
+            <dl>
+                <dt>ФИО</dt>
+                <dd>{{ client.last_name }} {{ client.first_name }} {{ client.middle_name }}</dd>
+
+                <dt>Дата рождения</dt>
+                <dd>
+                    <time datetime="{{ client.birth_date|date:'Y-m-d' }}">
+                        {{ client.birth_date|date:"d/m/Y" }}
+                    </time>
+                </dd>
+
+                <dt>Возраст</dt>
+                <dd>{{ client.age }} лет</dd>
+
+                <dt>Телефон</dt>
+                <dd>
+                    <a href="tel:{{ client.phone|cut:' ' }}">
+                        {{client.phone}}
+                    </a>
+                </dd>
+
+                <dt>Email</dt>
+                <dd><a href="mailto:{{ client.email }}">{{ client.email }}</a></dd>
+
+                <dt>Адрес</dt>
+                <dd>{{ client.address }}</dd>
+
+                <dt>Паспорт</dt>
+                <dd>{{ client.passport_number }}</dd>
+            </dl>
+
+            <p>
+                <a href="{% url 'core:client_profile_update' %}">Редактировать</a>
+            </p>
+        </article>
+    {% endif %}
+
+    {% if agent %}
+        <article>
+            <h2>Профиль агента</h2>
+
+            <dl>
+                <dt>ФИО</dt>
+                <dd>{{ agent.last_name }} {{ agent.first_name }} {{ agent.middle_name }}</dd>
+
+                <dt>Дата рождения</dt>
+                <dd>
+                    <time datetime="{{ agent.birth_date|date:'Y-m-d' }}">
+                        {{ agent.birth_date|date:"d/m/Y" }}
+                    </time>
+                </dd>
+
+                <dt>Возраст</dt>
+                <dd>{{ agent.age }} лет</dd>
+
+                <dt>Телефон</dt>
+                <dd>
+                    <a href="tel:{{ agent.phone|cut:' ' }}">
+                        {{agent.phone}}
+                    </a>
+                </dd>
+
+                <dt>Филиал</dt>
+                <dd>{{ agent.branch.name }}</dd>
+
+                <dt>Дата приёма</dt>
+                <dd>
+                    <time datetime="{{ agent.hire_date|date:'Y-m-d' }}">
+                        {{ agent.hire_date|date:"d/m/Y" }}
+                    </time>
+                </dd>
+            </dl>
+        </article>
+    {% endif %}
+
+    {% if client %}
+        <article>
+            <h2>Мои договоры страхования</h2>
+
+            {% with client_contracts=client.contracts.all %}
+                {% if client_contracts %}
+                    <table>
+                        <caption>Список договоров страхования клиента {{ client.last_name }} {{ client.first_name }}</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col" id="col-number">№ договора</th>
+                                <th scope="col" id="col-type">Вид страхования</th>
+                                <th scope="col" id="col-sum">Страховая сумма</th>
+                                <th scope="col" id="col-status">Статус</th>
+                                <th scope="col" id="col-start">Дата начала</th>
+                                <th scope="col" id="col-end">Дата окончания</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for contract in client_contracts %}
+                                <tr>
+                                    <td headers="col-number">
+                                        <a href="{% url 'core:contract_detail' contract.pk %}">
+                                            {{ contract.contract_number }}
+                                        </a>
+                                    </td>
+                                    <td headers="col-type">{{ contract.insurance_type.name }}</td>
+                                    <td headers="col-sum">{{ contract.insurance_sum|floatformat:2 }} руб.</td>
+                                    <td headers="col-status">
+                                        {% if contract.status == 'active' %}
+                                            Активен
+                                        {% elif contract.status == 'expired' %}
+                                            Истёк
+                                        {% else %}
+                                            Расторгнут
+                                        {% endif %}
+                                    </td>
+                                    <td headers="col-start">
+                                        <time datetime="{{ contract.start_date|date:'Y-m-d' }}">
+                                            {{ contract.start_date|date:"d/m/Y" }}
+                                        </time>
+                                    </td>
+                                    <td headers="col-end">
+                                        <time datetime="{{ contract.end_date|date:'Y-m-d' }}">
+                                            {{ contract.end_date|date:"d/m/Y" }}
+                                        </time>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>У вас пока нет договоров страхования</p>
+                {% endif %}
+            {% endwith %}
+        </article>
+
+        <article>
+            <h2>Мои отзывы</h2>
+
+            {% with client_reviews=client.reviews.all %}
+                {% for review in client_reviews %}
+                    <article>
+                        <h3>Отзыв от {{ review.created_at|date:"d/m/Y" }}</h3>
+
+                        <p>Оценка: {{ review.rating }} из 5</p>
+
+                        <p>{{ review.text }}</p>
+
+                        <footer>
+                            <small>
+                                <time datetime="{{ review.created_at|date:'Y-m-d\TH:i' }}">
+                                    {{ review.created_at|date:"d/m/Y H:i" }}
+                                </time>
+                            </small>
+                        </footer>
+                    </article>
+                {% empty %}
+                    <p>Вы ещё не оставляли отзывы</p>
+                    <p>
+                        <a href="{% url 'core:review_create' %}">Оставить отзыв</a>
+                    </p>
+                {% endfor %}
+            {% endwith %}
+        </article>
+    {% endif %}
+</section>
+
+{% endblock %}

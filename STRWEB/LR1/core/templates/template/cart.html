@@ -1,0 +1,76 @@
+<!-- template/templates/template/cart.html -->
+{% extends 'template/base.html' %}
+
+{% block title %}Корзина - Страховая фирма{% endblock %}
+
+{% block meta_description %}Корзина заказа в страховой компании БГУИРСтрахИнвест.{% endblock %}
+
+{% block content %}
+
+<section>
+    <h1>Корзина заказа</h1>
+
+    {% if items %}
+        <table>
+            <caption>Список добавленных услуг</caption>
+            <thead>
+                <tr>
+                    <th scope="col" id="col-service">Услуга</th>
+                    <th scope="col" id="col-price">Цена</th>
+                    <th scope="col" id="col-quantity">Количество</th>
+                    <th scope="col" id="col-total">Стоимость</th>
+                    <th scope="col" id="col-actions">Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                    <tr>
+                        <td headers="col-service">
+                            <a href="{% url 'core:service_detail' item.service.pk %}">
+                                {{ item.service.name }}
+                            </a>
+                        </td>
+                        <td headers="col-price">
+                            {{ item.service.price|floatformat:2 }} руб.
+                        </td>
+                        <td headers="col-quantity">
+                            <form method="post" action="{% url 'core:cart_update' item.pk %}">
+                                {% csrf_token %}
+                                <button type="submit" name="action" value="decrease">−</button>
+                                <output>{{ item.quantity }}</output>
+                                <button type="submit" name="action" value="increase">+</button>
+                            </form>
+                        </td>
+                        <td headers="col-total">
+                            {{ item.total_price|floatformat:2 }} руб.
+                        </td>
+                        <td headers="col-actions">
+                            <form method="post" action="{% url 'core:cart_remove' item.pk %}">
+                                {% csrf_token %}
+                                <button type="submit">Удалить из корзины</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="3" scope="row">Итого:</th>
+                    <td colspan="2">{{ total|floatformat:2 }} руб.</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <p>
+            <a href="{% url 'core:checkout' %}">Оплатить</a>
+            <a href="{% url 'core:home' %}">Продолжить покупки</a>
+        </p>
+    {% else %}
+        <p>Корзина пуста.</p>
+        <p>
+            <a href="{% url 'core:home' %}">Вернуться к каталогу услуг</a>
+        </p>
+    {% endif %}
+</section>
+
+{% endblock %}

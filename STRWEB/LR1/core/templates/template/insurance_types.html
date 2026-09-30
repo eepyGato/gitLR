@@ -1,0 +1,32 @@
+<!-- template/templates/template/insurance_types.html -->
+{% extends 'template/base.html' %}
+
+{% block title %}Виды страхования - Страховая фирма{% endblock %}
+
+{% block meta_description %}Виды страхования, доступные в компании БГУИРСтрахИнвест.{% endblock %}
+
+{% block content %}
+
+<section>
+    <h1>Виды страхования</h1>
+
+    {% for ins_type in insurance_types %}
+        <article>
+            <h2>{{ ins_type.name }}</h2>
+
+            <p>{{ ins_type.description|default:"Описание временно отсутствует" }}</p>
+
+            <dl>
+                <dt>Комиссия агента</dt>
+                <dd>{{ ins_type.commission_percent }}%</dd>
+
+                <dt>Количество договоров</dt>
+                <dd>{{ ins_type.contracts_count }}</dd>
+            </dl>
+        </article>
+    {% empty %}
+        <p>Информация о видах страхования скоро появится</p>
+    {% endfor %}
+</section>
+
+{% endblock %}

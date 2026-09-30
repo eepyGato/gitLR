@@ -1,0 +1,132 @@
+<!-- template/templates/template/checkout.html -->
+{% extends 'template/base.html' %}
+
+{% block title %}Оплата заказа - Страховая фирма{% endblock %}
+
+{% block meta_description %}Оплата заказа в страховой компании БГУИРСтрахИнвест.{% endblock %}
+
+{% block content %}
+
+<section>
+    <h1>Оплата заказа</h1>
+
+    <section>
+        <h2>Состав заказа</h2>
+
+        <table>
+            <caption>Услуги в заказе</caption>
+            <thead>
+                <tr>
+                    <th scope="col" id="col-service">Услуга</th>
+                    <th scope="col" id="col-price">Цена</th>
+                    <th scope="col" id="col-quantity">Количество</th>
+                    <th scope="col" id="col-total">Стоимость</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                    <tr>
+                        <td headers="col-service">{{ item.service.name }}</td>
+                        <td headers="col-price">{{ item.service.price|floatformat:2 }} руб.</td>
+                        <td headers="col-quantity">{{ item.quantity }}</td>
+                        <td headers="col-total">{{ item.total_price|floatformat:2 }} руб.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="3" scope="row">Итого к оплате:</th>
+                    <td>{{ total|floatformat:2 }} руб.</td>
+                </tr>
+            </tfoot>
+        </table>
+    </section>
+
+    <section>
+        <h2>Данные для оплаты</h2>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <fieldset>
+                <legend>Способ оплаты</legend>
+
+                <p>
+                    <label>
+                        <input type="radio" name="payment_method" value="card" checked>
+                        Банковская карта
+                    </label>
+                </p>
+
+                <p>
+                    <label>
+                        <input type="radio" name="payment_method" value="cash">
+                        Наличные при получении
+                    </label>
+                </p>
+
+                <p>
+                    <label>
+                        <input type="radio" name="payment_method" value="transfer">
+                        Банковский перевод
+                    </label>
+                </p>
+            </fieldset>
+
+            <fieldset>
+                <legend>Контактные данные</legend>
+
+                <p>
+                    <label for="id_full_name">ФИО</label>
+                    <input type="text"
+                           name="full_name"
+                           id="id_full_name"
+                           required
+                           autocomplete="name">
+                </p>
+
+                <p>
+                    <label for="id_email">Email</label>
+                    <input type="email"
+                           name="email"
+                           id="id_email"
+                           required
+                           autocomplete="email">
+                </p>
+
+                <p>
+                    <label for="id_phone">Телефон</label>
+                    <input type="tel"
+                           name="phone"
+                           id="id_phone"
+                           required
+                           autocomplete="tel"
+                           pattern="\+375\s\(\d{2}\)\s\d{3}-\d{2}-\d{2}"
+                           placeholder="+375 (29) 123-45-67">
+                </p>
+
+                <p>
+                    <label for="id_address">Адрес доставки</label>
+                    <textarea name="address"
+                              id="id_address"
+                              required
+                              autocomplete="street-address"></textarea>
+                </p>
+
+                <p>
+                    <label>
+                        <input type="checkbox" name="agree" required>
+                        Я согласен с условиями обработки персональных данных
+                    </label>
+                </p>
+            </fieldset>
+
+            <p>
+                <button type="submit">Оплатить {{ total|floatformat:2 }} руб.</button>
+                <a href="{% url 'core:cart_view' %}">Вернуться в корзину</a>
+            </p>
+        </form>
+    </section>
+</section>
+
+{% endblock %}

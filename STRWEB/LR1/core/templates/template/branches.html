@@ -1,0 +1,47 @@
+<!-- template/templates/template/branches.html -->
+{% extends 'template/base.html' %}
+
+{% block title %}Филиалы - Страховая фирма{% endblock %}
+
+{% block meta_description %}Список филиалов страховой компании БГУИРСтрахИнвест: адреса, телефоны, статистика по договорам.{% endblock %}
+
+{% block content %}
+
+<section>
+    <h1>Наши филиалы</h1>
+
+    {% for branch in branches %}
+        <article>
+            <h2>{{ branch.name }}</h2>
+
+            <dl>
+                <dt>Адрес</dt>
+                <dd>{{ branch.address }}</dd>
+
+                <dt>Телефон</dt>
+                <dd>
+                    <a href="tel:{{ branch.phone|cut:' ' }}">
+                        {{branch.phone}}
+                    </a>
+                </dd>
+
+                <dt>Количество договоров</dt>
+                <dd>{{ branch.contracts_count }}</dd>
+
+                <dt>Общая страховая сумма</dt>
+                <dd>{{ branch.total_insurance_sum|floatformat:2 }} руб.</dd>
+
+                <dt>Дата создания</dt>
+                <dd>
+                    <time datetime="{{ branch.created_at|date:'Y-m-d' }}">
+                        {{ branch.created_at|date:"d/m/Y" }}
+                    </time>
+                </dd>
+            </dl>
+        </article>
+    {% empty %}
+        <p>Информация о филиалах скоро появится</p>
+    {% endfor %}
+</section>
+
+{% endblock %}

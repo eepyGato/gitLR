@@ -1,0 +1,57 @@
+<!-- template/templates/template/service_detail.html -->
+{% extends 'template/base.html' %}
+
+{% block title %}{{ service.name }} - Страховая фирма{% endblock %}
+
+{% block meta_description %}{{ service.short_description }}{% endblock %}
+
+{% block content %}
+
+<article>
+    <header>
+        <h1>{{ service.name }}</h1>
+    </header>
+
+    {% if service.image %}
+        <figure>
+            <img src="{{ service.image.url }}"
+                 alt="{{ service.name }}"
+                 width="600"
+                 height="400">
+            <figcaption>{{ service.name }}</figcaption>
+        </figure>
+    {% endif %}
+
+    <section>
+        <h2>Краткое описание</h2>
+        <p>{{ service.short_description }}</p>
+    </section>
+
+    <section>
+        <h2>Подробное описание</h2>
+        <p>{{ service.full_description }}</p>
+    </section>
+
+    <section>
+        <h2>Стоимость</h2>
+        <p>
+            <strong>{{ service.price|floatformat:2 }} руб.</strong>
+        </p>
+    </section>
+
+    <footer>
+        <form method="post" action="{% url 'core:cart_add' service.pk %}">
+            {% csrf_token %}
+            <p>
+                <button type="submit">Добавить в корзину</button>
+                <a href="{% url 'core:cart_view' %}">Перейти в корзину</a>
+            </p>
+        </form>
+
+        <p>
+            <a href="{% url 'core:home' %}">Вернуться на главную</a>
+        </p>
+    </footer>
+</article>
+
+{% endblock %}

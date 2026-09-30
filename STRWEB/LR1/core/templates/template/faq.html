@@ -1,0 +1,33 @@
+<!-- template/templates/template/faq.html -->
+{% extends 'template/base.html' %}
+
+{% block title %}Часто задаваемые вопросы - Страховая фирма{% endblock %}
+
+{% block meta_description %}Часто задаваемые вопросы о страховании в компании БГУИРСтрахИнвест.{% endblock %}
+
+{% block content %}
+
+<section>
+    <h1>Часто задаваемые вопросы</h1>
+
+    {% for faq in faqs %}
+        <article>
+            <h2>{{ faq.question }}</h2>
+
+            <p>{{ faq.answer }}</p>
+
+            <footer>
+                <small>
+                    Добавлено:
+                    <time datetime="{{ faq.created_at|date:'Y-m-d' }}">
+                        {{ faq.created_at|date:"d/m/Y" }}
+                    </time>
+                </small>
+            </footer>
+        </article>
+    {% empty %}
+        <p>Вопросов пока нет</p>
+    {% endfor %}
+</section>
+
+{% endblock %}

@@ -1,0 +1,134 @@
+<!-- template/templates/template/contract_detail.html -->
+{% extends 'template/base.html' %}
+
+{% block title %}Договор №{{ contract.contract_number }} - Страховая фирма{% endblock %}
+
+{% block meta_description %}Детали договора страхования №{{ contract.contract_number }}.{% endblock %}
+
+{% block content %}
+
+<section>
+    <h1>Договор страхования №{{ contract.contract_number }}</h1>
+
+    <!-- Основная информация -->
+    <article>
+        <h2>Основная информация</h2>
+
+        <dl>
+            <dt>Клиент</dt>
+            <dd>{{ contract.client.last_name }} {{ contract.client.first_name }} {{ contract.client.middle_name }}</dd>
+
+            <dt>Страховой агент</dt>
+            <dd>{{ contract.agent.last_name }} {{ contract.agent.first_name }}</dd>
+
+            <dt>Филиал</dt>
+            <dd>{{ contract.branch.name }}</dd>
+
+            <dt>Вид страхования</dt>
+            <dd>{{ contract.insurance_type.name }}</dd>
+
+            <dt>Объект страхования</dt>
+            <dd>{{ contract.insured_object.get_object_type_display }}</dd>
+
+            <dt>Статус</dt>
+            <dd>
+                {% if contract.status == 'active' %}
+                    Активен
+                {% elif contract.status == 'expired' %}
+                    Истёк
+                {% else %}
+                    Расторгнут
+                {% endif %}
+            </dd>
+        </dl>
+    </article>
+
+    <!-- Финансовая информация -->
+    <article>
+        <h2>Финансовая информация</h2>
+
+        <dl>
+            <dt>Страховая сумма</dt>
+            <dd>{{ contract.insurance_sum|floatformat:2 }} руб.</dd>
+
+            <dt>Тарифная ставка</dt>
+            <dd>{{ contract.tariff_rate }}%</dd>
+
+            <dt>Страховой платёж</dt>
+            <dd>{{ insurance_payment|floatformat:2 }} руб.</dd>
+
+            {% if contract.final_payment and contract.final_payment != contract.insurance_payment %}
+            <dt>Скидка по промокоду</dt>
+            <dd>включена</dd>
+
+            <dt>Итоговый платёж</dt>
+            <dd><strong>{{ contract.final_payment|floatformat:2 }} руб.</strong></dd>
+            {% endif %}
+
+            <dt>Комиссия агента</dt>
+            <dd>{{ agent_commission|floatformat:2 }} руб.</dd>
+        </dl>
+    </article>
+
+    <!-- Даты -->
+
+    <article>
+        <h2>Даты</h2>
+
+        <dl>
+            <dt>Дата начала</dt>
+            <dd>
+                <time datetime="{{ contract.start_date|date:'Y-m-d' }}">
+                    {{ contract.start_date|date:"d/m/Y" }}
+                </time>
+            </dd>
+
+            <dt>Дата окончания</dt>
+            <dd>
+                <time datetime="{{ contract.end_date|date:'Y-m-d' }}">
+                    {{ contract.end_date|date:"d/m/Y" }}
+                </time>
+            </dd>
+
+            <dt>Создан</dt>
+            <dd>
+                <time datetime="{{ contract.created_at|date:'Y-m-d\TH:i' }}">
+                    {{ contract.created_at|date:"d/m/Y H:i" }}
+                </time>
+            </dd>
+
+            <dt>Обновлён</dt>
+            <dd>
+                <time datetime="{{ contract.updated_at|date:'Y-m-d\TH:i' }}">
+                    {{ contract.updated_at|date:"d/m/Y H:i" }}
+                </time>
+            </dd>
+        </dl>
+    </article>
+
+    <!-- Действия -->
+    <nav aria-label="Действия с договором">
+        <ul>
+            <li>
+                <a href="{% url 'core:contract_update' contract.pk %}">
+                    Редактировать
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'core:contract_list' %}">
+                    Назад к списку
+                </a>
+            </li>
+            {% if user.is_superuser %}
+            <li>
+                <a href="{% url 'core:contract_delete' contract.pk %}"
+                   onclick="return confirm('Удалить договор?')">
+                    Удалить
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+</section>
+
+{% endblock %}
